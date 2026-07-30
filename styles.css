@@ -97,10 +97,10 @@
   }
   .hero h1 .dim { color:var(--fade); }
 
-  .about-label {
-    font-family:var(--sans-text); margin-bottom:38px;
+  .statement p.about-label {
+    font-family:var(--sans-text); margin-bottom:38px; max-width:none;
     font-size:11.5px; font-weight:400; text-transform:uppercase;
-    letter-spacing:.24em; color:var(--ink);
+    letter-spacing:.24em; line-height:1.2; color:var(--ink);
   }
   .featured-label {
     font-family:var(--sans-text); margin-top:54px;
@@ -275,7 +275,7 @@
 
 @media (max-width: 768px) {
   .featured-label { margin-top:34px; font-size:10px; letter-spacing:.22em; }
-  .about-label { margin-bottom:24px; font-size:10px; letter-spacing:.22em; }
+  .statement p.about-label { margin-bottom:24px; font-size:10px; letter-spacing:.22em; }
 }
 @media (max-width: 400px) {
   nav { padding:24px 20px 12px; }
