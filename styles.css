@@ -104,8 +104,8 @@
   }
   .featured-label {
     font-family:var(--sans-text); margin-top:54px;
-    font-size:13px; font-weight:400; text-transform:uppercase;
-    letter-spacing:.22em; color:var(--white);
+    font-size:11.5px; font-weight:400; text-transform:uppercase;
+    letter-spacing:.24em; color:var(--white);
   }
 
 
@@ -252,7 +252,16 @@
     .work-item { height:72vh; }
     .kicker { font-size:15px; margin-bottom:18px; }
     .hero-copy { padding-bottom:40px; }
-    .work-meta { left:18px; right:18px; flex-direction:column; align-items:flex-start; gap:10px; }
+    .work-meta {
+      left:18px; right:18px; flex-direction:column; align-items:flex-start; gap:12px;
+    }
+    /* tags run left-to-right under the name, pills intact */
+    .work-meta .tags {
+      justify-content:flex-start; max-width:100%;
+      flex-wrap:wrap; gap:7px;
+    }
+    .work-meta .tags .chip { font-size:11px; padding:6px 13px; }
+    .work-meta .name { line-height:1.05; }
     .work-item .index { top:16px; left:16px; }
     .statement { padding:90px 18px; }
     /* footer hugs its content on phones instead of a full screen of empty space */
@@ -265,7 +274,7 @@
   }
 
 @media (max-width: 768px) {
-  .featured-label { margin-top:34px; font-size:11px; letter-spacing:.2em; }
+  .featured-label { margin-top:34px; font-size:10px; letter-spacing:.22em; }
   .about-label { margin-bottom:24px; font-size:10px; letter-spacing:.22em; }
 }
 @media (max-width: 400px) {
