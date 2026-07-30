@@ -205,13 +205,19 @@
   .c-6 { background:linear-gradient(140deg,#4B2317,#1A0E08); }
 
   /* ---------- Statement ---------- */
-  .statement { background:var(--cream); color:var(--ink); padding:130px 32px; }
+  .statement { background:var(--cream); color:var(--ink); padding:140px 32px; }
   .statement p {
     font-size:clamp(25px,3.5vw,46px); font-weight:400; letter-spacing:-.022em;
     line-height:1.16; max-width:1080px;
   }
   .statement p .dim { color:#A8A29E; }
   .statement p .red { color:var(--red); }
+
+  .statement .sub {
+    font-family:var(--sans-text); margin-top:38px; max-width:640px;
+    font-size:16px; line-height:1.6; color:#57534E;
+  }
+
   .statement .row { font-family:var(--sans-text); margin-top:54px; display:flex; gap:36px; flex-wrap:wrap; font-size:14px; color:#57534E; }
 
   /* ---------- Footer ---------- */
@@ -444,9 +450,7 @@
 <!-- ============ STATEMENT ============ -->
 <section class="frame statement">
   <p class="reveal">Brooke Rogers is a graphic designer collaborating with like-minded brands and people. <span class="dim">Building partnerships that inspire growth and</span> <span class="red">leave a mark.</span></p>
-  <div class="row reveal">
-    <span>Brand Identity</span><span>Editorial Design</span><span>Art Direction</span><span>Now booking — 2026</span>
-  </div>
+  <p class="sub reveal">With a strategic mind and a keen eye for detail, she brings a vibrant blend of creativity and precision to her work. Based in Tampa, Florida, Brooke thrives on solving complex design challenges and crafting thoughtful, engaging user experiences — across branding, web design, UX/UI, wireframing and systems-level strategy.</p>
 </section>
 
 <!-- ============ FOOTER ============ -->
