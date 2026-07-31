@@ -141,6 +141,15 @@
   .a-kini  { background:linear-gradient(150deg,#FF6B4A 0%,#E0206A 55%,#7C1D3D 100%); }
   .a-vv    { background:linear-gradient(150deg,#2F3A2E 0%,#1D2620 55%,#0E120F 100%); }
 
+    .view-all {
+    display:inline-flex; align-items:center; gap:12px;
+    margin:38px 0 0 32px;
+    font-family:var(--sans-text); font-size:15px; color:var(--white);
+    border-bottom:1.5px solid var(--red); padding-bottom:5px;
+    transition:color .3s ease, gap .3s ease;
+  }
+  .view-all:hover { color:var(--red); gap:18px; }
+
   /* ---------- Capabilities ---------- */
   .caps { min-height:100vh; display:flex; align-items:center; background:#0E0D0C; }
   .caps .bgimg { opacity:0; transition:opacity .55s ease; }
@@ -264,6 +273,7 @@
     .work-meta .name { line-height:1.05; }
     .work-item .index { top:16px; left:16px; }
     .statement { padding:90px 18px; }
+    .view-all { margin-left:18px; font-size:14px; }
     /* footer hugs its content on phones instead of a full screen of empty space */
     footer { min-height:auto; }
     .foot-inner { padding:96px 18px 32px; }
