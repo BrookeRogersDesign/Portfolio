@@ -562,7 +562,7 @@ body.case-locked { overflow:hidden; }
   border-radius:var(--r); margin-bottom:var(--gap);
   padding:clamp(28px,4.5vw,90px) clamp(24px,6vw,180px);
 }
-.cs-panel img { width:100%; max-width:640px; height:auto; display:block; margin:0 auto; border-radius:4px; }
+.cs-panel img { width:100%; height:auto; display:block; border-radius:4px; }
 
 .cs-full { margin:0 0 var(--gap); }
 .cs-full img { width:100%; height:auto; display:block; border-radius:var(--r); }
