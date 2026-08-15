@@ -208,14 +208,10 @@
 
   /* ---------- Footer ---------- */
   footer {
-    min-height:86vh; display:flex; align-items:flex-end; margin-bottom:var(--gap);
-    background:radial-gradient(110% 90% at 75% 15%, #2A2927 0%, #131211 60%, #0B0B0A 100%);
+    min-height:auto; display:flex; align-items:flex-end; margin-bottom:var(--gap);
+    background:#111110;
   }
-  footer::before {
-    content:''; position:absolute; inset:0;
-    background:radial-gradient(55% 45% at 15% 80%, rgba(224,32,32,.28), transparent 72%);
-  }
-  .foot-inner { position:relative; z-index:3; padding:0 32px 40px; width:100%; }
+  .foot-inner { position:relative; z-index:3; padding:104px 32px 44px; width:100%; }
   .foot-inner h2 {
     font-size:clamp(36px,6.2vw,88px); font-weight:700; letter-spacing:-.035em; line-height:1.01;
     margin-bottom:32px;
@@ -230,7 +226,7 @@
   }
   .email:hover { background:var(--white); color:var(--red); transform:translateY(-3px); }
   .foot-row {
-    font-family:var(--sans-text); margin-top:72px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    font-family:var(--sans-text); margin-top:56px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
     font-size:13px; color:rgba(255,255,255,.7);
   }
 
@@ -269,7 +265,7 @@
     .view-all { margin-left:18px; font-size:14px; }
     /* footer hugs its content on phones instead of a full screen of empty space */
     footer { min-height:auto; }
-    .foot-inner { padding:96px 18px 32px; }
+    .foot-inner { padding:72px 18px 30px; }
     .foot-inner h2 { margin-bottom:26px; }
     .foot-row { margin-top:46px; }
     .cap-bullets { grid-template-columns:1fr; }
