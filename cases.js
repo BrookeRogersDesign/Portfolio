@@ -38,7 +38,7 @@ const CASES = {
       { bleed: 'mm-01.jpg' },
       { text: 'MIRA MAR', body: 'sits on South Palm Avenue in Sarasota, on a site whose name is older than the building. The brand had to carry that history forward rather than paper over it \u2014 familiar to people who know the street, aspirational to those who don\u2019t yet.' },
       { pair: ['mm-04.jpg', 'mm-07.jpg'] },
-      { text: 'THE IDENTITY', body: 'is built on a crest and a hand-drawn toile of the neighbourhood \u2014 the arcades, the palms, the awnings \u2014 printed in a deep wine red. Old-world without tipping into pastiche.' },
+      { text: 'THE IDENTITY', body: 'is built on a crest and a hand-drawn toile of the neighborhood \u2014 the arcades, the palms, the awnings \u2014 printed in a deep wine red. Old-world without tipping into pastiche.' },
       { panel: 'mm-05.jpg', bg: '#3F1516' },
       { image: 'mm-06.jpg' },
       { text: 'THE MAP', body: 'illustrates Sarasota Bay the way a resident would describe it rather than the way a cartographer would draw it \u2014 a postcard people keep instead of a brochure they recycle.' },
@@ -60,7 +60,7 @@ const CASES = {
       { image: 'owa-05.jpg' },
       { text: 'MATERIALS', body: 'drove the palette as much as the drawings did. Concrete, fluted timber and uncoated stock \u2014 the system was designed to be photographed on the materials the practice actually specifies.' },
       { image: 'owa-06.jpg' },
-      { text: 'THE PALETTE', body: 'is deliberately narrow: black, real grey, grey. No accent colour, because the work supplies it. Restraint is the point \u2014 the identity gets out of the way of the architecture.' },
+      { text: 'THE PALETTE', body: 'is deliberately narrow: black, real grey, grey. No accent color, because the work supplies it. Restraint is the point \u2014 the identity gets out of the way of the architecture.' },
       { bleed: 'owa-07.jpg' },
       { text: 'THE SITE', body: 'was built around the satisfying feeling of flipping through the glossy pages of a magazine \u2014 generous margins, full-bleed photography, and typography given room to breathe.' },
       { image: 'owa-09.jpg' }
@@ -73,7 +73,7 @@ const CASES = {
     blocks: [
       { image: 'unc-desktop.jpg' },
       { text: '[UN]CENSORED', body: 'was built for people tired of being sold an airbrushed version of wellness. The positioning came first: say the real thing, then design around it.' },
-      { text: 'THE IDENTITY', body: 'pairs a stencilled logotype with raw handwritten accents — structure and instinct in the same lockup, so the brand can be direct without turning cold.' }
+      { text: 'THE IDENTITY', body: 'pairs a stenciled logotype with raw handwritten accents — structure and instinct in the same lockup, so the brand can be direct without turning cold.' }
     ]
   },
   blank: {
@@ -97,7 +97,7 @@ const CASES = {
         { name: 'Oxblood', hex: '#4B2317', cmyk: '0 53 69 71' },
         { name: 'Ink',     hex: '#261406', cmyk: '0 47 84 85' }
       ] },
-      { text: 'THE PALETTE', body: 'stays in oxblood, bone, warm tan and near-black \u2014 salon colours without the gloss. Serif display against a plain grotesque keeps the voice close to a fashion house and far from a price list.' },
+      { text: 'THE PALETTE', body: 'stays in oxblood, bone, warm tan and near-black \u2014 salon colors without the gloss. Serif display against a plain grotesque keeps the voice close to a fashion house and far from a price list.' },
       { mid: 'blank-10.jpg' },
       { pair: ['blank-11.jpg', 'blank-12.jpg'] },
       { text: 'THE PROMISE', body: 'is a space where craftsmanship, conversation, and quiet luxury come together to create hair that lives beautifully beyond the salon.' },
@@ -120,7 +120,7 @@ const CASES = {
     type: ['Branding', 'Positioning', 'Website', 'Social Media'],
     blocks: [
       { image: 'kini-desktop.jpg' },
-      { text: 'HOT KINI', body: 'is a hot sauce line built on personality rather than heat scales. Summer Flame, Cowgirl Heat and Golden Heat each get their own colourway inside one label architecture.' },
+      { text: 'HOT KINI', body: 'is a hot sauce line built on personality rather than heat scales. Summer Flame, Cowgirl Heat and Golden Heat each get their own colorway inside one label architecture.' },
       { text: 'ON SHELF', body: 'the range reads as a family first and a flavour second — so the brand grows without needing a redesign every time a new sauce arrives.' }
     ]
   },
@@ -160,7 +160,7 @@ const CASES = {
     type: ['Branding', 'Digital Campaigns', 'Print', 'Floorplans', 'Website'],
     blocks: [
       { image: 'c400-01.jpg' },
-      { text: '400 CENTRAL', body: 'is the tallest residential tower on Florida’s Gulf Coast — forty-six storeys above downtown St. Petersburg. The brand had to sell a view that didn’t exist yet, to buyers making a decision years before handover.' },
+      { text: '400 CENTRAL', body: 'is the tallest residential tower on Florida’s Gulf Coast — forty-six stories above downtown St. Petersburg. The brand had to sell a view that didn’t exist yet, to buyers making a decision years before handover.' },
       { image: 'c400-02.jpg' },
       { pair: ['c400-03.jpg', 'c400-04.jpg'] },
       { text: 'THE IDENTITY', body: 'is built on a single elongated mark — a stacked, rounded form echoing the tower’s silhouette — set against a deep navy and paired with a high-contrast serif. Restrained enough to sit on a debossed business card, distinctive enough to hold a building.' },
