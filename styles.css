@@ -70,6 +70,12 @@
     transition:transform 1.2s cubic-bezier(.2,.7,.2,1);
   }
   .work-item:hover .bgvid { transform:scale(1.04); }
+  /* motion covers: video on wider screens, a still crop on phones */
+  .work-item .bgpic-mobile { display:none; }
+  @media (max-width:768px) {
+    .work-item .bgvid { display:none; }
+    .work-item .bgpic-mobile { display:block; }
+  }
   .chip {
     background:rgba(0,0,0,.30); backdrop-filter:blur(8px);
     border-radius:100px; padding:8px 16px; font-size:13px; font-weight:400;
