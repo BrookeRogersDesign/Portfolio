@@ -78,12 +78,25 @@ const CASES = {
   },
   blank: {
     name: 'BLANK', tagline: 'The art of looking effortless.',
-    client: 'BLANK', year: '2025',
-    type: ['Branding', 'Marketing & Strategy'],
+    client: 'BLANK \u2014 hair studio, 421 S Washington St.', year: '2025',
+    type: ['Branding', 'Positioning', 'Web Design'],
     blocks: [
-      { image: 'blank-desktop.jpg' },
-      { text: 'BLANK', body: 'is a hair and beauty studio built on a simple premise: the most considered work is the work you never notice. The wordmark mirrors its own K, so the mark reads as a reflection.' },
-      { text: 'THE PALETTE', body: 'runs espresso, chestnut and champagne against pearl — warm, tactile and deliberately unclinical, extending from packaging through to the studio itself.' }
+      { bleed: 'blank-01.jpg' },
+      { text: 'BLANK', body: 'is a hair studio built on a premise that runs against everything salon branding usually does \u2014 the most considered work is the work you never notice. Positioning, identity and site were built together so the restraint reads as intent rather than absence.' },
+      { panel: 'blank-02.jpg', bg: '#D9D7CE' },
+      { text: 'THE MARK', body: 'mirrors its own K. Set as BLA / NK across two lines, the reversed letter reads as a flaw until you see it twice \u2014 then it reads as a signature. The BK monogram and star carry it down to stamp scale.' },
+      { image: 'blank-03.jpg' },
+      { image: 'blank-04.jpg' },
+      { trio: ['blank-05.jpg', 'blank-06.jpg', 'blank-07.jpg'] },
+      { text: 'THE POSITIONING', body: 'is rooted in The Ruler archetype \u2014 a quiet confidence that values excellence, intention and timeless sophistication over fleeting trends. The line the whole system hangs on: the art of looking effortless.' },
+      { image: 'blank-08.jpg' },
+      { image: 'blank-09.jpg' },
+      { quad: ['blank-c1.jpg', 'blank-c2.jpg', 'blank-c3.jpg', 'blank-c4.jpg'] },
+      { text: 'THE PALETTE', body: 'stays in oxblood, bone, warm tan and near-black \u2014 salon colours without the gloss. Serif display against a plain grotesque keeps the voice close to a fashion house and far from a price list.' },
+      { mid: 'blank-10.jpg' },
+      { pair: ['blank-11.jpg', 'blank-12.jpg'] },
+      { text: 'THE PROMISE', body: 'is a space where craftsmanship, conversation, and quiet luxury come together to create hair that lives beautifully beyond the salon.' },
+      { image: 'blank-13.jpg' }
     ]
   },
   ora: {
@@ -174,10 +187,13 @@ const CASES = {
     if (b.bleed) return '<figure class="cs-bleed"><img src="' + b.bleed + '" alt="' + esc(name) + '" loading="lazy"></figure>';
     if (b.inset) return '<div class="cs-inset"' + (b.bg ? ' style="background:' + b.bg + '"' : '') + '><img src="' + b.inset + '" alt="' + esc(name) + '" loading="lazy"></div>';
     if (b.panel) return '<div class="cs-panel" style="background:' + (b.bg || '#3F1516') + '"><img src="' + b.panel + '" alt="' + esc(name) + '" loading="lazy"></div>';
+    if (b.mid)   return '<figure class="cs-mid"><img src="' + b.mid + '" alt="' + esc(name) + '" loading="lazy"></figure>';
     if (b.motion) return '<figure class="cs-full"><video autoplay loop muted playsinline preload="metadata" poster="' + b.poster + '"><source src="' + b.motion + '" type="video/mp4"></video></figure>';
     if (b.red)   return '<div class="cs-red">' + (b.video
       ? '<video autoplay loop muted playsinline preload="metadata" poster="' + b.poster + '"><source src="' + b.video + '" type="video/mp4"></video>'
       : '<img src="' + b.red + '" alt="' + esc(name) + '" loading="lazy">') + '</div>';
+    if (b.quad)  return '<div class="cs-quad">' + b.quad.map(function (s) {
+      return '<img src="' + s + '" alt="' + esc(name) + '" loading="lazy">'; }).join('') + '</div>';
     if (b.trio)  return '<div class="cs-trio">' + b.trio.map(function (s) {
       return '<img src="' + s + '" alt="' + esc(name) + '" loading="lazy">'; }).join('') + '</div>';
     if (b.image) return '<figure class="cs-full"><img src="' + b.image + '" alt="' + esc(name) + '" loading="lazy"></figure>';
