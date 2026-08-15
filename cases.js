@@ -54,7 +54,6 @@ const CASES = {
     blocks: [
       { bleed: 'owa-01.jpg' },
       { text: 'OWA', body: 'is a Tampa architecture practice led by principals Fadi Garcia and Jessie Shell, working across high-profile commercial projects, residential spaces and historical renovations. The brief was an identity as considered and unfussy as the buildings.' },
-      { panel: 'owa-02.jpg', bg: '#000000' },
       { text: 'THE MARK', body: 'fragments the letters into geometry \u2014 a circle, a stroke, a triangle \u2014 so it reads as a plan drawing before it reads as a word. It holds at the scale of a stamp and at the scale of a facade.' },
       { video: true, red: true, poster: 'owa-motion-poster.jpg', motion: 'owa-motion.mp4' },
       { image: 'owa-03.jpg' },
