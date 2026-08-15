@@ -30,11 +30,21 @@ const CASES = {
     ]
   },
   miramar: {
-    name: 'Mira Mar', tagline: 'By the water.',
-    client: 'Mira Mar', year: '2025',
+    name: 'Mira Mar', tagline: 'A reimagined jewel on South Palm Avenue.',
+    client: 'Mira Mar Residences, Sarasota', year: '2026',
     type: ['Branding', 'Web Design', 'Floor Plan', 'Floorplan Navigation', 'Marketing & Strategy'],
     blocks: [
-      { text: 'MIRA MAR', body: 'A full brand programme spanning identity, website, floorplans and interactive floorplan navigation — case study copy and imagery to come.' }
+      { image: 'mm-01.jpg' },
+      { text: 'MIRA MAR', body: 'sits on South Palm Avenue in Sarasota, on a site with a name older than the building. The brand had to carry that history forward rather than paper over it — familiar to people who know the street, and aspirational to those who don\u2019t yet.' },
+      { image: 'mm-02.jpg' },
+      { pair: ['mm-03.jpg', 'mm-04.jpg'] },
+      { text: 'THE IDENTITY', body: 'is built on a crest and a hand-drawn toile of the neighbourhood — the arcades, the palms, the awnings — printed in a deep wine red. It reads as an old-world monogram without tipping into pastiche.' },
+      { image: 'mm-05.jpg' },
+      { image: 'mm-06.jpg' },
+      { text: 'THE MAP', body: 'illustrates Sarasota Bay as a resident would describe it, not as a cartographer would draw it. It became the most requested piece of the collateral \u2014 a postcard people kept rather than a brochure they recycled.' },
+      { pair: ['mm-07.jpg', 'mm-08.jpg'] },
+      { text: 'THE CAMPAIGN', body: 'places the residences inside the life already happening around them \u2014 the Ringling colonnades, the Opera House, an afternoon that starts on the balcony and ends somewhere on Palm Avenue.' },
+      { image: 'mm-09.jpg' }
     ]
   },
   owa: {
