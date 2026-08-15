@@ -157,14 +157,11 @@ const CASES = {
   document.body.appendChild(overlay);
   const inner = overlay.querySelector('.case-inner');
   let lastFocus = null;
+  let isOpen = false;
 
   function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
 
   function renderBlock(b, name) {
-    if (b.image) return '<figure class="cs-full"><img src="' + b.image + '" alt="' + esc(name) + '" loading="lazy"></figure>';
-    if (b.pair)  return '<div class="cs-pair">' + b.pair.map(function (s) {
-      return '<figure><img src="' + s + '" alt="' + esc(name) + '" loading="lazy"></figure>';
-    }).join('') + '</div>';
     if (b.bleed) return '<figure class="cs-bleed"><img src="' + b.bleed + '" alt="' + esc(name) + '" loading="lazy"></figure>';
     if (b.inset) return '<div class="cs-inset"' + (b.bg ? ' style="background:' + b.bg + '"' : '') + '><img src="' + b.inset + '" alt="' + esc(name) + '" loading="lazy"></div>';
     if (b.panel) return '<div class="cs-panel" style="background:' + (b.bg || '#3F1516') + '"><img src="' + b.panel + '" alt="' + esc(name) + '" loading="lazy"></div>';
@@ -173,16 +170,16 @@ const CASES = {
       : '<img src="' + b.red + '" alt="' + esc(name) + '" loading="lazy">') + '</div>';
     if (b.trio)  return '<div class="cs-trio">' + b.trio.map(function (s) {
       return '<img src="' + s + '" alt="' + esc(name) + '" loading="lazy">'; }).join('') + '</div>';
+    if (b.image) return '<figure class="cs-full"><img src="' + b.image + '" alt="' + esc(name) + '" loading="lazy"></figure>';
+    if (b.pair)  return '<div class="cs-pair">' + b.pair.map(function (s) {
+      return '<figure><img src="' + s + '" alt="' + esc(name) + '" loading="lazy"></figure>'; }).join('') + '</div>';
     if (b.text)  return '<p class="cs-statement"><span class="lead">' + esc(b.text) + '</span> ' + esc(b.body) + '</p>';
     return '';
   }
 
-  function open(key) {
-    const c = CASES[key];
-    if (!c) return;
-    lastFocus = document.activeElement;
+  function render(c) {
     inner.innerHTML =
-      '<div class="case-tab"><button type="button" class="case-close">Close <span class="x">×</span></button></div>' +
+      '<div class="case-tab"><button type="button" class="case-close">Close <span class="x">\u00d7</span></button></div>' +
       '<header class="cs-head">' +
         '<h1>' + esc(c.name) + '<span class="cs-tagline">' + esc(c.tagline) + '</span></h1>' +
         '<div class="cs-meta">' +
@@ -199,27 +196,70 @@ const CASES = {
       (c.credits ? '<div class="cs-credits"><b>Collaborators</b>' + c.credits.map(function (r) {
           return '<span>' + esc(r[0]) + ' <em>' + esc(r[1]) + '</em></span>'; }).join('') + '</div>' : '') +
       '<button class="case-close case-close-bottom" type="button">Close</button>';
+  }
+
+  // show — the visual part only
+  function show(key, focus) {
+    const c = CASES[key];
+    if (!c) return false;
+    render(c);
     overlay.classList.add('open');
     overlay.setAttribute('aria-hidden', 'false');
     document.body.classList.add('case-locked');
     inner.scrollTop = 0;
-    inner.querySelector('.case-close').focus();
+    isOpen = true;
+    if (focus) inner.querySelector('.case-close').focus();
+    return true;
   }
 
-  function close() {
+  function hide() {
     overlay.classList.remove('open');
     overlay.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('case-locked');
-    if (lastFocus) lastFocus.focus();
+    isOpen = false;
+    if (lastFocus) { try { lastFocus.focus(); } catch (e) {} }
+  }
+
+  // open — adds a history entry so Back closes it and refresh restores it
+  function open(key) {
+    if (!CASES[key]) return;
+    lastFocus = document.activeElement;
+    if (show(key, true)) history.pushState({ caseKey: key }, '', '#case-' + key);
+  }
+
+  function close() {
+    if (!isOpen) return;
+    if (history.state && history.state.caseKey) history.back();  // popstate does the hiding
+    else { hide(); history.replaceState({}, '', location.pathname + location.search); }
   }
 
   document.addEventListener('click', function (e) {
     const trigger = e.target.closest('[data-case]');
     if (trigger) { e.preventDefault(); open(trigger.dataset.case); return; }
-    if (e.target.closest('.case-close')) close();
+    if (e.target.closest('.case-close')) { e.preventDefault(); close(); }
     else if (e.target === overlay) close();
   });
+
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && overlay.classList.contains('open')) close();
+    if (e.key === 'Escape' && isOpen) close();
   });
+
+  // Back / Forward behave like a normal site
+  window.addEventListener('popstate', function (e) {
+    const key = (e.state && e.state.caseKey) || keyFromHash();
+    if (key && CASES[key]) show(key, false);
+    else hide();
+  });
+
+  function keyFromHash() {
+    const h = location.hash || '';
+    return h.indexOf('#case-') === 0 ? h.slice(6) : null;
+  }
+
+  // refreshing on an open case study reopens it
+  const initial = keyFromHash();
+  if (initial && CASES[initial]) {
+    history.replaceState({ caseKey: initial }, '', location.hash);
+    show(initial, false);
+  }
 })();
