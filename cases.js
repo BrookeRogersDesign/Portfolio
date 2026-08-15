@@ -48,13 +48,23 @@ const CASES = {
     ]
   },
   owa: {
-    name: 'OWA', tagline: 'Architecture, quietly stated.',
-    client: 'Open Workshop for Architecture', year: '2022',
+    name: 'OWA', tagline: 'Open workshop for architecture.',
+    client: 'OWA \u2014 Open Workshop for Architecture', year: '2022',
     type: ['Branding', 'Design'],
     blocks: [
-      { image: 'owa-desktop.jpg' },
-      { text: 'OWA', body: 'is a Tampa-based architecture practice whose work is defined by restraint. The identity had to feel like their buildings — precise, unfussy, and confident enough to leave space empty.' },
-      { text: 'THE SYSTEM', body: 'takes its cue from the satisfying feeling of flipping through the glossy pages of a magazine: stark monochrome, generous margins, and a mark that fragments and reassembles across applications.' }
+      { bleed: 'owa-01.jpg' },
+      { text: 'OWA', body: 'is a Tampa architecture practice led by principals Fadi Garcia and Jessie Shell, working across high-profile commercial projects, residential spaces and historical renovations. The brief was an identity as considered and unfussy as the buildings.' },
+      { panel: 'owa-02.jpg', bg: '#000000' },
+      { text: 'THE MARK', body: 'fragments the letters into geometry \u2014 a circle, a stroke, a triangle \u2014 so it reads as a plan drawing before it reads as a word. It holds at the scale of a stamp and at the scale of a facade.' },
+      { video: true, red: true, poster: 'owa-motion-poster.jpg', motion: 'owa-motion.mp4' },
+      { image: 'owa-03.jpg' },
+      { image: 'owa-05.jpg' },
+      { text: 'MATERIALS', body: 'drove the palette as much as the drawings did. Concrete, fluted timber and uncoated stock \u2014 the system was designed to be photographed on the materials the practice actually specifies.' },
+      { image: 'owa-06.jpg' },
+      { text: 'THE PALETTE', body: 'is deliberately narrow: black, real grey, grey. No accent colour, because the work supplies it. Restraint is the point \u2014 the identity gets out of the way of the architecture.' },
+      { bleed: 'owa-07.jpg' },
+      { text: 'THE SITE', body: 'was built around the satisfying feeling of flipping through the glossy pages of a magazine \u2014 generous margins, full-bleed photography, and typography given room to breathe.' },
+      { image: 'owa-09.jpg' }
     ]
   },
   unc: {
@@ -165,6 +175,7 @@ const CASES = {
     if (b.bleed) return '<figure class="cs-bleed"><img src="' + b.bleed + '" alt="' + esc(name) + '" loading="lazy"></figure>';
     if (b.inset) return '<div class="cs-inset"' + (b.bg ? ' style="background:' + b.bg + '"' : '') + '><img src="' + b.inset + '" alt="' + esc(name) + '" loading="lazy"></div>';
     if (b.panel) return '<div class="cs-panel" style="background:' + (b.bg || '#3F1516') + '"><img src="' + b.panel + '" alt="' + esc(name) + '" loading="lazy"></div>';
+    if (b.motion) return '<figure class="cs-full"><video autoplay loop muted playsinline preload="metadata" poster="' + b.poster + '"><source src="' + b.motion + '" type="video/mp4"></video></figure>';
     if (b.red)   return '<div class="cs-red">' + (b.video
       ? '<video autoplay loop muted playsinline preload="metadata" poster="' + b.poster + '"><source src="' + b.video + '" type="video/mp4"></video>'
       : '<img src="' + b.red + '" alt="' + esc(name) + '" loading="lazy">') + '</div>';

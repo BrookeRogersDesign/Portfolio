@@ -565,7 +565,7 @@ body.case-locked { overflow:hidden; }
 .cs-panel img { width:100%; height:auto; display:block; border-radius:4px; }
 
 .cs-full { margin:0 0 var(--gap); }
-.cs-full img { width:100%; height:auto; display:block; border-radius:var(--r); }
+.cs-full img, .cs-full video { width:100%; height:auto; display:block; border-radius:var(--r); }
 /* red panel — the Sincerely YAS device: screens framed in brand red */
 .cs-red {
   background:#D8232A; border-radius:var(--r);
