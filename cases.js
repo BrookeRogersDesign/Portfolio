@@ -34,17 +34,17 @@ const CASES = {
     client: 'Mira Mar Residences, Sarasota', year: '2026',
     type: ['Branding', 'Web Design', 'Floor Plan', 'Floorplan Navigation', 'Marketing & Strategy'],
     blocks: [
-      { image: 'mm-01.jpg' },
-      { text: 'MIRA MAR', body: 'sits on South Palm Avenue in Sarasota, on a site with a name older than the building. The brand had to carry that history forward rather than paper over it — familiar to people who know the street, and aspirational to those who don\u2019t yet.' },
-      { image: 'mm-02.jpg' },
-      { pair: ['mm-03.jpg', 'mm-04.jpg'] },
-      { text: 'THE IDENTITY', body: 'is built on a crest and a hand-drawn toile of the neighbourhood — the arcades, the palms, the awnings — printed in a deep wine red. It reads as an old-world monogram without tipping into pastiche.' },
-      { image: 'mm-05.jpg' },
+      { bleed: 'mm-02.jpg' },
+      { bleed: 'mm-01.jpg' },
+      { text: 'MIRA MAR', body: 'sits on South Palm Avenue in Sarasota, on a site whose name is older than the building. The brand had to carry that history forward rather than paper over it \u2014 familiar to people who know the street, aspirational to those who don\u2019t yet.' },
+      { pair: ['mm-04.jpg', 'mm-07.jpg'] },
+      { text: 'THE IDENTITY', body: 'is built on a crest and a hand-drawn toile of the neighbourhood \u2014 the arcades, the palms, the awnings \u2014 printed in a deep wine red. Old-world without tipping into pastiche.' },
+      { panel: 'mm-05.jpg', bg: '#3F1516' },
       { image: 'mm-06.jpg' },
-      { text: 'THE MAP', body: 'illustrates Sarasota Bay as a resident would describe it, not as a cartographer would draw it. It became the most requested piece of the collateral \u2014 a postcard people kept rather than a brochure they recycled.' },
-      { pair: ['mm-07.jpg', 'mm-08.jpg'] },
+      { text: 'THE MAP', body: 'illustrates Sarasota Bay the way a resident would describe it rather than the way a cartographer would draw it \u2014 a postcard people keep instead of a brochure they recycle.' },
+      { bleed: 'mm-08.jpg' },
       { text: 'THE CAMPAIGN', body: 'places the residences inside the life already happening around them \u2014 the Ringling colonnades, the Opera House, an afternoon that starts on the balcony and ends somewhere on Palm Avenue.' },
-      { image: 'mm-09.jpg' }
+      { inset: 'mm-09.jpg', bg: '#F3EEE9' }
     ]
   },
   owa: {
@@ -165,6 +165,9 @@ const CASES = {
     if (b.pair)  return '<div class="cs-pair">' + b.pair.map(function (s) {
       return '<figure><img src="' + s + '" alt="' + esc(name) + '" loading="lazy"></figure>';
     }).join('') + '</div>';
+    if (b.bleed) return '<figure class="cs-bleed"><img src="' + b.bleed + '" alt="' + esc(name) + '" loading="lazy"></figure>';
+    if (b.inset) return '<div class="cs-inset"' + (b.bg ? ' style="background:' + b.bg + '"' : '') + '><img src="' + b.inset + '" alt="' + esc(name) + '" loading="lazy"></div>';
+    if (b.panel) return '<div class="cs-panel" style="background:' + (b.bg || '#3F1516') + '"><img src="' + b.panel + '" alt="' + esc(name) + '" loading="lazy"></div>';
     if (b.red)   return '<div class="cs-red">' + (b.video
       ? '<video autoplay loop muted playsinline preload="metadata" poster="' + b.poster + '"><source src="' + b.video + '" type="video/mp4"></video>'
       : '<img src="' + b.red + '" alt="' + esc(name) + '" loading="lazy">') + '</div>';

@@ -560,6 +560,21 @@ body.case-locked { overflow:hidden; }
   margin:64px 0 72px; color:rgba(255,255,255,.82);
 }
 .cs-statement .lead { font-weight:700; color:var(--white); }
+/* full-bleed: runs edge to edge, cancelling the body padding */
+.cs-bleed {
+  margin:0 -44px var(--gap); border-radius:0;
+}
+.cs-bleed img { width:100%; height:auto; display:block; border-radius:0; }
+/* inset: sits in from the edges on its own ground */
+.cs-inset { padding:clamp(24px,3vw,60px) clamp(20px,4vw,90px); margin-bottom:var(--gap); }
+.cs-inset img { width:100%; height:auto; display:block; border-radius:var(--r); }
+/* colour panel with the piece inset — matches the Figma brochure spreads */
+.cs-panel {
+  border-radius:var(--r); margin-bottom:var(--gap);
+  padding:clamp(28px,4.5vw,90px) clamp(24px,6vw,180px);
+}
+.cs-panel img { width:100%; height:auto; display:block; border-radius:4px; }
+
 .cs-full { margin:0 0 var(--gap); }
 .cs-full img { width:100%; height:auto; display:block; border-radius:var(--r); }
 /* red panel — the Sincerely YAS device: screens framed in brand red */
@@ -593,6 +608,9 @@ body.case-locked { overflow:hidden; }
 .case-close-bottom:hover { background:var(--red); border-color:var(--red); }
 
 @media (max-width:768px) {
+  .cs-bleed { margin:0 -20px var(--gap); }
+  .cs-inset { padding:16px 14px; }
+  .cs-panel { padding:20px 16px; }
   .cs-head { padding:20px 20px 0; }
   .cs-head h1 { margin-bottom:34px; }
   .cs-meta { flex-direction:column; gap:14px; padding-bottom:36px; }
