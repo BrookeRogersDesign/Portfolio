@@ -91,7 +91,12 @@ const CASES = {
       { text: 'THE POSITIONING', body: 'is rooted in The Ruler archetype \u2014 a quiet confidence that values excellence, intention and timeless sophistication over fleeting trends. The line the whole system hangs on: the art of looking effortless.' },
       { image: 'blank-08.jpg' },
       { image: 'blank-09.jpg' },
-      { quad: ['blank-c1.jpg', 'blank-c2.jpg', 'blank-c3.jpg', 'blank-c4.jpg'] },
+      { swatches: [
+        { name: 'Bone',    hex: '#F1EDEC', cmyk: '0 2 2 5' },
+        { name: 'Sand',    hex: '#C7B79D', cmyk: '0 8 21 22' },
+        { name: 'Oxblood', hex: '#4B2317', cmyk: '0 53 69 71' },
+        { name: 'Ink',     hex: '#261406', cmyk: '0 47 84 85' }
+      ] },
       { text: 'THE PALETTE', body: 'stays in oxblood, bone, warm tan and near-black \u2014 salon colours without the gloss. Serif display against a plain grotesque keeps the voice close to a fashion house and far from a price list.' },
       { mid: 'blank-10.jpg' },
       { pair: ['blank-11.jpg', 'blank-12.jpg'] },
@@ -194,6 +199,30 @@ const CASES = {
       : '<img src="' + b.red + '" alt="' + esc(name) + '" loading="lazy">') + '</div>';
     if (b.quad)  return '<div class="cs-quad">' + b.quad.map(function (s) {
       return '<img src="' + s + '" alt="' + esc(name) + '" loading="lazy">'; }).join('') + '</div>';
+    if (b.swatches) return '<div class="cs-swatches">' + b.swatches.map(function (c) {
+      var h = c.hex.replace('#', '');
+      var r = parseInt(h.substr(0,2),16), g = parseInt(h.substr(2,2),16), bl = parseInt(h.substr(4,2),16);
+      var lum = (0.299*r + 0.587*g + 0.114*bl) / 255;
+      // shades below the base, tints above — mixed toward black / white
+      function mix(t) {
+        var to = t < 0 ? 0 : 255, a = Math.abs(t);
+        function m(v) { return Math.round(v + (to - v) * a); }
+        return 'rgb(' + m(r) + ',' + m(g) + ',' + m(bl) + ')';
+      }
+      var steps = [-0.45, -0.22, 0, 0.22, 0.45].map(function (t, i) {
+        return '<i style="background:' + (t === 0 ? c.hex : mix(t))
+             + ';transition-delay:' + (i * 45) + 'ms"></i>';
+      }).join('');
+      return '<div class="cs-swatch' + (lum > 0.55 ? ' on-light' : '') + '" style="background:' + c.hex + '" tabindex="0">'
+        + '<div class="sw-steps">' + steps + '</div>'
+        + '<div class="sw-info">'
+        +   '<span class="sw-name">' + esc(c.name) + '</span>'
+        +   '<span class="sw-val">' + esc(c.hex.toUpperCase()) + '</span>'
+        +   '<span class="sw-val">RGB ' + r + ' ' + g + ' ' + bl + '</span>'
+        +   (c.cmyk ? '<span class="sw-val">CMYK ' + esc(c.cmyk) + '</span>' : '')
+        +   (c.pantone ? '<span class="sw-val">PMS ' + esc(c.pantone) + '</span>' : '')
+        + '</div></div>';
+    }).join('') + '</div>';
     if (b.trio)  return '<div class="cs-trio">' + b.trio.map(function (s) {
       return '<img src="' + s + '" alt="' + esc(name) + '" loading="lazy">'; }).join('') + '</div>';
     if (b.image) return '<figure class="cs-full"><img src="' + b.image + '" alt="' + esc(name) + '" loading="lazy"></figure>';
