@@ -604,7 +604,8 @@ body.case-locked { overflow:hidden; }
 }
 .cs-screens img {
   width:clamp(140px,26%,300px); height:auto; display:block;
-  border-radius:clamp(10px,1.4vw,20px);
+  /* the 9.16% corner radius is baked into the artwork against the panel
+     ground, so no CSS radius here — rounding twice is what left white edges */
 }
 .cs-trio {
   display:grid; grid-template-columns:repeat(3,1fr);
