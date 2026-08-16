@@ -85,7 +85,7 @@ const CASES = {
       { text: 'BLANK', body: 'is a hair studio built on a premise that runs against everything salon branding usually does \u2014 the most considered work is the work you never notice. Positioning, identity and site were built together so the restraint reads as intent rather than absence.' },
       { panel: 'blank-02.jpg', bg: '#D9D7CE' },
       { text: 'THE MARK', body: 'mirrors its own K. Set as BLA / NK across two lines, the reversed letter reads as a flaw until you see it twice \u2014 then it reads as a signature. The BK monogram and star carry it down to stamp scale.' },
-      { trio: ['blank-p1.jpg', 'blank-p2.jpg', 'blank-p3.jpg'] },
+      { image: 'blank-03.jpg' },
       { image: 'blank-04.jpg' },
       { trio: ['blank-05.jpg', 'blank-06.jpg', 'blank-07.jpg'] },
       { text: 'THE POSITIONING', body: 'is rooted in The Ruler archetype \u2014 a quiet confidence that values excellence, intention and timeless sophistication over fleeting trends. The line the whole system hangs on: the art of looking effortless.' },
@@ -100,7 +100,7 @@ const CASES = {
       { text: 'THE PALETTE', body: 'stays in oxblood, bone, warm tan and near-black \u2014 salon colors without the gloss. Serif display against a plain grotesque keeps the voice close to a fashion house and far from a price list.' },
       { mid: 'blank-10.jpg' },
       { pair: ['blank-11.jpg', 'blank-12.jpg'] },
-      { text: 'THE PROMISE', body: 'is a space where craftsmanship, conversation, and quiet luxury come together to create hair that lives beautifully beyond the salon.', typed: true },
+      { text: 'THE PROMISE', body: 'is a space where craftsmanship, conversation, and quiet luxury come together to create hair that lives beautifully beyond the salon.' },
       { image: 'blank-13.jpg' }
     ]
   },
@@ -228,8 +228,7 @@ const CASES = {
     if (b.image) return '<figure class="cs-full"><img src="' + b.image + '" alt="' + esc(name) + '" loading="lazy"></figure>';
     if (b.pair)  return '<div class="cs-pair">' + b.pair.map(function (s) {
       return '<figure><img src="' + s + '" alt="' + esc(name) + '" loading="lazy"></figure>'; }).join('') + '</div>';
-    if (b.text)  return '<p class="cs-statement' + (b.typed ? ' cs-typed" data-typed="' : '') + '">'
-                        + '<span class="lead">' + esc(b.text) + '</span> ' + esc(b.body) + '</p>';
+    if (b.text)  return '<p class="cs-statement"><span class="lead">' + esc(b.text) + '</span> ' + esc(b.body) + '</p>';
     return '';
   }
 
@@ -254,62 +253,6 @@ const CASES = {
       '<button class="case-close case-close-bottom" type="button">Close</button>';
   }
 
-  /* ---- typed statements -------------------------------------------------
-     The full text is always in the DOM, so screen readers, search engines and
-     reduced-motion users get it whole. Typing works by blanking the text nodes
-     and restoring them a character at a time, which keeps the .lead span's
-     styling intact as it goes. Speed is time-based, not per-frame, so it reads
-     the same on a 120Hz phone and a 60Hz laptop. */
-  const TYPE_CPS = 45;
-
-  function typeIn(el) {
-    if (el.dataset.typedDone) return;
-    el.dataset.typedDone = '1';
-
-    const parts = [];
-    (function walk(node) {
-      for (let i = 0; i < node.childNodes.length; i++) {
-        const ch = node.childNodes[i];
-        if (ch.nodeType === 3) { if (ch.nodeValue) parts.push({ node: ch, full: ch.nodeValue }); }
-        else walk(ch);
-      }
-    })(el);
-    if (!parts.length) return;
-
-    el.style.minHeight = el.offsetHeight + 'px';   // reserve space before blanking
-    parts.forEach(function (p) { p.node.nodeValue = ''; });
-    el.classList.add('is-typing');
-
-    let idx = 0, pos = 0, credit = 0, last = 0;
-    function step(now) {
-      if (!last) last = now;
-      credit += (now - last) / 1000 * TYPE_CPS;
-      last = now;
-      while (credit >= 1 && idx < parts.length) {
-        const p = parts[idx];
-        if (pos < p.full.length) { p.node.nodeValue = p.full.slice(0, ++pos); credit -= 1; }
-        else { idx++; pos = 0; }
-      }
-      if (idx < parts.length) requestAnimationFrame(step);
-      else { el.classList.remove('is-typing'); el.style.minHeight = ''; }
-    }
-    requestAnimationFrame(step);
-  }
-
-  function initTyped() {
-    const els = inner.querySelectorAll('[data-typed]');
-    if (!els.length) return;
-    // reduced motion, or no observer support: leave the text as rendered
-    if (!window.IntersectionObserver ||
-        (window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches)) return;
-    const io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) { typeIn(e.target); io.unobserve(e.target); }
-      });
-    }, { root: inner, threshold: .25 });
-    els.forEach(function (el) { io.observe(el); });
-  }
-
   // show — the visual part only
   function show(key, focus) {
     const c = CASES[key];
@@ -319,7 +262,6 @@ const CASES = {
     overlay.setAttribute('aria-hidden', 'false');
     document.body.classList.add('case-locked');
     inner.scrollTop = 0;
-    initTyped();          // after .open — an observer root with no layout box never fires
     isOpen = true;
     if (focus) inner.querySelector('.case-close').focus();
     return true;
