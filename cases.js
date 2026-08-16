@@ -94,10 +94,10 @@ const CASES = {
       { image: 'blank-08.jpg' },
       { image: 'blank-09.jpg' },
       { swatches: [
-        { name: 'Bone',    hex: '#F1EDEC', cmyk: '0 2 2 5' },
-        { name: 'Sand',    hex: '#C7B79D', cmyk: '0 8 21 22' },
-        { name: 'Oxblood', hex: '#4B2317', cmyk: '0 53 69 71' },
-        { name: 'Ink',     hex: '#261406', cmyk: '0 47 84 85' }
+        { name: 'Bone',    hex: '#F1EDEC', cmyk: '0 2 2 5', ref: 'blank-ref-bone.jpg' },
+        { name: 'Sand',    hex: '#C7B79D', cmyk: '0 8 21 22', ref: 'blank-ref-sand.jpg' },
+        { name: 'Oxblood', hex: '#4B2317', cmyk: '0 53 69 71', ref: 'blank-ref-oxblood.jpg' },
+        { name: 'Ink',     hex: '#261406', cmyk: '0 47 84 85', ref: 'blank-ref-ink.jpg' }
       ] },
       { text: 'THE PALETTE', body: 'stays in oxblood, bone, warm tan and near-black \u2014 salon colors without the gloss. Serif display against a plain grotesque keeps the voice close to a fashion house and far from a price list.' },
       { text: 'THE PROMISE', body: 'is a space where craftsmanship, conversation, and quiet luxury come together to create hair that lives beautifully beyond the salon.' },
@@ -215,6 +215,7 @@ const CASES = {
       }).join('');
       return '<div class="cs-swatch' + (lum > 0.55 ? ' on-light' : '') + '" style="background:' + c.hex + '" tabindex="0">'
         + '<div class="sw-steps">' + steps + '</div>'
+        + (c.ref ? '<span class="sw-ref"><img src="' + c.ref + '" alt="' + esc(c.name) + ' reference" loading="lazy"></span>' : '')
         + '<div class="sw-info">'
         +   '<span class="sw-name">' + esc(c.name) + '</span>'
         +   '<span class="sw-val">' + esc(c.hex.toUpperCase()) + '</span>'
