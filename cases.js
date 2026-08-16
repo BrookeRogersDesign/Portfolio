@@ -10,6 +10,8 @@
                 { text: 'BOLD LEAD-IN', body: 'rest of the sentence' }
                 { image: 'file.jpg' }                    full width
                 { pair: ['left.jpg', 'right.jpg'] }      two up
+                { screens: ['a.jpg','b.jpg', ...] }      social screens on the ink
+                                                         panel — takes any number
      credits  — optional array of ['Role', 'Name']
    ============================================================ */
 const CASES = {
@@ -85,7 +87,7 @@ const CASES = {
       { text: 'BLANK', body: 'is a hair studio built on a premise that runs against everything salon branding usually does \u2014 the most considered work is the work you never notice. Positioning, identity and site were built together so the restraint reads as intent rather than absence.' },
       { panel: 'blank-02.jpg', bg: '#D9D7CE' },
       { text: 'THE MARK', body: 'mirrors its own K. Set as BLA / NK across two lines, the reversed letter reads as a flaw until you see it twice \u2014 then it reads as a signature. The BK monogram and star carry it down to stamp scale.' },
-      { image: 'blank-03.jpg' },
+      { panel: 'blank-03.jpg', bg: '#251406' },
       { image: 'blank-04.jpg' },
       { trio: ['blank-05.jpg', 'blank-06.jpg', 'blank-07.jpg'] },
       { text: 'THE POSITIONING', body: 'is rooted in The Ruler archetype \u2014 a quiet confidence that values excellence, intention and timeless sophistication over fleeting trends. The line the whole system hangs on: the art of looking effortless.' },
@@ -98,10 +100,8 @@ const CASES = {
         { name: 'Ink',     hex: '#261406', cmyk: '0 47 84 85' }
       ] },
       { text: 'THE PALETTE', body: 'stays in oxblood, bone, warm tan and near-black \u2014 salon colors without the gloss. Serif display against a plain grotesque keeps the voice close to a fashion house and far from a price list.' },
-      { mid: 'blank-10.jpg' },
-      { pair: ['blank-11.jpg', 'blank-12.jpg'] },
       { text: 'THE PROMISE', body: 'is a space where craftsmanship, conversation, and quiet luxury come together to create hair that lives beautifully beyond the salon.' },
-      { image: 'blank-13.jpg' }
+      { screens: ['blank-s1.jpg', 'blank-s2.jpg', 'blank-s3.jpg'] }
     ]
   },
   ora: {
@@ -223,6 +223,8 @@ const CASES = {
         +   (c.pantone ? '<span class="sw-val">PMS ' + esc(c.pantone) + '</span>' : '')
         + '</div></div>';
     }).join('') + '</div>';
+    if (b.screens) return '<div class="cs-screens">' + b.screens.map(function (s) {
+      return '<img src="' + s + '" alt="' + esc(name) + ' social" loading="lazy">'; }).join('') + '</div>';
     if (b.trio)  return '<div class="cs-trio">' + b.trio.map(function (s) {
       return '<img src="' + s + '" alt="' + esc(name) + '" loading="lazy">'; }).join('') + '</div>';
     if (b.image) return '<figure class="cs-full"><img src="' + b.image + '" alt="' + esc(name) + '" loading="lazy"></figure>';

@@ -593,6 +593,19 @@ body.case-locked { overflow:hidden; }
 .cs-red video, .cs-red img {
   width:100%; height:auto; display:block; border-radius:8px;
 }
+/* social screens on the ink panel. Wraps, so it takes any number of screens —
+   three today, more later, with no CSS change. */
+.cs-screens {
+  background:#261406; border-radius:var(--r);
+  margin-bottom:var(--cs-space);
+  padding:clamp(36px,5vw,96px) clamp(20px,4vw,64px);
+  display:flex; flex-wrap:wrap; justify-content:center; align-items:flex-start;
+  gap:clamp(18px,3vw,64px);
+}
+.cs-screens img {
+  width:clamp(140px,26%,300px); height:auto; display:block;
+  border-radius:clamp(10px,1.4vw,20px);
+}
 .cs-trio {
   display:grid; grid-template-columns:repeat(3,1fr);
   gap:clamp(20px,3.4vw,64px);
@@ -601,6 +614,8 @@ body.case-locked { overflow:hidden; }
 .cs-trio img { width:100%; height:auto; display:block; border-radius:var(--r); }
 @media (max-width:768px) {
   .cs-trio { grid-template-columns:1fr; gap:18px; max-width:100%; }
+  .cs-screens { padding:26px 16px; gap:14px; }
+  .cs-screens img { width:calc(50% - 7px); }
 }
 
 /* a single image held back from full width */
