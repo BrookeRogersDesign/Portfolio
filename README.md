@@ -67,8 +67,5 @@ A project only appears on the site if it has **both** a card in `work.html`
   `.statement` must be written `.statement p.about-label`.
 - Desktop `.work-meta .tags` uses `justify-content:flex-end; max-width:60%` —
   mobile must override to `flex-start` / `100%`.
-- Adobe Fonts only serves the typeface to allow-listed domains.
-  `brookerogersdesign.com`, `www`, and the `github.io` URL must all be listed
-  in the web project, or type falls back.
-- DNS is at **IONOS**. Apex uses four A records at `185.199.108–111.153`.
-  Email is Google Workspace (5 MX + SPF) — never touch those records.
+- Adobe Fonts only serves the typeface to allow-listed domains. Every hostname
+  the site answers on must be listed in the web project, or type falls back.
