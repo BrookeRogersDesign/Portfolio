@@ -563,6 +563,18 @@ body.case-locked { overflow:hidden; }
   margin:64px 0 72px; color:rgba(255,255,255,.82);
 }
 .cs-statement .lead { font-weight:700; color:var(--white); }
+/* typed statement — reveals character by character when scrolled into view.
+   Height is reserved before typing starts so nothing below it jumps. */
+.cs-typed.is-typing::after {
+  content:''; display:inline-block;
+  width:.5ch; height:1em; margin-left:.06em;
+  background:var(--red); vertical-align:-.12em;
+  animation:cs-caret 1s steps(1) infinite;
+}
+@keyframes cs-caret { 0%,50% { opacity:1 } 50.01%,100% { opacity:0 } }
+@media (prefers-reduced-motion:reduce) {
+  .cs-typed.is-typing::after { animation:none; }
+}
 /* full-bleed: runs edge to edge, cancelling the body padding */
 .cs-bleed {
   margin:0 -44px var(--gap); border-radius:0;
@@ -594,8 +606,20 @@ body.case-locked { overflow:hidden; }
   max-width:78%; margin:0 auto var(--gap);
 }
 .cs-trio img { width:100%; height:auto; display:block; border-radius:var(--r); }
+/* mobile: swipeable carousel instead of a stack. The 78% basis leaves the next
+   image peeking at the edge, which is the only affordance it needs. */
 @media (max-width:768px) {
-  .cs-trio { grid-template-columns:1fr; gap:18px; max-width:100%; }
+  .cs-trio {
+    display:flex; grid-template-columns:none;
+    gap:12px; max-width:100%;
+    margin-inline:-20px; padding-inline:20px;
+    overflow-x:auto; overscroll-behavior-x:contain;
+    scroll-snap-type:x mandatory; scroll-padding-inline:20px;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .cs-trio::-webkit-scrollbar { display:none; }
+  .cs-trio img { flex:0 0 auto; width:78%; scroll-snap-align:center; }
 }
 
 /* a single image held back from full width */
@@ -686,25 +710,7 @@ body.case-locked { overflow:hidden; }
   .cs-meta-left { flex-direction:column; gap:8px; }
   .cs-body { padding:0 20px 10px; }
   .cs-statement { margin:40px 0 46px; }
-  /* red panel — the Sincerely YAS device: screens framed in brand red */
-.cs-red {
-  background:#D8232A; border-radius:var(--r);
-  padding:clamp(22px,3vw,54px); margin-bottom:var(--gap);
-}
-.cs-red video, .cs-red img {
-  width:100%; height:auto; display:block; border-radius:8px;
-}
-.cs-trio {
-  display:grid; grid-template-columns:repeat(3,1fr);
-  gap:clamp(20px,3.4vw,64px);
-  max-width:78%; margin:0 auto var(--gap);
-}
-.cs-trio img { width:100%; height:auto; display:block; border-radius:var(--r); }
-@media (max-width:768px) {
-  .cs-trio { grid-template-columns:1fr; gap:18px; max-width:100%; }
-}
-
-.cs-pair { grid-template-columns:1fr; }
+  .cs-pair { grid-template-columns:1fr; }
   .cs-credits { padding:10px 20px 0; }
   .case-close-bottom { margin:40px auto 50px; }
 }
