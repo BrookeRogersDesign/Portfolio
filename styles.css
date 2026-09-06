@@ -596,14 +596,17 @@ body.case-locked { overflow:hidden; }
 /* social screens on the ink panel. Wraps, so it takes any number of screens —
    three today, more later, with no CSS change. */
 .cs-screens {
-  background:#261406; border-radius:var(--r);
+  background:var(--screens-bg,#261406); border-radius:var(--r);
   margin-bottom:var(--cs-space);
   padding:clamp(36px,5vw,96px) clamp(20px,4vw,64px);
   display:flex; flex-wrap:wrap; justify-content:center; align-items:flex-start;
-  gap:clamp(18px,3vw,64px);
+  --sgap:clamp(18px,3vw,64px); gap:var(--sgap);
 }
+/* width derives from how many screens there are, so the row fits N across
+   instead of wrapping once you go past three */
 .cs-screens img {
-  width:clamp(140px,26%,300px); height:auto; display:block;
+  width:min(300px, calc((100% - (var(--screens-n,3) - 1) * var(--sgap)) / var(--screens-n,3)));
+  height:auto; display:block;
   /* the 9.16% corner radius is baked into the artwork against the panel
      ground, so no CSS radius here — rounding twice is what left white edges */
 }

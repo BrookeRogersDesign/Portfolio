@@ -10,8 +10,8 @@
                 { text: 'BOLD LEAD-IN', body: 'rest of the sentence' }
                 { image: 'file.jpg' }                    full width
                 { pair: ['left.jpg', 'right.jpg'] }      two up
-                { screens: ['a.jpg','b.jpg', ...] }      social screens on the ink
-                                                         panel — takes any number
+                { screens: [...], bg: '#000' }           a row of screens on a panel,
+                                                         any number, wraps. bg optional
      credits  — optional array of ['Role', 'Name']
    ============================================================ */
 const CASES = {
@@ -70,12 +70,19 @@ const CASES = {
   },
   unc: {
     name: '[UN]CENSORED Health', tagline: 'Honesty over polish.',
-    client: '[UN]CENSORED Health', year: '2024',
+    client: '[UN]CENSORED Health — Kate', year: '2024',
     type: ['Branding', 'Web Design + Development'],
     blocks: [
-      { image: 'unc-desktop.jpg' },
-      { text: '[UN]CENSORED', body: 'was built for people tired of being sold an airbrushed version of wellness. The positioning came first: say the real thing, then design around it.' },
-      { text: 'THE IDENTITY', body: 'pairs a stenciled logotype with raw handwritten accents — structure and instinct in the same lockup, so the brand can be direct without turning cold.' }
+      { bleed: 'unc-desktop.jpg' },
+      { text: '[UN]CENSORED', body: 'was built for people tired of being sold an airbrushed version of wellness. The positioning came first — say the real thing, then design around it. Built for the one that doesn’t half-ass it.' },
+      { image: 'unc-02.jpg' },
+      { text: 'THE SITE', body: 'puts the three coaching tiers side by side and prices them in the open. No funnel, no discovery call before you can see a number — the plainness is the pitch.' },
+      { mid: 'unc-03.jpg' },
+      { text: 'THE IDENTITY', body: 'pairs a stenciled logotype with raw handwritten accents — structure and instinct in the same lockup, so the brand can be direct without turning cold. Acid green carries the voice; everything else stays black.' },
+      { image: 'unc-04.jpg' },
+      { image: 'unc-06.jpg' },
+      { text: 'THE PHOTOGRAPHY', body: 'was shot flat and unretouched against a plain wall — real training, real effort, no gloss. It had to look like the coaching actually feels.' },
+      { screens: ['unc-g1.jpg', 'unc-g2.jpg', 'unc-g3.jpg', 'unc-g4.jpg'], bg: '#000000' }
     ]
   },
   blank: {
@@ -224,7 +231,8 @@ const CASES = {
         +   (c.pantone ? '<span class="sw-val">PMS ' + esc(c.pantone) + '</span>' : '')
         + '</div></div>';
     }).join('') + '</div>';
-    if (b.screens) return '<div class="cs-screens">' + b.screens.map(function (s) {
+    if (b.screens) return '<div class="cs-screens" style="--screens-n:' + b.screens.length
+      + (b.bg ? ';--screens-bg:' + esc(b.bg) : '') + '">' + b.screens.map(function (s) {
       return '<img src="' + s + '" alt="' + esc(name) + ' social" loading="lazy">'; }).join('') + '</div>';
     if (b.trio)  return '<div class="cs-trio">' + b.trio.map(function (s) {
       return '<img src="' + s + '" alt="' + esc(name) + '" loading="lazy">'; }).join('') + '</div>';
