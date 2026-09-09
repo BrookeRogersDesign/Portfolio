@@ -23,10 +23,8 @@ const CASES = {
       { bleed: 'gd-desktop.jpg' },
       { text: 'GOOD DAYS', body: 'is a personal health tracker built on a gap nobody had closed. Your watch knows your sleep and your training load, your food diary knows what you ate, and neither knows about the other. This joins them.' },
       { text: 'SEPARATE APPS', body: 'can\u2019t tell you that yesterday\u2019s threshold session came after two short nights, or that you\u2019re running a 600-calorie deficit on your hardest training days. One dataset can.' },
-      { image: 'gd-01.jpg' },
       { text: 'TODAY', body: 'opens on a readiness score with the actual reasons behind it \u2014 sleep, HRV, body battery \u2014 next to the session you have planned and a live energy balance: calories in from your log against calories out from your watch.' },
       { text: 'THE CALENDAR', body: 'runs Day, Week and Month over the same data. Month view dot-codes every day \u2014 purple for a hard session, lilac for easy, lime when food was logged \u2014 so a month of training reads at a glance.' },
-      { pair: ['gd-02.jpg', 'gd-03.jpg'] },
       { text: 'COACH IMPORT', body: 'takes whatever your coach actually sent. Paste the message, upload a CSV or photograph a handwritten plan and it pulls out the sessions \u2014 reporting what it couldn\u2019t read rather than guessing.' },
       { text: 'GOALS', body: 'compute themselves. Weight, protein, sleep and consistency are derived from your data, never entered. You don\u2019t log progress \u2014 you live, and the number moves, so nothing can drift out of sync with reality.' },
       { text: 'RESTRAINT WITH COLOR', body: 'was the rule throughout. Health data shouldn\u2019t read like a traffic light: if everything is flagged, nothing is important. Photo estimates are marked as estimates, and micronutrients average over seven days because they\u2019re too lumpy to judge daily.' }
