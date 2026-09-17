@@ -166,10 +166,10 @@ const CASES = {
       { bleed: 'madrun-01.jpg' },
       { text: 'MADRUN', body: 'turns recovery into part of the performance. A high-impact identity designed to stand out in the gym, on the shelf, and everywhere in between.' },
       { image: 'madrun-02.jpg' },
-      { motionPanel: 'madrun-hero.mp4', line: 'made for the miles', mark: 'madrun-oval.png' },
       { pair: ['madrun-03.jpg', 'madrun-04.jpg'] },
       { image: 'madrun-05.jpg' },
       { trio: ['madrun-06.jpg', 'madrun-07.jpg', 'madrun-08.jpg'] },
+      { motionPanel: 'madrun-hero.mp4', line: 'made for the miles', mark: 'madrun-oval.png' },
       { image: 'madrun-09.jpg' }
     ]
   },
