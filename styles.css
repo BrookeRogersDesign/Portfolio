@@ -593,6 +593,31 @@ body.case-locked { overflow:hidden; }
 .cs-red video, .cs-red img {
   width:100%; height:auto; display:block; border-radius:8px;
 }
+/* botanical panel — the bottle with its ingredient callouts. The callouts are
+   live Square Peg text, not baked artwork, so they stay sharp and can move.
+   Every position is a percentage taken straight off the Figma frame
+   (936.97 x 713.20), and each angle was measured off the rendered art. */
+.cs-botanical {
+  position:relative; width:100%; aspect-ratio:936.97 / 713.2;
+  container-type:inline-size;
+  margin-bottom:var(--cs-space);
+}
+.bo-head { position:absolute; left:6.70%; top:0; width:79.82%; height:auto; }
+.bo-bottle { position:absolute; left:0; top:34.30%; width:100%; height:auto; }
+.bo-note {
+  position:absolute; left:var(--x); top:var(--y); width:var(--w);
+  font-family:"square-peg", var(--sans-text); font-weight:400;
+  font-size:4.4cqw; line-height:1.1; color:var(--cs-fg, #111110);
+  white-space:nowrap; transform-origin:left center;
+  transform:rotate(var(--r)) translate(0,0);
+  transition:transform .45s cubic-bezier(.2,.7,.2,1);
+  cursor:default;
+}
+.bo-note:hover { transform:rotate(var(--r)) translate(0,-6px) scale(1.04); }
+@media (prefers-reduced-motion:reduce) {
+  .bo-note, .bo-note:hover { transition:none; transform:rotate(var(--r)); }
+}
+
 /* motion panel — a portrait clip rotated to fill a landscape frame, with the
    line set live over it rather than baked into the video.
    The maths: container is 16:9, so its height = 100% * 9/16 of its width. Give

@@ -10,6 +10,8 @@
                 { text: 'BOLD LEAD-IN', body: 'rest of the sentence' }
                 { image: 'file.jpg' }                    full width
                 { pair: ['left.jpg', 'right.jpg'] }      two up
+                { botanical: {...} }                     bottle + live Square Peg
+                                                         ingredient callouts
                 { motionPanel: 'f.mp4', line, mark }     portrait clip rotated to
                                                          landscape, type set over it
                 { screens: [...], bg: '#000' }           a row of screens on a panel,
@@ -170,7 +172,20 @@ const CASES = {
       { image: 'madrun-05.jpg' },
       { trio: ['madrun-06.jpg', 'madrun-07.jpg', 'madrun-08.jpg'] },
       { motionPanel: 'madrun-hero.mp4', line: 'made for the miles', lineArt: 'madrun-line.svg', mark: 'madrun-oval.png' },
-      { image: 'madrun-09.jpg' }
+      { image: 'madrun-09.jpg' },
+      { botanical: {
+        heading: 'a cooling botanical formula made with:',
+        head: 'madrun-botanical-head.svg',
+        bottle: 'madrun-bottle.jpg',
+        notes: [
+          { t: 'peppermint + eucalyptus',          x: '0%',      y: '18.07%', w: '37.44%', r: '-5.87deg' },
+          { t: 'arnica flower',                    x: '45.81%',  y: '15.50%', w: '21.82%', r: '4.62deg'  },
+          { t: 'menthol + camphor',                x: '70.14%',  y: '11.85%', w: '30.64%', r: '5.77deg'  },
+          { t: 'aloe vera',                        x: '3.30%',   y: '82.79%', w: '14.28%', r: '-3.22deg' },
+          { t: 'turmeric + neem',                  x: '25.40%',  y: '81.82%', w: '26.01%', r: '13.96deg' },
+          { t: 'botanical + essential oil blend',  x: '53.89%',  y: '84.90%', w: '46.11%', r: '-0.38deg' }
+        ]
+      } }
     ]
   },
   gracewater: {
@@ -253,6 +268,13 @@ const CASES = {
         +   (c.pantone ? '<span class="sw-val">PMS ' + esc(c.pantone) + '</span>' : '')
         + '</div></div>';
     }).join('') + '</div>';
+    if (b.botanical) return '<div class="cs-botanical">'
+      + '<img class="bo-head" src="' + b.botanical.head + '" alt="' + esc(b.botanical.heading || '') + '">'
+      + '<img class="bo-bottle" src="' + b.botanical.bottle + '" alt="' + esc(name) + ' bottle" loading="lazy">'
+      + b.botanical.notes.map(function (n) {
+          return '<span class="bo-note" style="--x:' + n.x + ';--y:' + n.y + ';--w:' + n.w + ';--r:' + n.r + '">'
+               + esc(n.t) + '</span>'; }).join('')
+      + '</div>';
     if (b.motionPanel) return '<div class="cs-motion">'
       + '<video autoplay loop muted playsinline preload="metadata"><source src="' + b.motionPanel + '" type="video/mp4"></video>'
       + '<div class="mo-copy">'
