@@ -612,7 +612,7 @@ body.case-locked { overflow:hidden; }
 .bo-note {
   position:absolute; left:var(--x); top:var(--y); width:var(--w);
   font-family:"square-peg", var(--sans-text); font-weight:400;
-  font-size:4.4cqw; line-height:1.1; color:var(--cs-fg, #111110);
+  font-size:5.4cqw; line-height:1.1; color:var(--cs-fg, #111110);
   white-space:nowrap; transform-origin:left center;
   transform:rotate(var(--r)) translate(0,0);
   transition:transform .45s cubic-bezier(.2,.7,.2,1);
