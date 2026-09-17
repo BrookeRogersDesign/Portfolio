@@ -31,8 +31,6 @@ const CASES = {
       { text: 'SEPARATE APPS', body: 'can\u2019t tell you that yesterday\u2019s threshold session came after two short nights, or that you\u2019re running a 600-calorie deficit on your hardest training days. One dataset can.' },
       { text: 'TODAY', body: 'opens on a readiness score with the actual reasons behind it \u2014 sleep, HRV, body battery \u2014 next to the session you have planned and a live energy balance: calories in from your log against calories out from your watch.' },
       { text: 'THE CALENDAR', body: 'runs Day, Week and Month over the same data. Month view dot-codes every day \u2014 purple for a hard session, lilac for easy, lime when food was logged \u2014 so a month of training reads at a glance.' },
-      { image: 'gd-wireframes.jpg' },
-      { text: 'SIX SCREENS', body: 'were wireframed as one sheet before any of it was built \u2014 Today, Calendar, Train, Eat, Sleep and Goals, with the data flow annotated underneath each. Garmin sync in, food logging in, coach import in; goals computed, never entered.' },
       { text: 'COACH IMPORT', body: 'takes whatever your coach actually sent. Paste the message, upload a CSV or photograph a handwritten plan and it pulls out the sessions \u2014 reporting what it couldn\u2019t read rather than guessing.' },
       { text: 'GOALS', body: 'compute themselves. Weight, protein, sleep and consistency are derived from your data, never entered. You don\u2019t log progress \u2014 you live, and the number moves, so nothing can drift out of sync with reality.' },
       { text: 'RESTRAINT WITH COLOR', body: 'was the rule throughout. Health data shouldn\u2019t read like a traffic light: if everything is flagged, nothing is important. Photo estimates are marked as estimates, and micronutrients average over seven days because they\u2019re too lumpy to judge daily.' }
@@ -357,6 +355,7 @@ const CASES = {
   }
 
   function hide() {
+    closedAt = Date.now();
     overlay.classList.remove('open');
     overlay.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('case-locked');
@@ -377,9 +376,15 @@ const CASES = {
     else { hide(); history.replaceState({}, '', location.pathname + location.search); }
   }
 
+  let closedAt = 0;
   document.addEventListener('click', function (e) {
     const trigger = e.target.closest('[data-case]');
-    if (trigger) { e.preventDefault(); open(trigger.dataset.case); return; }
+    if (trigger) {
+      e.preventDefault();
+      if (Date.now() - closedAt < 500) return;   // ignore the ghost click after a close
+      open(trigger.dataset.case);
+      return;
+    }
     if (e.target.closest('.case-close')) { e.preventDefault(); close(); }
     else if (e.target === overlay) close();
   });

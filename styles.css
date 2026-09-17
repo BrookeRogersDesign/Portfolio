@@ -523,16 +523,17 @@ body.case-locked { overflow:hidden; }
   --cs-line: rgba(17,17,16,.22);
   --cs-space: clamp(44px,5.5vw,88px);
   background:var(--white); color:var(--cs-fg); border-radius:var(--r);
-  overflow-y:auto; -webkit-overflow-scrolling:touch;
+  overflow-y:auto;
   transform:translateY(24px); transition:transform .45s cubic-bezier(.2,.7,.2,1);
 }
 .case-overlay.open .case-inner { transform:none; }
 
 .case-tab {
-  position:sticky; top:0; z-index:5;
+  position:sticky; top:0; z-index:20;
   display:flex; justify-content:flex-end;
   padding:14px 16px 0; pointer-events:none;
 }
+.case-tab button { pointer-events:auto; touch-action:manipulation; }
 .case-tab button {
   all:unset; pointer-events:auto; cursor:pointer;
   font-family:var(--sans-text); font-size:13px; color:var(--white);
