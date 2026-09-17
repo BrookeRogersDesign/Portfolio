@@ -31,7 +31,8 @@ const CASES = {
       { marquee: { bg: 'gd-trail.jpg', art: 'gd-wordmark.svg',
                    alt: 'gooddays', h: '19cqw', gap: '7cqw', dur: '38s', reps: 1 } },
       { image: 'gd-colours.jpg' },
-      { image: 'gd-app2.jpg' }
+      { image: 'gd-app2.jpg' },
+      { image: 'gd-merch.jpg' }
     ]
   },
   yas: {
