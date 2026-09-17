@@ -10,6 +10,8 @@
                 { text: 'BOLD LEAD-IN', body: 'rest of the sentence' }
                 { image: 'file.jpg' }                    full width
                 { pair: ['left.jpg', 'right.jpg'] }      two up
+                { marquee: {bg, art, dur, h, reps} }     full-bleed image with a
+                                                         wordmark tracking across it
                 { pack: {...} }                          label flat + bottle with
                                                          live Square Peg callouts
                 { motionPanel: 'f.mp4', line, mark }     portrait clip rotated to
@@ -268,6 +270,27 @@ const CASES = {
         +   (c.pantone ? '<span class="sw-val">PMS ' + esc(c.pantone) + '</span>' : '')
         + '</div></div>';
     }).join('') + '</div>';
+    if (b.marquee) {
+      // two identical halves, each `reps` copies wide, shifted by exactly 50%
+      // of the track — seamless whatever the art's own width
+      // reps should make half the track at least as wide as the band, or a
+      // gap shows; wide art needs fewer
+      var reps = b.marquee.reps || 3;
+      var one = '';
+      for (var i = 0; i < reps; i++) {
+        one += '<img src="' + b.marquee.art + '"'
+             + (i === 0 ? ' alt="' + esc(b.marquee.alt || '') + '"' : ' alt="" aria-hidden="true"')
+             + '>';
+      }
+      var style = [];
+      if (b.marquee.dur) style.push('--mq-dur:' + b.marquee.dur);
+      if (b.marquee.h)   style.push('--mq-h:' + b.marquee.h);
+      if (b.marquee.gap) style.push('--mq-gap:' + b.marquee.gap);
+      return '<div class="cs-marquee"' + (style.length ? ' style="' + style.join(';') + '"' : '') + '>'
+        + '<img class="mq-bg" src="' + b.marquee.bg + '" alt="' + esc(name) + '" loading="lazy">'
+        + '<div class="mq-track">' + one + one + '</div>'
+        + '</div>';
+    }
     if (b.pack) return '<div class="cs-pack">'
       + '<img class="pk-label" src="' + b.pack.label + '" alt="' + esc(name) + ' label artwork" loading="lazy">'
       + '<div class="pk-bot">'

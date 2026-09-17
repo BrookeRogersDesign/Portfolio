@@ -593,6 +593,34 @@ body.case-locked { overflow:hidden; }
 .cs-red video, .cs-red img {
   width:100%; height:auto; display:block; border-radius:8px;
 }
+/* marquee band — a full-bleed image with an oversized wordmark tracking
+   across it. The track holds two copies of the art and shifts by exactly half
+   its width, so the loop is seamless with no jump. Duration scales with the
+   art so the speed stays constant whatever the width. */
+.cs-marquee {
+  position:relative; width:100%; overflow:hidden;
+  border-radius:var(--r); margin-bottom:var(--cs-space);
+  background:#111110; container-type:inline-size;
+}
+.cs-marquee > img.mq-bg { width:100%; height:auto; display:block; }
+.mq-track {
+  position:absolute; left:0; top:50%; z-index:2;
+  display:flex; align-items:center; width:max-content; gap:var(--mq-gap,0.35em);
+  transform:translateY(-50%);
+  animation:mq-run var(--mq-dur,26s) linear infinite;
+  will-change:transform;
+  pointer-events:none;
+}
+.mq-track img { height:var(--mq-h,12cqw); width:auto; display:block; }
+@keyframes mq-run {
+  from { transform:translate(0,-50%); }
+  to   { transform:translate(-50%,-50%); }
+}
+.cs-marquee:hover .mq-track { animation-play-state:paused; }
+@media (prefers-reduced-motion:reduce) {
+  .mq-track { animation:none; }
+}
+
 /* packaging — two columns, exactly as the Figma band is laid out: the label
    flat on the left, the bottle with its ingredient callouts on the right.
    The right column is its own 937x713 box so the callout percentages, taken
