@@ -169,7 +169,7 @@ const CASES = {
       { pair: ['madrun-03.jpg', 'madrun-04.jpg'] },
       { image: 'madrun-05.jpg' },
       { trio: ['madrun-06.jpg', 'madrun-07.jpg', 'madrun-08.jpg'] },
-      { motionPanel: 'madrun-hero.mp4', line: 'made for the miles', mark: 'madrun-oval.png' },
+      { motionPanel: 'madrun-hero.mp4', line: 'made for the miles', lineArt: 'madrun-line.svg', mark: 'madrun-oval.png' },
       { image: 'madrun-09.jpg' }
     ]
   },
@@ -256,7 +256,8 @@ const CASES = {
     if (b.motionPanel) return '<div class="cs-motion">'
       + '<video autoplay loop muted playsinline preload="metadata"><source src="' + b.motionPanel + '" type="video/mp4"></video>'
       + '<div class="mo-copy">'
-      +   (b.line ? '<p class="mo-line">' + esc(b.line) + '</p>' : '')
+      +   (b.lineArt ? '<img class="mo-line" src="' + b.lineArt + '" alt="' + esc(b.line || '') + '">'
+                      : b.line ? '<p class="mo-line">' + esc(b.line) + '</p>' : '')
       +   (b.mark ? '<img class="mo-mark" src="' + b.mark + '" alt="" loading="lazy">' : '')
       + '</div></div>';
     if (b.screens) return '<div class="cs-screens" style="--screens-n:' + b.screens.length

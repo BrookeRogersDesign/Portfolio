@@ -619,6 +619,9 @@ body.case-locked { overflow:hidden; }
   letter-spacing:-.02em; line-height:1.05; color:#70CDDF;
   text-wrap:balance; margin:0;
 }
+/* when the line is set as outlines (a licensed face we don't serve as a
+   webfont) it comes in as artwork instead of type */
+img.mo-line { width:min(62%, 620px); height:auto; display:block; }
 .cs-motion .mo-mark { width:clamp(110px,13vw,230px); height:auto; display:block; }
 @media (max-width:768px) {
   .cs-motion { aspect-ratio:4/5; }
