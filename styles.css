@@ -593,14 +593,19 @@ body.case-locked { overflow:hidden; }
 .cs-red video, .cs-red img {
   width:100%; height:auto; display:block; border-radius:8px;
 }
-/* botanical panel — the bottle with its ingredient callouts. The callouts are
-   live Square Peg text, not baked artwork, so they stay sharp and can move.
-   Every position is a percentage taken straight off the Figma frame
-   (936.97 x 713.20), and each angle was measured off the rendered art. */
-.cs-botanical {
-  position:relative; width:100%; aspect-ratio:936.97 / 713.2;
-  container-type:inline-size;
+/* packaging — two columns, exactly as the Figma band is laid out: the label
+   flat on the left, the bottle with its ingredient callouts on the right.
+   The right column is its own 937x713 box so the callout percentages, taken
+   off that Figma frame, stay valid whatever the page width.
+   Callouts are live Square Peg text, so they stay sharp and can move. */
+.cs-pack {
+  position:relative; width:100%; aspect-ratio:1920 / 860;
   margin-bottom:var(--cs-space);
+}
+.pk-label { position:absolute; left:7.08%; top:0; width:31.41%; height:auto; }
+.pk-bot {
+  position:absolute; left:45.47%; top:8.55%; width:48.80%;
+  aspect-ratio:936.97 / 713.2; container-type:inline-size;
 }
 .bo-head { position:absolute; left:6.70%; top:0; width:79.82%; height:auto; }
 .bo-bottle { position:absolute; left:0; top:34.30%; width:100%; height:auto; }
@@ -616,6 +621,13 @@ body.case-locked { overflow:hidden; }
 .bo-note:hover { transform:rotate(var(--r)) translate(0,-6px) scale(1.04); }
 @media (prefers-reduced-motion:reduce) {
   .bo-note, .bo-note:hover { transition:none; transform:rotate(var(--r)); }
+}
+/* on a phone the two columns stack, so the script is readable rather than
+   shrunk to 15px */
+@media (max-width:768px) {
+  .cs-pack { aspect-ratio:auto; display:flex; flex-direction:column; gap:26px; }
+  .pk-label { position:static; left:auto; top:auto; width:72%; margin:0 auto; }
+  .pk-bot { position:static; left:auto; top:auto; width:100%; }
 }
 
 /* motion panel — a portrait clip rotated to fill a landscape frame, with the

@@ -10,8 +10,8 @@
                 { text: 'BOLD LEAD-IN', body: 'rest of the sentence' }
                 { image: 'file.jpg' }                    full width
                 { pair: ['left.jpg', 'right.jpg'] }      two up
-                { botanical: {...} }                     bottle + live Square Peg
-                                                         ingredient callouts
+                { pack: {...} }                          label flat + bottle with
+                                                         live Square Peg callouts
                 { motionPanel: 'f.mp4', line, mark }     portrait clip rotated to
                                                          landscape, type set over it
                 { screens: [...], bg: '#000' }           a row of screens on a panel,
@@ -172,9 +172,9 @@ const CASES = {
       { image: 'madrun-05.jpg' },
       { trio: ['madrun-06.jpg', 'madrun-07.jpg', 'madrun-08.jpg'] },
       { motionPanel: 'madrun-hero.mp4', line: 'made for the miles', lineArt: 'madrun-line.svg', mark: 'madrun-oval.png' },
-      { image: 'madrun-09.jpg' },
-      { botanical: {
+      { pack: {
         heading: 'a cooling botanical formula made with:',
+        label: 'madrun-label.jpg',
         head: 'madrun-botanical-head.svg',
         bottle: 'madrun-bottle.jpg',
         notes: [
@@ -268,13 +268,15 @@ const CASES = {
         +   (c.pantone ? '<span class="sw-val">PMS ' + esc(c.pantone) + '</span>' : '')
         + '</div></div>';
     }).join('') + '</div>';
-    if (b.botanical) return '<div class="cs-botanical">'
-      + '<img class="bo-head" src="' + b.botanical.head + '" alt="' + esc(b.botanical.heading || '') + '">'
-      + '<img class="bo-bottle" src="' + b.botanical.bottle + '" alt="' + esc(name) + ' bottle" loading="lazy">'
-      + b.botanical.notes.map(function (n) {
-          return '<span class="bo-note" style="--x:' + n.x + ';--y:' + n.y + ';--w:' + n.w + ';--r:' + n.r + '">'
-               + esc(n.t) + '</span>'; }).join('')
-      + '</div>';
+    if (b.pack) return '<div class="cs-pack">'
+      + '<img class="pk-label" src="' + b.pack.label + '" alt="' + esc(name) + ' label artwork" loading="lazy">'
+      + '<div class="pk-bot">'
+      +   '<img class="bo-head" src="' + b.pack.head + '" alt="' + esc(b.pack.heading || '') + '">'
+      +   '<img class="bo-bottle" src="' + b.pack.bottle + '" alt="' + esc(name) + ' bottle" loading="lazy">'
+      +   b.pack.notes.map(function (n) {
+            return '<span class="bo-note" style="--x:' + n.x + ';--y:' + n.y + ';--w:' + n.w + ';--r:' + n.r + '">'
+                 + esc(n.t) + '</span>'; }).join('')
+      + '</div></div>';
     if (b.motionPanel) return '<div class="cs-motion">'
       + '<video autoplay loop muted playsinline preload="metadata"><source src="' + b.motionPanel + '" type="video/mp4"></video>'
       + '<div class="mo-copy">'
