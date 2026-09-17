@@ -136,8 +136,8 @@ const CASES = {
     client: 'ORA Hotel + Residences \u2014 downtown Tampa', year: '2025',
     type: ['Branding', 'Web Design', 'Marketing & Strategy', 'Floorplan Navigation'],
     blocks: [
-      { film: 'ora-film.mp4', poster: 'ora-film-poster.jpg' },
       { bleed: 'ora-hero.jpg' },
+      { film: 'ora-film.mp4', poster: 'ora-film-poster.jpg' },
       { line: 'ora-temptation.svg', alt: 'Give Into the Temptation of ORA' },
       { gallery: [
         { img: 'ora-gal-1.jpg' },
