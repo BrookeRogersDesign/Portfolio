@@ -26,9 +26,12 @@ const CASES = {
     client: 'good days \u2014 personal health tracker', year: '2026',
     type: ['Branding', 'App Design', 'UX & Strategy'],
     blocks: [
-      { bleed: 'gd-desktop.jpg' },
+      { bleed: 'gd-hero.jpg' },
+      { image: 'gd-app1.jpg' },
       { marquee: { bg: 'gd-trail.jpg', art: 'gd-wordmark.svg',
-                   alt: 'gooddays', h: '19cqw', gap: '7cqw', dur: '38s', reps: 1 } }
+                   alt: 'gooddays', h: '19cqw', gap: '7cqw', dur: '38s', reps: 1 } },
+      { image: 'gd-colours.jpg' },
+      { image: 'gd-app2.jpg' }
     ]
   },
   yas: {
