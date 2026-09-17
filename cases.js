@@ -133,12 +133,29 @@ const CASES = {
   },
   ora: {
     name: 'ORA Hotel + Residences', tagline: 'Discover the allure.',
-    client: 'ORA Hotel + Residences', year: '2025',
+    client: 'ORA Hotel + Residences \u2014 downtown Tampa', year: '2025',
     type: ['Branding', 'Web Design', 'Marketing & Strategy', 'Floorplan Navigation'],
     blocks: [
-      { image: 'ora-desktop.jpg' },
-      { text: 'ORA', body: 'needed a brand that could carry a tower. The work runs from positioning and identity through collateral, floorplans, sales gallery environments and the website.' },
-      { text: 'THE SYSTEM', body: 'had to hold at every scale — legible on a business card, commanding across a building-sized window, and consistent across every touchpoint a buyer encounters before they ever step inside.' }
+      { film: 'ora-film.mp4', poster: 'ora-film-poster.jpg' },
+      { bleed: 'ora-hero.jpg' },
+      { line: 'ora-temptation.svg', alt: 'Give Into the Temptation of ORA' },
+      { gallery: [
+        { img: 'ora-gal-1.jpg' },
+        { swatch: '#b30d1b', ink: '#a99276', label: '19-1757 TCX' },
+        { img: 'ora-gal-2.jpg' },
+        { img: 'ora-gal-3.jpg' },
+        { img: 'ora-gal-4.jpg' },
+        { swatch: '#356260', ink: '#a79a8a', label: '19-4820 TXP' }
+      ] },
+      { image: 'ora-storefront.jpg' },
+      { image: 'ora-floorplan.jpg' },
+      { image: 'ora-pool.jpg' },
+      { split: 'ora-dnd.jpg', art: 'ora-fivestar.svg',
+        alt: 'Allow yourself to be seduced by ORA \u2014 The Five Star Experience' },
+      { image: 'ora-brochure.jpg' },
+      { image: 'ora-mood.jpg' },
+      { image: 'ora-collage.jpg' },
+      { quad: ['ora-row-1.jpg', 'ora-row-2.jpg', 'ora-row-3.jpg', 'ora-row-4.jpg'] }
     ]
   },
   kini: {
@@ -306,6 +323,23 @@ const CASES = {
                       : b.line ? '<p class="mo-line">' + esc(b.line) + '</p>' : '')
       +   (b.mark ? '<img class="mo-mark" src="' + b.mark + '" alt="" loading="lazy">' : '')
       + '</div></div>';
+    // full-bleed looping film. ORA's hero cut runs 84s, so it is only ever
+    // fetched when the case itself is opened — render() runs on open, not load.
+    if (b.film) return '<figure class="cs-film"><video autoplay loop muted playsinline preload="metadata"'
+      + (b.poster ? ' poster="' + b.poster + '"' : '') + '>'
+      + '<source src="' + b.film + '" type="video/mp4"></video></figure>';
+    // a brand line drawn as outlines — ORA sets in KT Quantum / F37 Oracle,
+    // neither of which is licensed for web, so the type ships as vector art
+    if (b.line) return '<div class="cs-line"><img src="' + b.line + '" alt="' + esc(b.alt || '') + '"></div>';
+    if (b.gallery) return '<div class="cs-gallery"><div class="gl-track">' + b.gallery.map(function (g) {
+      if (g.swatch) return '<div class="gl-item gl-swatch" style="background:' + g.swatch
+        + (g.ink ? ';color:' + g.ink : '') + '"><span class="gl-pms"><b>PANTONE</b>' + esc(g.label) + '</span></div>';
+      return '<div class="gl-item"><img src="' + g.img + '" alt="' + esc(name) + '" loading="lazy"></div>';
+    }).join('') + '</div></div>';
+    if (b.split) return '<div class="cs-split">'
+      + '<div class="sp-media"><img src="' + b.split + '" alt="' + esc(name) + '" loading="lazy"></div>'
+      + '<div class="sp-copy"><img src="' + b.art + '" alt="' + esc(b.alt || '') + '" loading="lazy"></div>'
+      + '</div>';
     if (b.screens) return '<div class="cs-screens" style="--screens-n:' + b.screens.length
       + (b.bg ? ';--screens-bg:' + esc(b.bg) : '') + '">' + b.screens.map(function (s) {
       return '<img src="' + s + '" alt="' + esc(name) + ' social" loading="lazy">'; }).join('') + '</div>';
