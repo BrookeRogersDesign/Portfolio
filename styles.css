@@ -593,6 +593,38 @@ body.case-locked { overflow:hidden; }
 .cs-red video, .cs-red img {
   width:100%; height:auto; display:block; border-radius:8px;
 }
+/* motion panel — a portrait clip rotated to fill a landscape frame, with the
+   line set live over it rather than baked into the video.
+   The maths: container is 16:9, so its height = 100% * 9/16 of its width. Give
+   the video that as its WIDTH; being 9:16 its height then equals the container
+   width. Rotating 90deg swaps them, so it lands exactly, no crop, no scaling. */
+.cs-motion {
+  position:relative; width:100%; aspect-ratio:16/9;
+  overflow:hidden; border-radius:var(--r);
+  background:#000; margin-bottom:var(--cs-space);
+}
+.cs-motion video {
+  position:absolute; left:50%; top:50%;
+  width:calc(100% * 9 / 16); height:auto;
+  transform:translate(-50%,-50%) rotate(90deg);
+}
+.cs-motion .mo-copy {
+  position:absolute; inset:0; z-index:2;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:clamp(18px,3vw,44px); text-align:center; padding:6%;
+  pointer-events:none;
+}
+.cs-motion .mo-line {
+  font-size:clamp(26px,5vw,72px); font-weight:400;
+  letter-spacing:-.02em; line-height:1.05; color:#70CDDF;
+  text-wrap:balance; margin:0;
+}
+.cs-motion .mo-mark { width:clamp(110px,13vw,230px); height:auto; display:block; }
+@media (max-width:768px) {
+  .cs-motion { aspect-ratio:4/5; }
+  .cs-motion video { width:calc(100% * 5 / 4); }
+}
+
 /* social screens on the ink panel. Wraps, so it takes any number of screens —
    three today, more later, with no CSS change. */
 .cs-screens {

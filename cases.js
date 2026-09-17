@@ -10,6 +10,8 @@
                 { text: 'BOLD LEAD-IN', body: 'rest of the sentence' }
                 { image: 'file.jpg' }                    full width
                 { pair: ['left.jpg', 'right.jpg'] }      two up
+                { motionPanel: 'f.mp4', line, mark }     portrait clip rotated to
+                                                         landscape, type set over it
                 { screens: [...], bg: '#000' }           a row of screens on a panel,
                                                          any number, wraps. bg optional
      credits  — optional array of ['Role', 'Name']
@@ -162,8 +164,9 @@ const CASES = {
     type: ['Product Design', 'Photography'],
     blocks: [
       { bleed: 'madrun-01.jpg' },
-      { text: 'MADRUN', body: 'is a muscle cooling gel that lives in a gym bag, not a medicine cabinet. The packaging had to survive that and still command a shelf.' },
+      { text: 'MADRUN', body: 'turns recovery into part of the performance. A high-impact identity designed to stand out in the gym, on the shelf, and everywhere in between.' },
       { image: 'madrun-02.jpg' },
+      { motionPanel: 'madrun-hero.mp4', line: 'made for the miles', mark: 'madrun-oval.png' },
       { pair: ['madrun-03.jpg', 'madrun-04.jpg'] },
       { image: 'madrun-05.jpg' },
       { trio: ['madrun-06.jpg', 'madrun-07.jpg', 'madrun-08.jpg'] },
@@ -250,6 +253,12 @@ const CASES = {
         +   (c.pantone ? '<span class="sw-val">PMS ' + esc(c.pantone) + '</span>' : '')
         + '</div></div>';
     }).join('') + '</div>';
+    if (b.motionPanel) return '<div class="cs-motion">'
+      + '<video autoplay loop muted playsinline preload="metadata"><source src="' + b.motionPanel + '" type="video/mp4"></video>'
+      + '<div class="mo-copy">'
+      +   (b.line ? '<p class="mo-line">' + esc(b.line) + '</p>' : '')
+      +   (b.mark ? '<img class="mo-mark" src="' + b.mark + '" alt="" loading="lazy">' : '')
+      + '</div></div>';
     if (b.screens) return '<div class="cs-screens" style="--screens-n:' + b.screens.length
       + (b.bg ? ';--screens-bg:' + esc(b.bg) : '') + '">' + b.screens.map(function (s) {
       return '<img src="' + s + '" alt="' + esc(name) + ' social" loading="lazy">'; }).join('') + '</div>';
