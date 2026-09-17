@@ -655,7 +655,7 @@ body.case-locked { overflow:hidden; }
 @media (max-width:768px) {
   .cs-pack { aspect-ratio:auto; display:flex; flex-direction:column; gap:26px; }
   .pk-label { position:static; left:auto; top:auto; width:72%; margin:0 auto; }
-  .pk-bot { position:static; left:auto; top:auto; width:100%; }
+  .pk-bot { position:relative; left:auto; top:auto; width:100%; }
 }
 
 /* motion panel — a portrait clip rotated to fill a landscape frame, with the
