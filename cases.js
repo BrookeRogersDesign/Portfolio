@@ -158,12 +158,16 @@ const CASES = {
   },
   madrun: {
     name: 'MADRUN', tagline: 'Built for the mile after.',
-    client: 'MADRUN', year: '2023',
+    client: 'MADRUN \u2014 muscle cooling gel', year: '2023',
     type: ['Product Design', 'Photography'],
     blocks: [
-      { image: 'madrun-desktop.jpg' },
+      { bleed: 'madrun-01.jpg' },
       { text: 'MADRUN', body: 'is a muscle cooling gel that lives in a gym bag, not a medicine cabinet. The packaging had to survive that and still command a shelf.' },
-      { text: 'THE ANSWER', body: 'was high-contrast type and a single fluid mark that reads at arm’s length, shot on location mid-run rather than on seamless.' }
+      { image: 'madrun-02.jpg' },
+      { pair: ['madrun-03.jpg', 'madrun-04.jpg'] },
+      { image: 'madrun-05.jpg' },
+      { trio: ['madrun-06.jpg', 'madrun-07.jpg', 'madrun-08.jpg'] },
+      { image: 'madrun-09.jpg' }
     ]
   },
   gracewater: {
