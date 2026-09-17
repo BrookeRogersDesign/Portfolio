@@ -606,13 +606,13 @@ body.case-locked { overflow:hidden; }
 .cs-marquee > img.mq-bg { width:100%; height:auto; display:block; }
 .mq-track {
   position:absolute; left:0; top:50%; z-index:2;
-  display:flex; align-items:center; width:max-content; gap:var(--mq-gap,0.35em);
+  display:flex; align-items:center; width:max-content;
   transform:translateY(-50%);
   animation:mq-run var(--mq-dur,26s) linear infinite;
   will-change:transform;
   pointer-events:none;
 }
-.mq-track img { height:var(--mq-h,12cqw); width:auto; display:block; }
+.mq-track img { height:var(--mq-h,12cqw); width:auto; display:block; margin-right:var(--mq-gap,3cqw); }
 @keyframes mq-run {
   from { transform:translate(0,-50%); }
   to   { transform:translate(-50%,-50%); }
