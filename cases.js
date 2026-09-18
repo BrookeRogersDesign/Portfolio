@@ -131,6 +131,26 @@ const CASES = {
       { screens: ['blank-s1.jpg', 'blank-s2.jpg', 'blank-s3.jpg'] }
     ]
   },
+  ddd: {
+    name: 'Dazzling Doggie Duvet', tagline: 'Handmade with love, tested by paws.',
+    client: 'Dazzling Doggie Duvet \u2014 modular dog beds', year: '2024',
+    type: ['Branding', 'Brand System', 'Email Marketing', 'Social Media', 'Photography'],
+    blocks: [
+      { bleed: 'ddd-hero.jpg' },
+      { text: 'EACH PATENT PENDING MODULAR DOG BED',
+        body: 'is handmade with love, ensuring your dog gets the comfort they deserve without sacrificing quality, washability, or sustainability.' },
+      { image: 'ddd-logo.jpg' },
+      { image: 'ddd-lifestyle.jpg' },
+      { bleed: 'ddd-sign.jpg' },
+      { bleed: 'ddd-quote.jpg' },
+      { image: 'ddd-marks.jpg' },
+      { text: 'AT DAZZLING DOGGIE DUVET,',
+        body: 'our mission is simple: to create high-quality, eco-friendly patent pending modular dog furniture using comfortable, sustainable materials, proudly made and manufactured in America. We are dedicated to giving back to animal shelters and supporting the well-being of our furry friends and communities.' },
+      { bleed: 'ddd-heels.jpg' },
+      { mid: 'ddd-blanket.jpg' },
+      { bleed: 'ddd-trio.jpg' }
+    ]
+  },
   ora: {
     name: 'ORA Hotel + Residences', tagline: 'Discover the allure.',
     client: 'ORA Hotel + Residences \u2014 downtown Tampa', year: '2025',
