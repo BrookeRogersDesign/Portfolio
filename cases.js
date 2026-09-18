@@ -139,7 +139,8 @@ const CASES = {
       { bleed: 'ddd-hero.jpg' },
       { text: 'EACH PATENT PENDING MODULAR DOG BED',
         body: 'is handmade with love, ensuring your dog gets the comfort they deserve without sacrificing quality, washability, or sustainability.' },
-      { image: 'ddd-logo.jpg' },
+      { rotate: ['ddd-logo-1.jpg', 'ddd-logo-2.jpg', 'ddd-logo-3.jpg', 'ddd-logo-4.jpg'],
+        each: 0.8, ratio: '1363 / 598' },
       { image: 'ddd-lifestyle.jpg' },
       { bleed: 'ddd-sign.jpg' },
       { bleed: 'ddd-quote.jpg' },
@@ -147,7 +148,7 @@ const CASES = {
       { text: 'AT DAZZLING DOGGIE DUVET,',
         body: 'our mission is simple: to create high-quality, eco-friendly patent pending modular dog furniture using comfortable, sustainable materials, proudly made and manufactured in America. We are dedicated to giving back to animal shelters and supporting the well-being of our furry friends and communities.' },
       { bleed: 'ddd-heels.jpg' },
-      { mid: 'ddd-blanket.jpg' },
+      { pair: ['ddd-blanket.jpg', 'ddd-cards.jpg'] },
       { bleed: 'ddd-trio.jpg' }
     ]
   },
@@ -360,6 +361,27 @@ const CASES = {
       + '<div class="sp-media"><img src="' + b.split + '" alt="' + esc(name) + '" loading="lazy"></div>'
       + '<div class="sp-copy"><img src="' + b.art + '" alt="' + esc(b.alt || '') + '" loading="lazy"></div>'
       + '</div>';
+    // a set of stills cycling in place, like a gif. one @keyframes per frame
+    // count; identical rules dedupe harmlessly if a case uses two rotators
+    if (b.rotate) {
+      var rn = b.rotate.length;
+      var each = b.each || 0.8;
+      var on = (100 / rn).toFixed(4);
+      var kf = 'cs-rot-' + rn;
+      return '<style>@keyframes ' + kf + '{0%,' + on + '%{opacity:1}'
+        + (Number(on) + 0.001).toFixed(4) + '%,100%{opacity:0}}</style>'
+        + '<div class="cs-rotate" style="--rot-dur:' + (rn * each).toFixed(2) + 's'
+        + (b.ratio ? ';aspect-ratio:' + b.ratio : '') + '">'
+        + b.rotate.map(function (src, i) {
+            return '<img src="' + src + '" alt="' + esc(i === 0 ? name : '') + '"'
+              + (i === 0 ? '' : ' aria-hidden="true"')
+              + ' loading="lazy" style="animation-name:' + kf
+              // positive, not negative: a negative delay ADVANCES the animation,
+              // which ran the set backwards (1, 4, 3, 2)
+              + ';animation-delay:' + (i * each).toFixed(2) + 's">';
+          }).join('')
+        + '</div>';
+    }
     if (b.screens) return '<div class="cs-screens" style="--screens-n:' + b.screens.length
       + (b.bg ? ';--screens-bg:' + esc(b.bg) : '') + '">' + b.screens.map(function (s) {
       return '<img src="' + s + '" alt="' + esc(name) + ' social" loading="lazy">'; }).join('') + '</div>';

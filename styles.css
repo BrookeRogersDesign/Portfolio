@@ -808,6 +808,26 @@ img.mo-line { width:min(62%, 620px); height:auto; display:block; }
 }
 .case-close-bottom:hover { background:var(--red); border-color:var(--red); }
 
+/* ---------- stills cycling in place, gif-style ---------- */
+.cs-rotate {
+  position:relative; width:100%; aspect-ratio:1363 / 598;
+  border-radius:var(--r); overflow:hidden; margin-bottom:var(--cs-space);
+}
+.cs-rotate img {
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; display:block; opacity:0;
+  /* steps(1,end) gives a hard cut — a cross-fade would read as a dissolve,
+     not a gif. animation-name and -delay are set per frame inline. */
+  animation-duration:var(--rot-dur,3.2s);
+  animation-timing-function:steps(1,end);
+  animation-iteration-count:infinite;
+}
+.cs-rotate:hover img { animation-play-state:paused; }
+@media (prefers-reduced-motion:reduce) {
+  .cs-rotate img { animation:none; opacity:0; }
+  .cs-rotate img:first-child { opacity:1; }
+}
+
 /* ---------- ORA: film, brand line, scroll gallery, split ---------- */
 /* full-bleed film — cancels the body padding exactly like .cs-bleed */
 .cs-film { margin:0 -44px var(--cs-space); }
