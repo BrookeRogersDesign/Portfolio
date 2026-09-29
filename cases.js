@@ -156,22 +156,29 @@ const CASES = {
     ]
   },
   acic: {
-    name: 'ACIC', tagline: 'An insurance company like no other.',
+    name: 'ACIC', tagline: 'Protecting specialty property. Designed for the coast.',
     client: 'American Coastal Insurance Corporation \u2014 St. Petersburg', year: '2025',
-    type: ['Branding', 'Brand System', 'Campaign', 'Out of Home'],
+    type: ['Brand Discovery', 'Rebrand', 'Brand System', 'Presentation Design'],
     blocks: [
       { bleed: 'acic-hero.jpg' },
       { mid: 'acic-logo.jpg' },
+      { text: 'ACIC IS',
+        body: 'Florida\u2019s largest voluntary writer of commercial residential property.' },
       { bleed: 'acic-rowers.jpg' },
       { image: 'acic-marks.jpg' },
+      { text: 'FOUR COMPANIES.',
+        body: 'Admitted and specialty insurance, a managing general agent, and reinsurance. Catastrophe-exposed commercial property, underwritten with discipline.' },
       { image: 'acic-social.jpg' },
       { image: 'acic-cards.jpg' },
       { bleed: 'acic-billboard.jpg' },
       { bleed: 'acic-values.jpg' },
+      { text: 'REDEFINING THE BRAND',
+        body: 'started with discovery \u2014 internal and external \u2014 identifying their brand archetypes and building the case studies before any design work began.' },
       { image: 'acic-lockup.jpg' },
       { bleed: 'acic-manifesto.jpg' },
       { image: 'acic-street.jpg' },
-      { bleed: 'acic-quote.jpg' }
+      { bleed: 'acic-quote.jpg' },
+      { bleed: 'acic-motion.jpg' }
     ]
   },
   ora: {
