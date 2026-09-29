@@ -293,13 +293,17 @@
    WORK PAGE — two-column project gallery
    ============================================================ */
 .work-page { padding:150px 32px 40px; }
-.work-page .page-head { margin-bottom:56px; }
-.work-page .page-head h1 {
+.work-page .page-head,
+.ar-page .page-head { margin-bottom:56px; }
+.work-page .page-head h1,
+.ar-page .page-head h1 {
   font-size:clamp(40px,6vw,86px); font-weight:700;
   letter-spacing:-.035em; line-height:1; margin-bottom:18px;
 }
-.work-page .page-head h1 .accent { color:var(--red); }
-.work-page .page-head p {
+.work-page .page-head h1 .accent,
+.ar-page .page-head h1 .accent { color:var(--red); }
+.work-page .page-head p,
+.ar-page .page-head p {
   font-family:var(--sans-text); font-size:16px; color:rgba(255,255,255,.6);
   max-width:520px; line-height:1.5;
 }
@@ -375,7 +379,8 @@
 @media (max-width:768px) {
   .work-page { padding:120px 18px 30px; }
   .work-grid { grid-template-columns:1fr; gap:22px; }
-  .work-page .page-head { margin-bottom:36px; }
+  .work-page .page-head,
+  .ar-page .page-head { margin-bottom:36px; }
   .work-card .label { padding-top:14px; }
   .work-card .label .cats { font-size:12px; }
 }
@@ -900,4 +905,106 @@ img.mo-line { width:min(62%, 620px); height:auto; display:block; }
   .cs-pair { grid-template-columns:1fr; }
   .cs-credits { padding:10px 20px 0; }
   .case-close-bottom { margin:40px auto 50px; }
+}
+
+/* ============================================================
+   ARCHIVE — a scattered, numbered grid of unused work, and a
+   full-screen viewer with prev / close / next along the bottom.
+   ============================================================ */
+.ar-page { padding:150px 32px 140px; }
+
+/* 12 columns, with each tile placed by --c / --s and dropped by --t.
+   The offsets are what stop it reading as a tidy grid. */
+.ar-grid {
+  display:grid; grid-template-columns:repeat(12,1fr);
+  column-gap:clamp(14px,2vw,32px); row-gap:0;
+  align-items:start; max-width:1600px; margin:0 auto;
+  padding-bottom:6vw;
+}
+.ar-tile {
+  grid-column:var(--c) / span var(--s);
+  margin-top:var(--t,0); margin-bottom:clamp(40px,5vw,96px);
+  position:relative; display:block; width:100%;
+  padding:0; border:0; background:none; cursor:pointer;
+  color:inherit; font:inherit; text-align:left;
+  /* .reveal handles the fade-in; keep the transform cheap */
+  transition:transform .45s cubic-bezier(.22,.61,.36,1);
+}
+.ar-tile img {
+  width:100%; height:auto; display:block;
+  border-radius:var(--r);
+  transition:opacity .35s ease;
+}
+.ar-tile:hover { transform:translateY(-6px); }
+.ar-tile:hover img { opacity:.86; }
+.ar-tile:focus-visible { outline:2px solid var(--red); outline-offset:8px; }
+.ar-num {
+  position:absolute; top:-26px; left:2px;
+  font-family:var(--sans-text); font-size:13px; letter-spacing:.06em;
+  color:var(--fade);
+}
+.ar-tile:hover .ar-num { color:var(--red); }
+
+/* ---------- viewer ---------- */
+body.ar-locked { overflow:hidden; }
+/* an author display: wins over the UA's [hidden] rule, so say it explicitly
+   or the viewer sits open over the page on load */
+.ar-view[hidden] { display:none; }
+.ar-view {
+  position:fixed; inset:0; z-index:200;
+  /* solid, not translucent: the fixed nav sits behind and its wordmark
+     was bleeding through into the counter */
+  background:var(--ink);
+  display:grid; grid-template-rows:1fr auto;
+  animation:ar-in .28s ease both;
+}
+@keyframes ar-in { from { opacity:0 } to { opacity:1 } }
+.ar-stage {
+  display:flex; align-items:center; justify-content:center;
+  padding:clamp(56px,7vh,88px) clamp(20px,5vw,90px) 8px;
+  min-height:0;   /* lets the image shrink inside the grid row */
+}
+.ar-img {
+  max-width:100%; max-height:100%;
+  width:auto; height:auto; object-fit:contain;
+  display:block; border-radius:6px;
+}
+.ar-count {
+  position:absolute; top:26px; left:32px;
+  font-family:var(--sans-text); font-size:13px; letter-spacing:.06em;
+  color:var(--fade);
+}
+.ar-cap {
+  text-align:center; color:var(--fade);
+  font-family:var(--sans-text); font-size:13px;
+  padding:0 24px 6px;
+}
+.ar-bar {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:0 32px 30px; gap:16px;
+}
+.ar-bar button {
+  background:none; border:0; padding:6px 2px; cursor:pointer;
+  color:var(--white); font-family:var(--sans-text);
+  font-size:clamp(14px,1.4vw,17px); letter-spacing:.01em;
+  transition:color .2s;
+}
+.ar-bar button:hover { color:var(--red); }
+.ar-bar button:focus-visible { outline:2px solid var(--red); outline-offset:4px; }
+.ar-close { font-weight:500; }
+
+@media (max-width:900px) {
+  .ar-grid { grid-template-columns:repeat(6,1fr); }
+  /* halve the spans and drop the offsets — the scatter turns to noise at this width */
+  .ar-tile { grid-column:auto / span 3; margin-top:0; margin-bottom:clamp(30px,6vw,54px); }
+}
+@media (max-width:640px) {
+  .ar-page { padding:120px 20px 90px; }
+  .ar-grid { grid-template-columns:1fr; }
+  .ar-tile { grid-column:1 / -1; }
+  .ar-num { top:-22px; }
+  .ar-stage { padding:44px 16px 6px; }
+  .ar-bar { padding:0 18px 22px; }
+  .ar-bar button { font-size:14px; }
+  .ar-count { top:18px; left:18px; }
 }

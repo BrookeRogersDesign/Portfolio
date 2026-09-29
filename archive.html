@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Archive — Brooke Rogers, Graphic Designer</title>
+<meta name="description" content="Experimental ideas, alternate directions and client work that never made it out — an archive from Brooke Rogers, graphic designer in Tampa, FL.">
+<meta property="og:title" content="Brooke Rogers — Graphic Designer">
+<meta property="og:description" content="Collaborating with like-minded brands and people. Building partnerships that inspire growth and leave a mark.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Brooke Rogers">
+<meta property="og:url" content="https://brookerogersdesign.com/archive.html">
+<meta property="og:image" content="https://brookerogersdesign.com/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Brooke Rogers — creating work that enriches people's lives.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Brooke Rogers — Graphic Designer">
+<meta name="twitter:description" content="Collaborating with like-minded brands and people. Building partnerships that inspire growth and leave a mark.">
+<meta name="twitter:image" content="https://brookerogersdesign.com/og-image.jpg">
+<meta name="theme-color" content="#E02020">
+<!-- favicon: the red dot, drawn as SVG so it stays crisp at every size -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='34' fill='%23E02020'/%3E%3C/svg%3E">
+<link rel="mask-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='34' fill='%23E02020'/%3E%3C/svg%3E" color="#E02020">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Neue Haas Grotesk Display via Adobe Fonts -->
+<link rel="stylesheet" href="https://use.typekit.net/qay0tct.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=45">
+</head>
+<body>
+
+<nav>
+  <a class="wordmark" href="index.html"><span class="accent">brooke</span> rogers</a>
+  <div class="nav-links">
+    <a href="work.html">Work</a><span class="sep">,</span>
+    <a href="info.html">Info</a><span class="sep">,</span>
+    <a href="archive.html">Archive</a><span class="sep">,</span>
+    <a class="soundtrack" href="https://open.spotify.com/user/brookerogers27" target="_blank" rel="noopener noreferrer">Soundtrack<span class="eq" aria-hidden="true"><i></i><i></i><i></i></span></a>
+  </div>
+</nav>
+
+<main class="ar-page">
+  <div class="page-head">
+    <h1 class="reveal">The <span class="accent">Archive</span></h1>
+    <p class="reveal">Experimental ideas, alternate directions and client work that never made it out.</p>
+  </div>
+
+  <div class="ar-grid"></div>
+</main>
+
+<!-- full-screen viewer: prev / close / next along the bottom edge -->
+<div class="ar-view" hidden role="dialog" aria-modal="true" aria-label="Archive image viewer">
+  <div class="ar-stage"><img class="ar-img" src="" alt=""></div>
+  <span class="ar-count" aria-live="polite"></span>
+  <p class="ar-cap"></p>
+  <div class="ar-bar">
+    <button class="ar-prev" type="button">&larr; Prev image</button>
+    <button class="ar-close" type="button">Close</button>
+    <button class="ar-next" type="button">Next image &rarr;</button>
+  </div>
+</div>
+
+<script>
+  if ('scrollRestoration' in history) history.scrollRestoration = 'auto';
+  const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add('in')), { threshold:.08 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+<script src="archive.js?v=45"></script>
+</body>
+</html>
