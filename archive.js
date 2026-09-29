@@ -13,7 +13,6 @@
     { src: 'aber-desktop.jpg', alt: 'ABER — identity study, unused' },
     { src: 'blank-13.jpg',     alt: 'BLANK — editorial spread, alternate direction' },
     { src: 'blank-14.jpg',     alt: 'BLANK — cover study, unused' },
-    { src: 'unc-05.jpg',       alt: '[UN]CENSORED Health — layout study, unused' },
     { src: 'gd-01.jpg',        alt: 'good days — early interface exploration' },
     { src: 'blank-12.jpg',     alt: 'BLANK — type composition, alternate direction' },
     { src: 'owa-04.jpg',       alt: 'OWA — stationery study, unused' },

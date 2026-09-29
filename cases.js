@@ -88,6 +88,9 @@ const CASES = {
       { image: 'owa-09.jpg' }
     ]
   },
+  // [UN]CENSORED Health is temporarily off the Work page — card removed from
+  // work.html 2026-09-29 until the project itself is up. Entry and images are
+  // all still here; restoring it is just putting the card back.
   unc: {
     name: '[UN]CENSORED Health', tagline: 'Honesty over polish.',
     client: '[UN]CENSORED Health — Kate', year: '2024',
