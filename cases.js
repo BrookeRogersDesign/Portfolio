@@ -155,6 +155,25 @@ const CASES = {
       { bleed: 'ddd-trio.jpg' }
     ]
   },
+  acic: {
+    name: 'ACIC', tagline: 'An insurance company like no other.',
+    client: 'American Coastal Insurance Corporation \u2014 St. Petersburg', year: '2025',
+    type: ['Branding', 'Brand System', 'Campaign', 'Out of Home'],
+    blocks: [
+      { bleed: 'acic-hero.jpg' },
+      { mid: 'acic-logo.jpg' },
+      { bleed: 'acic-rowers.jpg' },
+      { image: 'acic-marks.jpg' },
+      { image: 'acic-social.jpg' },
+      { image: 'acic-cards.jpg' },
+      { bleed: 'acic-billboard.jpg' },
+      { bleed: 'acic-values.jpg' },
+      { image: 'acic-lockup.jpg' },
+      { bleed: 'acic-manifesto.jpg' },
+      { image: 'acic-street.jpg' },
+      { bleed: 'acic-quote.jpg' }
+    ]
+  },
   ora: {
     name: 'ORA Hotel + Residences', tagline: 'Discover the allure.',
     client: 'ORA Hotel + Residences \u2014 downtown Tampa', year: '2025',
