@@ -162,7 +162,7 @@ const CASES = {
     blocks: [
       { bleed: 'acic-hero.jpg' },
       { mid: 'acic-logo.jpg' },
-      { text: 'ACIC IS',
+      { text: 'ACIC IS', plain: true,
         body: 'Florida\u2019s largest voluntary writer of commercial residential property.' },
       { bleed: 'acic-rowers.jpg' },
       { image: 'acic-marks.jpg' },
@@ -174,7 +174,7 @@ const CASES = {
       { bleed: 'acic-values.jpg' },
       { text: 'REDEFINING THE BRAND',
         body: 'started with discovery \u2014 internal and external \u2014 identifying their brand archetypes and building the case studies before any design work began.' },
-      { image: 'acic-lockup.jpg' },
+      { image: 'acic-lockup.jpg', room: true },
       { bleed: 'acic-manifesto.jpg' },
       { image: 'acic-street.jpg' },
       { bleed: 'acic-quote.jpg' },
@@ -416,10 +416,16 @@ const CASES = {
       return '<img src="' + s + '" alt="' + esc(name) + ' social" loading="lazy">'; }).join('') + '</div>';
     if (b.trio)  return '<div class="cs-trio">' + b.trio.map(function (s) {
       return '<img src="' + s + '" alt="' + esc(name) + '" loading="lazy">'; }).join('') + '</div>';
-    if (b.image) return '<figure class="cs-full"><img src="' + b.image + '" alt="' + esc(name) + '" loading="lazy"></figure>';
+    // `room: true` buys extra air underneath. A wide, short lockup collapses to
+    // ~24px tall on a phone, where the standard gap leaves it stuck to the
+    // block below.
+    if (b.image) return '<figure class="cs-full' + (b.room ? ' cs-room' : '') + '">'
+      + '<img src="' + b.image + '" alt="' + esc(name) + '" loading="lazy"></figure>';
     if (b.pair)  return '<div class="cs-pair">' + b.pair.map(function (s) {
       return '<figure><img src="' + s + '" alt="' + esc(name) + '" loading="lazy"></figure>'; }).join('') + '</div>';
-    if (b.text)  return '<p class="cs-statement"><span class="lead">' + esc(b.text) + '</span> ' + esc(b.body) + '</p>';
+    // `plain: true` drops the lead-in's bold without touching every other case
+    if (b.text)  return '<p class="cs-statement"><span class="lead' + (b.plain ? ' lead-plain' : '')
+      + '">' + esc(b.text) + '</span> ' + esc(b.body) + '</p>';
     return '';
   }
 

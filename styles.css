@@ -574,6 +574,7 @@ body.case-locked { overflow:hidden; }
   margin:64px 0 72px; color:rgba(17,17,16,.78);
 }
 .cs-statement .lead { font-weight:700; color:var(--cs-fg); }
+.cs-statement .lead.lead-plain { font-weight:400; }
 /* full-bleed: runs edge to edge, cancelling the body padding */
 .cs-bleed {
   margin:0 -44px var(--cs-space); border-radius:0;
@@ -902,6 +903,9 @@ img.mo-line { width:min(62%, 620px); height:auto; display:block; }
   .cs-meta-left { flex-direction:column; gap:8px; }
   .cs-body { padding:0 20px 10px; }
   .cs-statement { margin:40px 0 46px; }
+  /* wide, short art (a logo lockup) collapses to a sliver on a phone;
+     the standard gap leaves it stuck to whatever follows */
+  .cs-full.cs-room { margin-bottom:clamp(58px,16vw,84px); }
   .cs-pair { grid-template-columns:1fr; }
   .cs-credits { padding:10px 20px 0; }
   .case-close-bottom { margin:40px auto 50px; }
