@@ -10,20 +10,9 @@
    ============================================================ */
 (function () {
   const ITEMS = [
-    { src: 'aber-desktop.jpg', alt: 'ABER — identity study, unused' },
-    { src: 'blank-13.jpg',     alt: 'BLANK — editorial spread, alternate direction' },
-    { src: 'blank-14.jpg',     alt: 'BLANK — cover study, unused' },
-    { src: 'gd-01.jpg',        alt: 'good days — early interface exploration' },
-    { src: 'blank-12.jpg',     alt: 'BLANK — type composition, alternate direction' },
-    { src: 'owa-04.jpg',       alt: 'OWA — stationery study, unused' },
-    { src: 'gd-02.jpg',        alt: 'good days — icon exploration' },
-    { src: 'madrun-09.jpg',    alt: 'MADRUN — packaging study, unused' },
-    { src: 'blank-11.jpg',     alt: 'BLANK — page study, alternate direction' },
-    { src: 'mm-03.jpg',        alt: 'Mira Mar — collateral study, unused' },
-    { src: 'owa-08.jpg',       alt: 'OWA — signage study, unused' },
-    { src: 'gd-03.jpg',        alt: 'good days — icon exploration' },
-    { src: 'owa-02.jpg',       alt: 'OWA — mark exploration' },
-    { src: 'blank-10.jpg',     alt: 'BLANK — detail, unused' }
+    // Empty on purpose — cleared 2026-09-29 while Brooke builds the real set
+    // in Figma. Drop entries back in and everything else follows:
+    //   { src: 'ar-01.jpg', alt: 'what it is, for screen readers' },
   ];
 
   // Placement on a 12-column grid. The pattern cycles, so adding items
@@ -44,6 +33,14 @@
   if (!grid) return;
 
   const pad = n => String(n).padStart(3, '0');
+
+  if (!ITEMS.length) {
+    // no .reveal here: the early return below skips the observer that would
+    // add .in, and the message would sit at opacity 0
+    grid.innerHTML = '<p class="ar-empty">Being put together \u2014 back shortly.</p>';
+    grid.classList.add('is-empty');
+    return;
+  }
 
   grid.innerHTML = ITEMS.map(function (it, i) {
     const p = PLACE[i % PLACE.length];

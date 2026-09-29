@@ -1008,3 +1008,10 @@ body.ar-locked { overflow:hidden; }
   .ar-bar button { font-size:14px; }
   .ar-count { top:18px; left:18px; }
 }
+
+/* the archive between sets — reads as deliberate, not broken */
+.ar-grid.is-empty { display:block; padding:clamp(30px,6vw,80px) 0 clamp(90px,14vw,200px); }
+.ar-empty {
+  font-family:var(--sans-text); font-size:16px;
+  color:rgba(255,255,255,.45);
+}
