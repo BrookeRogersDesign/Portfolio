@@ -54,6 +54,7 @@ const CASES = {
   miramar: {
     name: 'Mira Mar', tagline: 'A reimagined jewel on South Palm Avenue.',
     client: 'Mira Mar Residences, Sarasota', year: '2026',
+    credit: 'Clear ph Design', role: 'Designer',
     type: ['Branding', 'Web Design', 'Floor Plan', 'Floorplan Navigation', 'Marketing & Strategy'],
     blocks: [
       { bleed: 'mm-02.jpg' },
@@ -72,6 +73,7 @@ const CASES = {
   owa: {
     name: 'OWA', tagline: 'Open workshop for architecture.',
     client: 'OWA \u2014 Open Workshop for Architecture', year: '2022',
+    credit: 'Clear ph Design', role: 'Designer',
     type: ['Branding', 'Design'],
     blocks: [
       { bleed: 'owa-01.jpg' },
@@ -186,6 +188,7 @@ const CASES = {
   ora: {
     name: 'ORA Hotel + Residences', tagline: 'Discover the allure.',
     client: 'ORA Hotel + Residences \u2014 downtown Tampa', year: '2025',
+    credit: 'Clear ph Design', role: 'Designer',
     type: ['Branding', 'Web Design', 'Marketing & Strategy', 'Floorplan Navigation'],
     blocks: [
       { bleed: 'ora-hero.jpg' },
@@ -440,8 +443,12 @@ const CASES = {
         '<h1>' + esc(c.name) + '<span class="cs-tagline">' + esc(c.tagline) + '</span></h1>' +
         '<div class="cs-meta">' +
           '<div class="cs-meta-left">' +
-            '<span class="m"><b>Client</b>' + esc(c.client) + '</span>' +
+            // a credited case labels the brand "Project", not "Client" — the
+            // Clear ph agreement is explicit that no claim may be made that
+            // the client is Brooke's
+            '<span class="m"><b>' + (c.credit ? 'Project' : 'Client') + '</b>' + esc(c.client) + '</span>' +
             '<span class="m"><b>Year</b>' + esc(c.year) + '</span>' +
+
           '</div>' +
           '<div class="cs-meta-right"><b>Type</b>' +
             c.type.map(function (t) { return '<span>' + esc(t) + '</span>'; }).join('') +
@@ -449,6 +456,18 @@ const CASES = {
         '</div>' +
       '</header>' +
       '<div class="cs-body">' + c.blocks.map(function (b) { return renderBlock(b, c.name); }).join('') + '</div>' +
+      (c.credit ? '<div class="cs-agency">' +
+          '<div class="ag-cols">' +
+            '<div class="ag-col"><b>Agency <i>\u2192</i></b><span>' + esc(c.credit) + '</span>' +
+              (c.role ? '<b class="ag-next">Role <i>\u2192</i></b><span>' + esc(c.role) + '</span>' : '') +
+            '</div>' +
+            '<div class="ag-col"><b>Services <i>\u2192</i></b>' +
+              c.type.map(function (t) { return '<span>' + esc(t) + '</span>'; }).join('') +
+            '</div>' +
+          '</div>' +
+          // the exact wording the Clear ph employee agreement calls for
+          '<p class="ag-line">Designed for ' + esc(c.credit) + '.</p>' +
+        '</div>' : '') +
       (c.credits ? '<div class="cs-credits"><b>Collaborators</b>' + c.credits.map(function (r) {
           return '<span>' + esc(r[0]) + ' <em>' + esc(r[1]) + '</em></span>'; }).join('') + '</div>' : '') +
       '<button class="case-close case-close-bottom" type="button">Close</button>';

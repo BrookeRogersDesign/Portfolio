@@ -1019,3 +1019,37 @@ body.ar-locked { overflow:hidden; }
   font-family:var(--sans-text); font-size:16px;
   color:rgba(255,255,255,.45);
 }
+
+/* ---------- agency credit, end of case ----------
+   Required by Brooke's Clear ph employee agreement: work produced there is
+   credited "Designed for Clear ph Design", and the brand is labelled Project
+   rather than Client so no claim is made that it is her own account. */
+.cs-agency {
+  margin-top:var(--cs-space);
+  padding-top:clamp(26px,3vw,40px);
+  border-top:1px solid var(--cs-line);
+}
+.ag-cols {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:clamp(20px,4vw,60px);
+}
+.ag-col { display:flex; flex-direction:column; }
+.ag-col b {
+  font-family:var(--sans-text); font-size:15px; font-weight:500;
+  color:var(--cs-fg); margin-bottom:6px;
+}
+.ag-col b i { font-style:normal; color:var(--cs-fade); }
+.ag-col .ag-next { margin-top:clamp(18px,2.4vw,30px); }
+.ag-col span {
+  font-family:var(--sans-text); font-size:15px; line-height:1.5;
+  color:var(--cs-fade);
+}
+.ag-line {
+  margin-top:clamp(24px,3vw,40px);
+  font-family:var(--sans-text); font-size:13px; letter-spacing:.02em;
+  color:var(--cs-fade);
+}
+@media (max-width:768px) {
+  .ag-cols { grid-template-columns:1fr; gap:26px; }
+  .ag-col .ag-next { margin-top:22px; }
+}
