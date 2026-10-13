@@ -1025,7 +1025,10 @@ body.ar-locked { overflow:hidden; }
    credited "Designed for Clear ph Design", and the brand is labelled Project
    rather than Client so no claim is made that it is her own account. */
 .cs-agency {
-  margin-top:var(--cs-space);
+  /* this block is a sibling of .cs-body, so it inherits none of its 44px
+     padding and was running to the panel edge. Margin, not padding, so the
+     rule pulls in with the columns instead of spanning the full width. */
+  margin:var(--cs-space) clamp(44px,8vw,150px) 0;
   padding-top:clamp(44px,5vw,72px);
   padding-bottom:clamp(20px,2.5vw,36px);
   border-top:1px solid var(--cs-line);
@@ -1058,6 +1061,7 @@ body.ar-locked { overflow:hidden; }
   color:var(--cs-fade);
 }
 @media (max-width:768px) {
+  .cs-agency { margin:var(--cs-space) 20px 0; }
   .ag-cols { grid-template-columns:1fr; gap:36px; }
   .ag-col .ag-next { margin-top:30px; }
 }
