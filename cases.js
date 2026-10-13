@@ -155,6 +155,8 @@ const CASES = {
       { bleed: 'ddd-trio.jpg' }
     ]
   },
+  // ACIC is off the portfolio — card removed 2026-10-13 at Brooke's request.
+  // Entry and images are all still here; restoring it is just the card.
   acic: {
     name: 'ACIC', tagline: 'Protecting specialty property. Designed for the coast.',
     client: 'American Coastal Insurance Corporation \u2014 St. Petersburg', year: '2025',
@@ -266,6 +268,8 @@ const CASES = {
       { text: 'THE REBRAND', body: 'trades that for chartreuse and water — paired with floorplan design and a website built to make browsing homes feel like anticipation rather than research.' }
     ]
   },
+  // 400 Central is off the portfolio — card removed 2026-10-13 at Brooke's request.
+  // Entry and images are all still here; restoring it is just the card.
   central400: {
     name: '400 Central', tagline: 'Luxury living in the sky.',
     client: '400 Central Residences, St. Petersburg', year: '2024',
