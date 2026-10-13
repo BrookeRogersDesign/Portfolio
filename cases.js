@@ -74,7 +74,7 @@ const CASES = {
     name: 'OWA', tagline: 'Open workshop for architecture.',
     client: 'OWA \u2014 Open Workshop for Architecture', year: '2022',
     credit: 'Clear ph Design', creditUrl: 'https://clearph.com/', role: 'Designer',
-    type: ['Branding', 'Design'],
+    type: ['Branding', 'Design', 'Website'],
     blocks: [
       { bleed: 'owa-01.jpg' },
       { text: 'OWA', body: 'is a Tampa architecture practice led by principals Fadi Garcia and Jessie Shell, working across high-profile commercial projects, residential spaces and historical renovations. The brief was an identity as considered and unfussy as the buildings.' },
