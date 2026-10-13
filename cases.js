@@ -54,7 +54,7 @@ const CASES = {
   miramar: {
     name: 'Mira Mar', tagline: 'A reimagined jewel on South Palm Avenue.',
     client: 'Mira Mar Residences, Sarasota', year: '2026',
-    credit: 'Clear ph Design', role: 'Designer',
+    credit: 'Clear ph Design', creditUrl: 'https://clearph.com/', role: 'Designer',
     type: ['Branding', 'Web Design', 'Floor Plan', 'Floorplan Navigation', 'Marketing & Strategy'],
     blocks: [
       { bleed: 'mm-02.jpg' },
@@ -73,7 +73,7 @@ const CASES = {
   owa: {
     name: 'OWA', tagline: 'Open workshop for architecture.',
     client: 'OWA \u2014 Open Workshop for Architecture', year: '2022',
-    credit: 'Clear ph Design', role: 'Designer',
+    credit: 'Clear ph Design', creditUrl: 'https://clearph.com/', role: 'Designer',
     type: ['Branding', 'Design'],
     blocks: [
       { bleed: 'owa-01.jpg' },
@@ -188,7 +188,7 @@ const CASES = {
   ora: {
     name: 'ORA Hotel + Residences', tagline: 'Discover the allure.',
     client: 'ORA Hotel + Residences \u2014 downtown Tampa', year: '2025',
-    credit: 'Clear ph Design', role: 'Designer',
+    credit: 'Clear ph Design', creditUrl: 'https://clearph.com/', role: 'Designer',
     type: ['Branding', 'Web Design', 'Marketing & Strategy', 'Floorplan Navigation'],
     blocks: [
       { bleed: 'ora-hero.jpg' },
@@ -458,7 +458,10 @@ const CASES = {
       '<div class="cs-body">' + c.blocks.map(function (b) { return renderBlock(b, c.name); }).join('') + '</div>' +
       (c.credit ? '<div class="cs-agency">' +
           '<div class="ag-cols">' +
-            '<div class="ag-col"><b>Agency <i>\u2192</i></b><span>' + esc(c.credit) + '</span>' +
+            '<div class="ag-col"><b>Agency <i>\u2192</i></b>' +
+              (c.creditUrl
+                ? '<a class="ag-link" href="' + c.creditUrl + '" target="_blank" rel="noopener noreferrer">' + esc(c.credit) + '</a>'
+                : '<span>' + esc(c.credit) + '</span>') +
               (c.role ? '<b class="ag-next">Role <i>\u2192</i></b><span>' + esc(c.role) + '</span>' : '') +
             '</div>' +
             '<div class="ag-col"><b>Services <i>\u2192</i></b>' +

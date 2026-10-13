@@ -1044,6 +1044,13 @@ body.ar-locked { overflow:hidden; }
   font-family:var(--sans-text); font-size:15px; line-height:1.5;
   color:var(--cs-fade);
 }
+.ag-link {
+  font-family:var(--sans-text); font-size:15px; line-height:1.5;
+  color:var(--cs-fade); text-decoration:underline;
+  text-underline-offset:3px; text-decoration-thickness:1px;
+  transition:color .2s;
+}
+.ag-link:hover { color:var(--red); }
 .ag-line {
   margin-top:clamp(24px,3vw,40px);
   font-family:var(--sans-text); font-size:13px; letter-spacing:.02em;
