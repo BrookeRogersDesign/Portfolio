@@ -1142,3 +1142,9 @@ body.ar-locked { overflow:hidden; }
 @media (max-width:768px) {
   .sl-track img { width:min(70vw,290px); margin-right:10px; }
 }
+
+/* a card that is shown but not openable — no pointer, no hover lift */
+.work-card.is-static { cursor:default; }
+.work-card.is-static:hover .shot img,
+.work-card.is-static:hover .shot video { transform:none; }
+.work-card.is-static:hover .shot::after { opacity:0; }

@@ -248,6 +248,8 @@ const CASES = {
       { text: 'ON SHELF', body: 'the range reads as a family first and a flavour second — so the brand grows without needing a redesign every time a new sauce arrives.' }
     ]
   },
+  // Vintage Vault is on the Work page but deliberately not clickable — its
+  // card carries no data-case, so nothing opens. Entry kept for when it does.
   vv: {
     name: 'Vintage Vault', tagline: 'For the love of the find.',
     client: 'Vintage Vault', year: '2025',
