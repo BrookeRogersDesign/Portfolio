@@ -1148,3 +1148,55 @@ body.ar-locked { overflow:hidden; }
 .work-card.is-static:hover .shot img,
 .work-card.is-static:hover .shot video { transform:none; }
 .work-card.is-static:hover .shot::after { opacity:0; }
+
+/* ---------- a wall of patterns, each cell mid-change ---------- */
+.cs-patterns {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:clamp(10px,1.4vw,22px);
+  margin-bottom:var(--cs-space);
+}
+.pt-cell {
+  position:relative; aspect-ratio:var(--pt-ratio, 565.34 / 443.5);
+  border-radius:var(--r); overflow:hidden; background:#1d2418;
+}
+.pt-cell img {
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; display:block; opacity:0;
+  animation-duration:var(--pt-dur,13.2s);
+  animation-timing-function:linear;
+  animation-iteration-count:infinite;
+  will-change:opacity;
+}
+@media (prefers-reduced-motion:reduce) {
+  .pt-cell img { animation:none; opacity:0; }
+  .pt-cell img:first-child { opacity:1; }
+}
+@media (max-width:768px) {
+  .cs-patterns { grid-template-columns:repeat(2,1fr); gap:10px; }
+}
+
+/* ---------- a tinted clip with the mark held still over it ---------- */
+.cs-clip {
+  position:relative; width:100%; aspect-ratio:1929 / 1187;
+  overflow:hidden; border-radius:var(--r);
+  margin-bottom:var(--cs-space); background:#161d11;
+}
+.cs-clip video {
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; display:block;
+}
+.cl-mark {
+  position:absolute; left:50%; top:50%; width:28.8%;
+  transform:translate(-50%,-50%); display:block; z-index:2;
+}
+
+/* a round mark must be sized by height — .cover-logo's 72% width is meant for
+   a wordmark and would overflow a 16:9 card with a square seal */
+.cover-logo.is-seal,
+.work-card .shot img.cover-logo.is-seal {
+  width:auto; height:58%; max-width:none; object-fit:contain;
+}
+@media (max-width:768px) {
+  .cover-logo.is-seal,
+  .work-card .shot img.cover-logo.is-seal { height:52%; }
+}

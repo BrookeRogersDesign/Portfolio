@@ -195,7 +195,7 @@ const CASES = {
     credit: 'Freelance', role: 'Designer',
     type: ['Branding', 'Strategy', 'Social Media', 'Website Design', 'Marketing Collateral'],
     blocks: [
-      { drift: 'pap-hero-bg.jpg', mark: 'pap-seal.svg', ratio: '1929 / 1187', markW: '28.8%' },
+      { clip: 'pap-hero.mp4', poster: 'pap-poster.jpg', mark: 'pap-seal.svg', ratio: '1929 / 1187', markW: '28.8%' },
       { image: 'pap-mark.jpg' },
       { bleed: 'pap-stationery.jpg' },
       { slide: ['pap-post-1.jpg', 'pap-post-2.jpg', 'pap-post-3.jpg',
@@ -203,7 +203,9 @@ const CASES = {
       { image: 'pap-logoband.jpg' },
       { bleed: 'pap-brochure.jpg' },
       { bleed: 'pap-merch.jpg' },
-      { image: 'pap-pattern.jpg' },
+      { patterns: ['pap-pat-1.jpg','pap-pat-2.jpg','pap-pat-3.jpg',
+                  'pap-pat-4.jpg','pap-pat-5.jpg','pap-pat-6.jpg'],
+        each: 2.2, ratio: '565.34 / 443.5' },
       { bleed: 'pap-skyline.jpg' },
       { image: 'pap-cards.jpg' },
       { image: 'pap-closing.jpg' }
@@ -468,6 +470,43 @@ const CASES = {
         + (b.dur ? ' style="--sl-dur:' + b.dur + '"' : '') + '>'
         + '<div class="sl-track">' + one + one + '</div></div>';
     }
+    // a grid where every cell cycles the same set of colourways, each cell
+    // starting on a different one, so the wall is always mid-change
+    if (b.patterns) {
+      var pn = b.patterns.length;
+      var pe = b.each || 2.2;
+      var cyc = (pn * pe);
+      var slot = 100 / pn;
+      var fade = Math.min(2.4, slot * 0.22);
+      var pkf = 'cs-pat-' + pn;
+      return '<style>@keyframes ' + pkf + '{'
+        +   '0%{opacity:0}'
+        +   fade.toFixed(3) + '%{opacity:1}'
+        +   (slot - fade).toFixed(3) + '%{opacity:1}'
+        +   slot.toFixed(3) + '%{opacity:0}'
+        +   '100%{opacity:0}}</style>'
+        + '<div class="cs-patterns" style="--pt-dur:' + cyc.toFixed(2) + 's'
+        + (b.ratio ? ';--pt-ratio:' + b.ratio : '') + '">'
+        + b.patterns.map(function (_, cell) {
+            return '<div class="pt-cell">' + b.patterns.map(function (src, i) {
+              var slotIndex = (i + cell) % pn;
+              return '<img src="' + src + '" alt="' + esc(i === 0 ? name + ' pattern' : '') + '"'
+                + (i === 0 ? '' : ' aria-hidden="true"')
+                + ' loading="lazy" style="animation-name:' + pkf
+                + ';animation-delay:' + (slotIndex * pe).toFixed(2) + 's">';
+            }).join('') + '</div>';
+          }).join('')
+        + '</div>';
+    }
+    // a tinted clip with the mark held still on top
+    if (b.clip) return '<div class="cs-clip"'
+      + (b.ratio ? ' style="aspect-ratio:' + b.ratio + '"' : '') + '>'
+      + '<video autoplay loop muted playsinline preload="metadata"'
+      + (b.poster ? ' poster="' + b.poster + '"' : '') + '>'
+      + '<source src="' + b.clip + '" type="video/mp4"></video>'
+      + (b.mark ? '<img class="cl-mark" src="' + b.mark + '" alt="' + esc(name) + '"'
+                + (b.markW ? ' style="width:' + b.markW + '"' : '') + '>' : '')
+      + '</div>';
     if (b.screens) return '<div class="cs-screens" style="--screens-n:' + b.screens.length
       + (b.bg ? ';--screens-bg:' + esc(b.bg) : '') + '">' + b.screens.map(function (s) {
       return '<img src="' + s + '" alt="' + esc(name) + ' social" loading="lazy">'; }).join('') + '</div>';
