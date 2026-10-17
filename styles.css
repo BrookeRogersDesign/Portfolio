@@ -1142,8 +1142,3 @@ body.ar-locked { overflow:hidden; }
 @media (max-width:768px) {
   .sl-track img { width:min(70vw,290px); margin-right:10px; }
 }
-
-/* the Premier Asset Partners cover carries its logo bottom-left, so a centre
-   crop slices through it — hold the left edge instead */
-.work-card .shot img.hold-left,
-.work-item .bgpic img.hold-left { object-position:left center; }
