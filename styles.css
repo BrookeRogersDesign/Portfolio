@@ -1074,21 +1074,73 @@ body.ar-locked { overflow:hidden; }
   overflow:hidden; border-radius:var(--r);
   margin-bottom:var(--cs-space); background:#101b0c;
 }
-.dr-bg {
-  position:absolute; left:0; top:0; width:100%; height:auto; display:block;
-  animation:dr-drift 54s ease-in-out infinite alternate;
+/* the sway and the flow run on different clocks, so they never resync and the
+   movement reads as a lava lamp rather than a loop */
+.dr-layer {
+  position:absolute; inset:0;
+  animation:dr-sway 71s ease-in-out infinite alternate;
   will-change:transform;
 }
-/* the image is twice the container's width tall, so 0 to -69% is the full
-   travel; this sits inside that and never shows an edge */
-@keyframes dr-drift {
-  from { transform:translateY(-26%); }
-  to   { transform:translateY(-46%); }
+.dr-bg {
+  position:absolute; left:0; top:0; width:100%; height:auto; display:block;
+  animation:dr-flow 53s ease-in-out infinite alternate;
+  will-change:transform;
 }
+/* the image stands twice the container's width tall, so -73% to +4% is the
+   full travel. The scale buys sideways room for the sway without ever
+   revealing an edge. */
+@keyframes dr-flow {
+  0%   { transform:translateY(-22%) scale(1.10); }
+  50%  { transform:translateY(-36%) scale(1.17); }
+  100% { transform:translateY(-52%) scale(1.10); }
+}
+@keyframes dr-sway {
+  from { transform:translate3d(-2.6%,0,0); }
+  to   { transform:translate3d(2.6%,0,0); }
+}
+/* a sheer black over the gradient: the bright diagonal runs straight behind
+   the seal and washed it out */
+.dr-veil { position:absolute; inset:0; background:rgba(0,0,0,.34); pointer-events:none; }
 .dr-mark {
   position:absolute; left:50%; top:50%; width:28.8%;
   transform:translate(-50%,-50%); display:block;
 }
 @media (prefers-reduced-motion:reduce) {
-  .dr-bg { animation:none; transform:translateY(-36%); }
+  .dr-layer { animation:none; }
+  .dr-bg { animation:none; transform:translateY(-36%) scale(1.10); }
 }
+
+/* ---------- slide: a row that never stops, and can be dragged ---------- */
+.cs-slide {
+  position:relative; width:100%; overflow:hidden;
+  margin-bottom:var(--cs-space);
+  cursor:grab; touch-action:pan-y;
+}
+.cs-slide.is-dragging { cursor:grabbing; }
+.sl-track {
+  display:flex; width:max-content; gap:0;
+  animation:sl-run var(--sl-dur,46s) linear infinite;
+  will-change:transform;
+}
+.sl-track img {
+  width:clamp(240px,27vw,340px); height:auto; display:block;
+  border-radius:var(--r); margin-right:14px;
+  user-select:none; -webkit-user-drag:none;
+}
+/* two identical halves, so a 50% shift lands exactly on the copy */
+@keyframes sl-run {
+  from { transform:translate3d(0,0,0); }
+  to   { transform:translate3d(-50%,0,0); }
+}
+@media (prefers-reduced-motion:reduce) {
+  .sl-track { animation:none; }
+  .cs-slide { overflow-x:auto; }
+}
+@media (max-width:768px) {
+  .sl-track img { width:min(70vw,290px); margin-right:10px; }
+}
+
+/* the Premier Asset Partners cover carries its logo bottom-left, so a centre
+   crop slices through it — hold the left edge instead */
+.work-card .shot img.hold-left,
+.work-item .bgpic img.hold-left { object-position:left center; }

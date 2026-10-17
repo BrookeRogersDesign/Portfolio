@@ -198,6 +198,7 @@ const CASES = {
       { drift: 'pap-hero-bg.jpg', mark: 'pap-seal.svg', ratio: '1929 / 1187', markW: '28.8%' },
       { image: 'pap-mark.jpg' },
       { bleed: 'pap-stationery.jpg' },
+      { slide: ['pap-post-1.jpg', 'pap-post-2.jpg', 'pap-post-3.jpg', 'pap-post-6.jpg'], dur: '46s' },
       { image: 'pap-logoband.jpg' },
       { bleed: 'pap-brochure.jpg' },
       { bleed: 'pap-merch.jpg' },
@@ -447,10 +448,23 @@ const CASES = {
     // The source is far taller than the window, so there is room to travel.
     if (b.drift) return '<div class="cs-drift"'
       + (b.ratio ? ' style="aspect-ratio:' + b.ratio + '"' : '') + '>'
-      + '<img class="dr-bg" src="' + b.drift + '" alt="" aria-hidden="true">'
+      // two layers drifting on different clocks — the sway and the flow never
+      // line up, so it reads as a lava lamp rather than a loop
+      + '<div class="dr-layer"><img class="dr-bg" src="' + b.drift + '" alt="" aria-hidden="true"></div>'
+      + '<div class="dr-veil"></div>'
       + (b.mark ? '<img class="dr-mark" src="' + b.mark + '" alt="' + esc(name) + '"'
                 + (b.markW ? ' style="width:' + b.markW + '"' : '') + '>' : '')
       + '</div>';
+    // a row that never stops, and can still be grabbed and dragged.
+    // Two identical halves shifted by exactly 50% give a seamless loop.
+    if (b.slide) {
+      var one = b.slide.map(function (src) {
+        return '<img src="' + src + '" alt="' + esc(name) + ' social post" loading="lazy" draggable="false">';
+      }).join('');
+      return '<div class="cs-slide" data-slide'
+        + (b.dur ? ' style="--sl-dur:' + b.dur + '"' : '') + '>'
+        + '<div class="sl-track">' + one + one + '</div></div>';
+    }
     if (b.screens) return '<div class="cs-screens" style="--screens-n:' + b.screens.length
       + (b.bg ? ';--screens-bg:' + esc(b.bg) : '') + '">' + b.screens.map(function (s) {
       return '<img src="' + s + '" alt="' + esc(name) + ' social" loading="lazy">'; }).join('') + '</div>';
@@ -558,6 +572,65 @@ const CASES = {
     if (e.target.closest('.case-close')) { e.preventDefault(); close(); }
     else if (e.target === overlay) close();
   });
+
+  /* ---- draggable marquee ----
+     The row loops on a CSS animation so it keeps running cheaply. Dragging
+     takes the transform over by hand, then hands it back by setting a negative
+     animation-delay equal to where the user let go — so it never jumps and
+     never stops. Delegated, so it works for any overlay that renders one. */
+  (function () {
+    var drag = null;
+
+    function halfWidth(track) { return track.scrollWidth / 2; }
+
+    function currentX(track) {
+      var m = new DOMMatrixReadOnly(getComputedStyle(track).transform);
+      return m.m41;
+    }
+
+    document.addEventListener('pointerdown', function (e) {
+      var slide = e.target.closest('[data-slide]');
+      if (!slide) return;
+      var track = slide.querySelector('.sl-track');
+      if (!track) return;
+      var x = currentX(track);
+      track.style.animation = 'none';
+      track.style.transform = 'translate3d(' + x + 'px,0,0)';
+      drag = { slide: slide, track: track, startX: e.clientX, baseX: x, moved: false };
+      slide.classList.add('is-dragging');
+      slide.setPointerCapture(e.pointerId);
+    });
+
+    document.addEventListener('pointermove', function (e) {
+      if (!drag) return;
+      var dx = e.clientX - drag.startX;
+      if (Math.abs(dx) > 3) drag.moved = true;
+      var half = halfWidth(drag.track);
+      var x = drag.baseX + dx;
+      // keep the offset inside one half so the seam is never exposed
+      while (x > 0) x -= half;
+      while (x < -half) x += half;
+      drag.track.style.transform = 'translate3d(' + x + 'px,0,0)';
+    });
+
+    function release() {
+      if (!drag) return;
+      var track = drag.track, slide = drag.slide;
+      var half = halfWidth(track);
+      var x = currentX(track);
+      var progress = half ? ((-x % half) + half) % half / half : 0;
+      var dur = parseFloat(getComputedStyle(track).animationDuration) ||
+                parseFloat(getComputedStyle(slide).getPropertyValue('--sl-dur')) || 46;
+      track.style.transform = '';
+      track.style.animation = '';
+      // resume exactly where the drag ended
+      track.style.animationDelay = (-progress * dur) + 's';
+      slide.classList.remove('is-dragging');
+      drag = null;
+    }
+    document.addEventListener('pointerup', release);
+    document.addEventListener('pointercancel', release);
+  })();
 
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && isOpen) close();
