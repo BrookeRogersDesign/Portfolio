@@ -24,6 +24,7 @@ const CASES = {
   gooddays: {
     name: 'good days', tagline: 'Every good day, in one place.',
     client: 'good days \u2014 personal health tracker', year: '2026',
+    credit: 'Freelance', role: 'Designer',
     type: ['Branding', 'App Design', 'UX & Strategy'],
     blocks: [
       { bleed: 'gd-hero.jpg' },
@@ -38,6 +39,7 @@ const CASES = {
   yas: {
     name: 'Sincerely YAS', tagline: 'Made to be shared.',
     client: 'Sincerely YAS', year: '2026',
+    credit: 'Freelance', role: 'Designer',
     type: ['Web Design', 'Development', 'Shopify'],
     blocks: [
       { image: 'yas-01.jpg' },
@@ -54,7 +56,7 @@ const CASES = {
   miramar: {
     name: 'Mira Mar', tagline: 'A reimagined jewel on South Palm Avenue.',
     client: 'Mira Mar Residences, Sarasota', year: '2026',
-    credit: 'Clear ph Design', creditUrl: 'https://clearph.com/', role: 'Designer',
+    credit: 'Clear ph Design', creditUrl: 'https://clearph.com/', role: 'Designer', agencyWork: true,
     type: ['Branding', 'Web Design', 'Floor Plan', 'Floorplan Navigation', 'Marketing & Strategy'],
     blocks: [
       { bleed: 'mm-02.jpg' },
@@ -73,7 +75,7 @@ const CASES = {
   owa: {
     name: 'OWA', tagline: 'Open workshop for architecture.',
     client: 'OWA \u2014 Open Workshop for Architecture', year: '2022',
-    credit: 'Clear ph Design', creditUrl: 'https://clearph.com/', role: 'Designer',
+    credit: 'Clear ph Design', creditUrl: 'https://clearph.com/', role: 'Designer', agencyWork: true,
     type: ['Branding', 'Design', 'Website'],
     blocks: [
       { bleed: 'owa-01.jpg' },
@@ -113,6 +115,7 @@ const CASES = {
   blank: {
     name: 'BLANK', tagline: 'The art of looking effortless.',
     client: 'BLANK \u2014 hair studio, 421 S Washington St.', year: '2025',
+    credit: 'Freelance', role: 'Designer',
     type: ['Branding', 'Positioning', 'Web Design'],
     blocks: [
       { bleed: 'blank-01.jpg' },
@@ -139,6 +142,7 @@ const CASES = {
   ddd: {
     name: 'Dazzling Doggie Duvet', tagline: 'Handmade with love, tested by paws.',
     client: 'Dazzling Doggie Duvet \u2014 modular dog beds', year: '2024',
+    credit: 'Freelance', role: 'Designer',
     type: ['Branding', 'Brand System', 'Email Marketing', 'Social Media', 'Photography'],
     blocks: [
       { bleed: 'ddd-hero.jpg' },
@@ -185,10 +189,28 @@ const CASES = {
       { bleed: 'acic-motion.jpg' }
     ]
   },
+  pap: {
+    name: 'Premier Asset Partners', tagline: 'Beyond the transaction.',
+    client: 'Premier Asset Partners \u2014 Lake Mary, FL', year: '2026',
+    credit: 'Freelance', role: 'Designer',
+    type: ['Branding', 'Strategy', 'Social Media', 'Website Design', 'Marketing Collateral'],
+    blocks: [
+      { drift: 'pap-hero-bg.jpg', mark: 'pap-seal.svg', ratio: '1929 / 1187', markW: '28.8%' },
+      { image: 'pap-mark.jpg' },
+      { bleed: 'pap-stationery.jpg' },
+      { image: 'pap-logoband.jpg' },
+      { bleed: 'pap-brochure.jpg' },
+      { bleed: 'pap-merch.jpg' },
+      { image: 'pap-pattern.jpg' },
+      { bleed: 'pap-skyline.jpg' },
+      { image: 'pap-cards.jpg' },
+      { image: 'pap-closing.jpg' }
+    ]
+  },
   ora: {
     name: 'ORA Hotel + Residences', tagline: 'Discover the allure.',
     client: 'ORA Hotel + Residences \u2014 downtown Tampa', year: '2025',
-    credit: 'Clear ph Design', creditUrl: 'https://clearph.com/', role: 'Designer',
+    credit: 'Clear ph Design', creditUrl: 'https://clearph.com/', role: 'Designer', agencyWork: true,
     type: ['Branding', 'Web Design', 'Marketing & Strategy', 'Floorplan Navigation'],
     blocks: [
       { bleed: 'ora-hero.jpg' },
@@ -216,6 +238,7 @@ const CASES = {
   kini: {
     name: 'Hot Kini', tagline: 'Bring the heat.',
     client: 'Hot Kini', year: '2025',
+    credit: 'Freelance', role: 'Designer',
     type: ['Branding', 'Positioning', 'Website', 'Social Media'],
     blocks: [
       { image: 'kini-desktop.jpg' },
@@ -226,6 +249,7 @@ const CASES = {
   vv: {
     name: 'Vintage Vault', tagline: 'For the love of the find.',
     client: 'Vintage Vault', year: '2025',
+    credit: 'Freelance', role: 'Designer',
     type: ['Branding', 'Web Design', 'Editorial'],
     blocks: [
       { image: 'vv-desktop.jpg' },
@@ -236,6 +260,7 @@ const CASES = {
   madrun: {
     name: 'MADRUN', tagline: 'Built for the mile after.',
     client: 'MADRUN \u2014 muscle cooling gel', year: '2023',
+    credit: 'Freelance', role: 'Designer',
     type: ['Product Design', 'Photography'],
     blocks: [
       { bleed: 'madrun-01.jpg' },
@@ -418,6 +443,14 @@ const CASES = {
           }).join('')
         + '</div>';
     }
+    // a tall still drifting slowly behind a fixed mark — motion without video.
+    // The source is far taller than the window, so there is room to travel.
+    if (b.drift) return '<div class="cs-drift"'
+      + (b.ratio ? ' style="aspect-ratio:' + b.ratio + '"' : '') + '>'
+      + '<img class="dr-bg" src="' + b.drift + '" alt="" aria-hidden="true">'
+      + (b.mark ? '<img class="dr-mark" src="' + b.mark + '" alt="' + esc(name) + '"'
+                + (b.markW ? ' style="width:' + b.markW + '"' : '') + '>' : '')
+      + '</div>';
     if (b.screens) return '<div class="cs-screens" style="--screens-n:' + b.screens.length
       + (b.bg ? ';--screens-bg:' + esc(b.bg) : '') + '">' + b.screens.map(function (s) {
       return '<img src="' + s + '" alt="' + esc(name) + ' social" loading="lazy">'; }).join('') + '</div>';
@@ -446,7 +479,7 @@ const CASES = {
             // a credited case labels the brand "Project", not "Client" — the
             // Clear ph agreement is explicit that no claim may be made that
             // the client is Brooke's
-            '<span class="m"><b>' + (c.credit ? 'Project' : 'Client') + '</b>' + esc(c.client) + '</span>' +
+            '<span class="m"><b>' + (c.agencyWork ? 'Project' : 'Client') + '</b>' + esc(c.client) + '</span>' +
             '<span class="m"><b>Year</b>' + esc(c.year) + '</span>' +
 
           '</div>' +
@@ -468,8 +501,9 @@ const CASES = {
               c.type.map(function (t) { return '<span>' + esc(t) + '</span>'; }).join('') +
             '</div>' +
           '</div>' +
-          // the exact wording the Clear ph employee agreement calls for
-          '<p class="ag-line">Designed for ' + esc(c.credit) + '.</p>' +
+          // the exact wording the Clear ph employee agreement calls for.
+          // Freelance cases carry the credit block but not this line.
+          (c.agencyWork ? '<p class="ag-line">Designed for ' + esc(c.credit) + '.</p>' : '') +
         '</div>' : '') +
       (c.credits ? '<div class="cs-credits"><b>Collaborators</b>' + c.credits.map(function (r) {
           return '<span>' + esc(r[0]) + ' <em>' + esc(r[1]) + '</em></span>'; }).join('') + '</div>' : '') +
