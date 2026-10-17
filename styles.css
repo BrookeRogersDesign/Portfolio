@@ -323,7 +323,10 @@
 .a-aber    { background:linear-gradient(140deg,#FF5A00 0%,#0E2E2E 62%,#08201F 100%); }
 
 .work-card .shot {
-  position:relative; aspect-ratio:4/3; overflow:hidden;
+  /* the covers are drawn at roughly 1.9; a 4:3 frame was cropping 30% of the
+     width off every one of them. 16/9 costs the widest covers about 6% and
+     fits the 1.78 ones exactly. */
+  position:relative; aspect-ratio:16/9; overflow:hidden;
   border-radius:var(--r); background:#1a1a18;
 }
 .work-card .shot img,
