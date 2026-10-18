@@ -29,7 +29,7 @@
     { src: 'ar-11.jpg', w: 943,  alt: 'Interiors logotype and social mockup \u2014 unused' },
     { src: 'ar-12.jpg', w: 1289, alt: 'ANNEX \u2014 functional movement, more than just fitness \u2014 unused concept' },
     { src: 'ar-13.jpg', w: 1046, alt: '310 Harrison \u2014 app screens, unused concept' },
-    { src: 'ar-14.jpg', w: 544,  small: true,  alt: 'AirPlayne logo \u2014 unused' }
+    { src: 'ar-14.jpg', w: 544,  scale: 0.52, small: true,  alt: 'AirPlayne logo \u2014 unused' }
   ];
 
   const grid = document.querySelector('.ar-grid');

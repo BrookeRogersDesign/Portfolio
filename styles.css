@@ -1161,7 +1161,7 @@ body.light .ar-tile img { border-radius:0; }
    and take extra room above and below so they read as marks, not banners. */
 @media (max-width:640px) {
   .ar-tile.is-small {
-    max-width:min(var(--cap, 100%), 58%);
+    max-width:min(var(--cap, 100%), 44%);
     margin-left:auto; margin-right:auto;
     padding-top:clamp(18px,6vw,40px);
     padding-bottom:clamp(18px,6vw,40px);
