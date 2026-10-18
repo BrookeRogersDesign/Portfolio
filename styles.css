@@ -918,13 +918,13 @@ img.mo-line { width:min(62%, 620px); height:auto; display:block; }
    ARCHIVE — a scattered, numbered grid of unused work, and a
    full-screen viewer with prev / close / next along the bottom.
    ============================================================ */
-.ar-page { padding:150px clamp(32px,7vw,110px) 140px; }
+.ar-page { padding:170px clamp(32px,7vw,110px) 190px; }
 
 /* three across, with real room at the sides */
 .ar-grid {
   display:grid; grid-template-columns:repeat(3,1fr);
-  column-gap:clamp(20px,3vw,56px);
-  row-gap:clamp(40px,5.5vw,96px);
+  column-gap:clamp(34px,5.5vw,104px);
+  row-gap:clamp(76px,10vw,172px);
   align-items:start; justify-items:center;
   max-width:1360px; margin:0 auto;
 }
