@@ -941,13 +941,17 @@ img.mo-line { width:min(62%, 620px); height:auto; display:block; }
 
 @media (max-width:900px) {
 }
+@media (max-width:980px) {
+  /* the looser desktop gaps are too much on a narrow screen — below the
+     breakpoint the grid keeps its original spacing */
+  .ar-grid {
+    grid-template-columns:repeat(2,1fr);
+    column-gap:clamp(20px,3vw,56px);
+    row-gap:clamp(40px,5.5vw,96px);
+  }
+}
 @media (max-width:640px) {
   .ar-page { padding:120px 20px 90px; }
-  .ar-grid { grid-template-columns:repeat(2,1fr); }
-  .ar-stage { padding:44px 16px 6px; }
-  .ar-bar { padding:0 18px 22px; }
-  .ar-bar button { font-size:14px; }
-  .ar-count { top:18px; left:18px; }
 }
 
 /* the archive between sets — reads as deliberate, not broken */
