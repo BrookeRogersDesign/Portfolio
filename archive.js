@@ -10,24 +10,36 @@
    ============================================================ */
 (function () {
   const ITEMS = [
-    // Empty on purpose — cleared 2026-09-29 while Brooke builds the real set
-    // in Figma. Drop entries back in and everything else follows:
-    //   { src: 'ar-01.jpg', alt: 'what it is, for screen readers' },
+    { src: 'ar-01.jpg', w: 672, alt: 'Sunburst crest on burgundy \u2014 unused' },
+    { src: 'ar-02.jpg', w: 553, alt: 'Stacked mark over water \u2014 unused' },
+    { src: 'ar-03.jpg', w: 1092, alt: 'ACIC \u2014 bold, precise, confident, uplifting, unified \u2014 unused direction' },
+    { src: 'ar-04.jpg', w: 782, alt: '201 Central Ave Bar, St. Pete \u2014 unused' },
+    { src: 'ar-05.jpg', w: 676, alt: 'St. Pete Bar, Central Ave \u2014 unused' },
+    { src: 'ar-06.jpg', w: 245, alt: 'MM monogram \u2014 unused' },
+    { src: 'ar-07.jpg', w: 791, alt: 'Mira Mar envelope \u2014 unused' },
+    { src: 'ar-08.jpg', w: 544, alt: 'Linked mark on bronze \u2014 unused' },
+    { src: 'ar-09.jpg', w: 451, alt: 'Runner and dog illustration \u2014 unused' }
   ];
 
   // Placement on a 12-column grid. The pattern cycles, so adding items
   // never means working out new coordinates — c = start column,
   // s = span, t = how far the tile drops, in vw, to break the rows up.
+  // Spans trimmed a step from the original layout: Brooke wants these sitting
+  // slightly under their intended size, and nothing is ever upscaled — each
+  // tile is also capped at its own natural width further down.
   const PLACE = [
-    { c: 1,  s: 5, t: 0   },
-    { c: 8,  s: 4, t: 7   },
+    { c: 1,  s: 4, t: 0   },
+    { c: 8,  s: 3, t: 7   },
     { c: 3,  s: 4, t: 2.5 },
     { c: 9,  s: 3, t: 10  },
     { c: 1,  s: 3, t: 3.5 },
-    { c: 6,  s: 5, t: 0   },
-    { c: 2,  s: 4, t: 8   },
+    { c: 6,  s: 4, t: 0   },
+    { c: 2,  s: 3, t: 8   },
     { c: 8,  s: 4, t: 1.5 }
   ];
+
+  // how close to full size a piece may render
+  const SCALE = 0.88;
 
   const grid = document.querySelector('.ar-grid');
   if (!grid) return;
@@ -44,8 +56,10 @@
 
   grid.innerHTML = ITEMS.map(function (it, i) {
     const p = PLACE[i % PLACE.length];
+    // never render a piece larger than its source, and sit a touch under it
+    var cap = it.w ? ';max-width:' + Math.round(it.w * SCALE) + 'px' : '';
     return '<button class="ar-tile reveal" type="button" data-i="' + i + '"'
-      + ' style="--c:' + p.c + ';--s:' + p.s + ';--t:' + p.t + 'vw">'
+      + ' style="--c:' + p.c + ';--s:' + p.s + ';--t:' + p.t + 'vw' + cap + '">'
       +   '<span class="ar-num">' + pad(i + 1) + '</span>'
       +   '<img src="' + it.src + '" alt="' + it.alt.replace(/"/g, '&quot;') + '" loading="lazy">'
       + '</button>';
