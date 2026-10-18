@@ -13,15 +13,18 @@
    ============================================================ */
 (function () {
   const ITEMS = [
-    { src: 'ar-01.jpg', w: 672,  alt: 'Sunburst crest on burgundy — unused' },
-    { src: 'ar-02.jpg', w: 553,  alt: 'Stacked mark over water — unused' },
-    { src: 'ar-03.jpg', w: 1092, alt: 'ACIC — bold, precise, confident, uplifting, unified — unused direction' },
-    { src: 'ar-04.jpg', w: 782,  alt: '201 Central Ave Bar, St. Pete — unused' },
-    { src: 'ar-05.jpg', w: 676,  alt: 'St. Pete Bar, Central Ave — unused' },
-    { src: 'ar-06.jpg', w: 245,  alt: 'MM monogram — unused' },
-    { src: 'ar-07.jpg', w: 791,  alt: 'Mira Mar envelope — unused' },
-    { src: 'ar-08.jpg', w: 544,  alt: 'Linked mark on bronze — unused' },
-    { src: 'ar-09.jpg', w: 451,  alt: 'Runner and dog illustration — unused' }
+    { src: 'ar-01.jpg', w: 672,  alt: 'Sunburst crest on burgundy \u2014 unused' },
+    { src: 'ar-02.jpg', w: 553,  alt: 'Stacked mark over water \u2014 unused' },
+    { src: 'ar-03.jpg', w: 1092, alt: 'ACIC \u2014 bold, precise, confident, uplifting, unified \u2014 unused direction' },
+    { src: 'ar-04.jpg', w: 782,  alt: '201 Central Ave Bar, St. Pete \u2014 unused' },
+    { src: 'ar-05.jpg', w: 676,  alt: 'St. Pete Bar, Central Ave \u2014 unused' },
+    { src: 'ar-06.jpg', w: 245,  alt: 'MM monogram \u2014 unused' },
+    { src: 'ar-07.jpg', w: 790,  alt: 'Mira Mar envelope \u2014 unused' },
+    { src: 'ar-08.jpg', w: 544,  alt: 'Linked mark on bronze \u2014 unused' },
+    { src: 'ar-09.jpg', w: 451,  alt: 'Runner and dog illustration \u2014 unused' },
+    { src: 'ar-10.jpg', w: 747,  alt: 'Mark on sage \u2014 unused' },
+    { src: 'ar-11.jpg', w: 943,  alt: 'Interiors logotype and social mockup \u2014 unused' },
+    { src: 'ar-12.jpg', w: 1289, alt: 'ANNEX \u2014 functional movement, more than just fitness \u2014 unused concept' }
   ];
 
   const grid = document.querySelector('.ar-grid');
