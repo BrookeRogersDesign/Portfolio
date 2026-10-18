@@ -1,14 +1,15 @@
 /* ============================================================
    ARCHIVE — experimental ideas and work that never made it out.
 
-   A plain gallery: a scattered wall of pieces on white. No numbering,
-   nothing to click. Everything is driven by ITEMS below — replace the
-   array and the scatter follows. Nothing else needs touching.
+   A plain gallery on white: three across, nothing to click, no numbering.
 
    `src`  the image (already compressed, cut at native size)
-   `w`    its natural width in px, so a tile can never render larger
-          than the piece was drawn
+   `w`    its natural width in px. A tile is capped at this, so a piece
+          can never render larger than it was actually drawn — small
+          pieces simply sit smaller in their column.
    `alt`  what it is, for screen readers — never left blank
+
+   To add a piece: drop it in ITEMS. Nothing else needs touching.
    ============================================================ */
 (function () {
   const ITEMS = [
@@ -21,23 +22,6 @@
     { src: 'ar-07.jpg', w: 791,  alt: 'Mira Mar envelope — unused' },
     { src: 'ar-08.jpg', w: 544,  alt: 'Linked mark on bronze — unused' },
     { src: 'ar-09.jpg', w: 451,  alt: 'Runner and dog illustration — unused' }
-  ];
-
-  // how close to full size a piece may render — never above 1
-  const SCALE = 0.88;
-
-  // Placement on a 12-column grid. The pattern cycles, so adding items
-  // never means working out new coordinates — c = start column,
-  // s = span, t = how far the tile drops, in vw, to break the rows up.
-  const PLACE = [
-    { c: 1,  s: 4, t: 0   },
-    { c: 8,  s: 3, t: 7   },
-    { c: 3,  s: 4, t: 2.5 },
-    { c: 9,  s: 3, t: 10  },
-    { c: 1,  s: 3, t: 3.5 },
-    { c: 6,  s: 4, t: 0   },
-    { c: 2,  s: 3, t: 8   },
-    { c: 8,  s: 4, t: 1.5 }
   ];
 
   const grid = document.querySelector('.ar-grid');
@@ -55,12 +39,10 @@
     return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
   }
 
-  grid.innerHTML = ITEMS.map(function (it, i) {
-    const p = PLACE[i % PLACE.length];
-    // cap the tile at its own source width so nothing is ever blown up
-    const cap = it.w ? ';max-width:' + Math.round(it.w * SCALE) + 'px' : '';
-    return '<figure class="ar-tile reveal"'
-      + ' style="--c:' + p.c + ';--s:' + p.s + ';--t:' + p.t + 'vw' + cap + '">'
+  grid.innerHTML = ITEMS.map(function (it) {
+    // never render a piece larger than its source
+    const cap = it.w ? ' style="max-width:' + it.w + 'px"' : '';
+    return '<figure class="ar-tile reveal"' + cap + '>'
       +   '<img src="' + it.src + '" alt="' + esc(it.alt) + '" loading="lazy">'
       + '</figure>';
   }).join('');

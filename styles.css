@@ -918,21 +918,19 @@ img.mo-line { width:min(62%, 620px); height:auto; display:block; }
    ARCHIVE — a scattered, numbered grid of unused work, and a
    full-screen viewer with prev / close / next along the bottom.
    ============================================================ */
-.ar-page { padding:150px 32px 140px; }
+.ar-page { padding:150px clamp(32px,7vw,110px) 140px; }
 
-/* 12 columns, with each tile placed by --c / --s and dropped by --t.
-   The offsets are what stop it reading as a tidy grid. */
+/* three across, with real room at the sides */
 .ar-grid {
-  display:grid; grid-template-columns:repeat(12,1fr);
-  column-gap:clamp(14px,2vw,32px); row-gap:0;
-  align-items:start; max-width:1600px; margin:0 auto;
-  padding-bottom:6vw;
+  display:grid; grid-template-columns:repeat(3,1fr);
+  column-gap:clamp(20px,3vw,56px);
+  row-gap:clamp(40px,5.5vw,96px);
+  align-items:start; justify-items:center;
+  max-width:1360px; margin:0 auto;
 }
 .ar-tile {
-  grid-column:var(--c) / span var(--s);
-  margin-top:var(--t,0); margin-bottom:clamp(40px,5vw,96px);
-  position:relative; display:block; width:100%;
-  padding:0; border:0; background:none; margin-left:0; margin-right:0;
+  margin:0; padding:0; border:0; background:none;
+  width:100%;   /* max-width per piece is set inline, so none is upscaled */
 }
 .ar-tile img {
   width:100%; height:auto; display:block;
@@ -942,14 +940,10 @@ img.mo-line { width:min(62%, 620px); height:auto; display:block; }
 
 
 @media (max-width:900px) {
-  .ar-grid { grid-template-columns:repeat(6,1fr); }
-  /* halve the spans and drop the offsets — the scatter turns to noise at this width */
-  .ar-tile { grid-column:auto / span 3; margin-top:0; margin-bottom:clamp(30px,6vw,54px); }
 }
 @media (max-width:640px) {
   .ar-page { padding:120px 20px 90px; }
-  .ar-grid { grid-template-columns:1fr; }
-  .ar-tile { grid-column:1 / -1; }
+  .ar-grid { grid-template-columns:repeat(2,1fr); }
   .ar-stage { padding:44px 16px 6px; }
   .ar-bar { padding:0 18px 22px; }
   .ar-bar button { font-size:14px; }
@@ -1150,3 +1144,8 @@ body.light .ar-page .page-head h1 { color:var(--ink); }
 body.light .ar-page .page-head p { color:rgba(17,17,16,.58); }
 body.light .ar-empty { color:rgba(17,17,16,.45); }
 body.light .ar-tile img { border-radius:0; }
+
+
+@media (max-width:620px) {
+  .ar-grid { grid-template-columns:1fr; }
+}
