@@ -24,7 +24,8 @@
     { src: 'ar-09.jpg', w: 451,  alt: 'Runner and dog illustration \u2014 unused' },
     { src: 'ar-10.jpg', w: 747,  alt: 'Mark on sage \u2014 unused' },
     { src: 'ar-11.jpg', w: 943,  alt: 'Interiors logotype and social mockup \u2014 unused' },
-    { src: 'ar-12.jpg', w: 1289, alt: 'ANNEX \u2014 functional movement, more than just fitness \u2014 unused concept' }
+    { src: 'ar-12.jpg', w: 1289, alt: 'ANNEX \u2014 functional movement, more than just fitness \u2014 unused concept' },
+    { src: 'ar-13.jpg', w: 1046, alt: '310 Harrison \u2014 app screens, unused concept' }
   ];
 
   const grid = document.querySelector('.ar-grid');
