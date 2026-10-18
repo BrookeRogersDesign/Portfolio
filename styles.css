@@ -1167,3 +1167,10 @@ body.light .ar-tile img { border-radius:0; }
     padding-bottom:clamp(18px,6vw,40px);
   }
 }
+
+/* a card that leaves the site rather than opening a case */
+.work-card .label .name .out {
+  font-size:.72em; vertical-align:super; margin-left:4px;
+  color:var(--fade); transition:color .25s;
+}
+.work-card:hover .label .name .out { color:var(--red); }
