@@ -915,52 +915,133 @@ img.mo-line { width:min(62%, 620px); height:auto; display:block; }
 }
 
 /* ============================================================
-   ARCHIVE — a scattered, numbered grid of unused work, and a
-   full-screen viewer with prev / close / next along the bottom.
+   ARCHIVE — a uniform wall of unused work: square tiles, five
+   across, each numbered beneath it, and a full-screen viewer with
+   prev / close / next along the bottom.
    ============================================================ */
 .ar-page { padding:170px clamp(32px,7vw,110px) 190px; }
 
-/* three across, with real room at the sides */
+/* Every piece is cropped to the same square so the wall reads as one set.
+   Tiles are all the same height, so they line up centred across each row
+   with the number sitting directly under each one. */
 .ar-grid {
-  display:grid; grid-template-columns:repeat(3,1fr);
-  column-gap:clamp(34px,5.5vw,104px);
-  row-gap:clamp(76px,10vw,172px);
-  align-items:start; justify-items:center;
+  display:grid; grid-template-columns:repeat(5,1fr);
+  column-gap:clamp(30px,5.5vw,80px);
+  row-gap:clamp(44px,6vw,86px);
+  align-items:center; justify-items:center;
   max-width:1360px; margin:0 auto;
 }
+
+/* each tile is a button — it opens the piece full screen */
 .ar-tile {
-  margin:0; padding:0; border:0; background:none;
-  width:100%;
-  /* --cap is each piece's own source width, set inline, so none is upscaled */
-  max-width:var(--cap, none);
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  width:100%; margin:0; padding:0; border:0;
+  background:none; font:inherit; color:inherit; text-align:center;
+  cursor:pointer;
+  /* without these two, dark mode force-inverts the native button */
+  -webkit-appearance:none; appearance:none; color-scheme:light;
+}
+.ar-thumb {
+  display:block; width:100%; aspect-ratio:1/1;
+  overflow:hidden; border-radius:0;
+  background:rgba(17,17,16,.05);
 }
 .ar-tile img {
-  width:100%; height:auto; display:block;
-  border-radius:var(--r);
-  transition:opacity .35s ease;
+  width:100%; height:100%; display:block;
+  object-fit:cover;
+  transition:transform .6s cubic-bezier(.2,.7,.2,1), opacity .35s ease;
 }
+.ar-tile:hover img { transform:scale(1.045); }
+/* a wide logotype cropped square loses half the word — these sit whole
+   inside the tile, inset a little so they don't touch the edges */
+.ar-thumb.is-whole { background:none; }
+.ar-thumb.is-whole img { object-fit:contain; padding:var(--pad, 7%); }
+.ar-tile:focus-visible .ar-thumb { outline:2px solid var(--red); outline-offset:5px; }
 
+.ar-num {
+  display:block; margin-top:13px;
+  font-family:var(--sans-text); font-size:12px;
+  letter-spacing:.09em; font-variant-numeric:tabular-nums;
+  color:rgba(17,17,16,.4); transition:color .25s;
+}
+.ar-tile:hover .ar-num { color:var(--red); }
 
+@media (max-width:1180px) { .ar-grid { grid-template-columns:repeat(4,1fr); } }
 @media (max-width:900px) {
-}
-@media (max-width:980px) {
-  /* the looser desktop gaps are too much on a narrow screen — below the
-     breakpoint the grid keeps its original spacing */
   .ar-grid {
-    grid-template-columns:repeat(2,1fr);
-    column-gap:clamp(20px,3vw,56px);
-    row-gap:clamp(40px,5.5vw,96px);
+    grid-template-columns:repeat(3,1fr);
+    column-gap:clamp(20px,3.5vw,56px);
+    row-gap:clamp(34px,5vw,64px);
   }
 }
 @media (max-width:640px) {
   .ar-page { padding:120px 20px 90px; }
+  /* two across on a phone, matching the reference */
+  .ar-grid { grid-template-columns:repeat(2,1fr); column-gap:16px; row-gap:30px; }
+  .ar-num { margin-top:10px; font-size:11px; }
 }
 
 /* the archive between sets — reads as deliberate, not broken */
 .ar-grid.is-empty { display:block; padding:clamp(30px,6vw,80px) 0 clamp(90px,14vw,200px); }
 .ar-empty {
   font-family:var(--sans-text); font-size:16px;
-  color:rgba(255,255,255,.45);
+  color:rgba(17,17,16,.45);
+}
+
+/* ---------- the viewer ----------
+   Sits under the nav (z-index 100) rather than over it, so the site
+   furniture stays reachable while a piece is open. */
+.ar-view {
+  position:fixed; inset:0; z-index:90;
+  display:grid; grid-template-rows:1fr auto;
+  background:var(--white);
+  padding:clamp(86px,13vh,142px) clamp(20px,5vw,80px) 0;
+}
+/* an author display rule outranks the UA [hidden] rule, so say it again */
+.ar-view[hidden] { display:none; }
+body.ar-locked { overflow:hidden; }
+
+.ar-stage { display:grid; place-items:center; min-height:0; }
+.ar-img {
+  max-width:100%; max-height:100%;
+  width:auto; height:auto; display:block;
+  object-fit:contain;
+}
+
+.ar-bar {
+  display:grid; grid-template-columns:1fr auto 1fr;
+  align-items:center; gap:18px;
+  padding:clamp(20px,3.5vh,38px) 0 clamp(24px,4.5vh,46px);
+  font-family:var(--sans-text); font-size:15px;
+}
+.ar-bar button {
+  background:none; border:0; padding:0; cursor:pointer;
+  font:inherit; color:var(--ink); letter-spacing:-.005em;
+  transition:color .25s;
+  -webkit-appearance:none; appearance:none; color-scheme:light;
+}
+.ar-bar button:hover { color:var(--red); }
+.ar-prev { justify-self:start; }
+.ar-close { justify-self:center; }
+.ar-next { justify-self:end; }
+
+.ar-meta {
+  position:absolute; left:clamp(20px,5vw,80px); right:clamp(20px,5vw,80px);
+  top:clamp(58px,9vh,104px);
+  display:flex; justify-content:space-between; align-items:baseline; gap:20px;
+  font-family:var(--sans-text); font-size:12px; letter-spacing:.09em;
+  color:rgba(17,17,16,.42);
+  pointer-events:none;
+}
+.ar-count { font-variant-numeric:tabular-nums; flex:none; }
+.ar-cap {
+  text-align:right; letter-spacing:0; font-size:12px;
+  max-width:52ch;
+}
+@media (max-width:640px) {
+  .ar-bar { font-size:14px; gap:10px; }
+  .ar-cap { display:none; }
 }
 
 /* ---------- agency credit, end of case ----------
@@ -1149,24 +1230,7 @@ body.light .nav-links .sep { color:rgba(17,17,16,.35); }
 body.light .ar-page .page-head h1 { color:var(--ink); }
 body.light .ar-page .page-head p { color:rgba(17,17,16,.58); }
 body.light .ar-empty { color:rgba(17,17,16,.45); }
-body.light .ar-tile img { border-radius:0; }
 
-
-@media (max-width:620px) {
-  .ar-grid { grid-template-columns:1fr; }
-}
-
-/* Light marks and line art hold their own at desktop sizes but dominate a
-   phone column. Below the breakpoint they come down further, stay centred,
-   and take extra room above and below so they read as marks, not banners. */
-@media (max-width:640px) {
-  .ar-tile.is-small {
-    max-width:min(var(--cap, 100%), 44%);
-    margin-left:auto; margin-right:auto;
-    padding-top:clamp(18px,6vw,40px);
-    padding-bottom:clamp(18px,6vw,40px);
-  }
-}
 
 /* a card that leaves the site rather than opening a case */
 .work-card .label .name .out {

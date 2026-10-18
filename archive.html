@@ -27,7 +27,7 @@
 <!-- Neue Haas Grotesk Display via Adobe Fonts -->
 <link rel="stylesheet" href="https://use.typekit.net/qay0tct.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=84">
+<link rel="stylesheet" href="styles.css?v=85">
 </head>
 <body class="light">
 
@@ -50,12 +50,26 @@
   <div class="ar-grid"></div>
 </main>
 
+<!-- full-screen viewer: built once here, filled in by archive.js -->
+<div class="ar-view" role="dialog" aria-modal="true" aria-label="Archive viewer" hidden>
+  <div class="ar-meta">
+    <span class="ar-count"></span>
+    <span class="ar-cap"></span>
+  </div>
+  <div class="ar-stage"><img class="ar-img" src="" alt=""></div>
+  <div class="ar-bar">
+    <button class="ar-prev" type="button">&#8592; Prev image</button>
+    <button class="ar-close" type="button">Close</button>
+    <button class="ar-next" type="button">Next image &#8594;</button>
+  </div>
+</div>
+
 
 <script>
   if ('scrollRestoration' in history) history.scrollRestoration = 'auto';
   const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add('in')), { threshold:.08 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </script>
-<script src="archive.js?v=84"></script>
+<script src="archive.js?v=85"></script>
 </body>
 </html>
