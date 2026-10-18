@@ -20,16 +20,16 @@
     { src: 'ar-03.jpg', w: 1092, alt: 'ACIC \u2014 bold, precise, confident, uplifting, unified \u2014 unused direction' },
     { src: 'ar-04.jpg', w: 782,  alt: '201 Central Ave Bar, St. Pete \u2014 unused' },
     { src: 'ar-05.jpg', w: 676,  alt: 'St. Pete Bar, Central Ave \u2014 unused' },
-    { src: 'ar-06.jpg', w: 245,  alt: 'MM monogram \u2014 unused' },
+    { src: 'ar-06.jpg', w: 245,  small: true,  alt: 'MM monogram \u2014 unused' },
     { src: 'ar-07.jpg', w: 790,  alt: 'Mira Mar envelope \u2014 unused' },
     { src: 'ar-08.jpg', w: 544,  alt: 'Linked mark on bronze \u2014 unused' },
-    { src: 'ar-09.jpg', w: 451,  scale: 0.6, alt: 'Runner and dog illustration \u2014 unused' },
+    { src: 'ar-09.jpg', w: 451,  scale: 0.6, small: true, alt: 'Runner and dog illustration \u2014 unused' },
     { src: 'ar-10.jpg', w: 747,  alt: 'Mark on sage \u2014 unused' },
     { src: 'ar-15.jpg', w: 1304, alt: 'Massage Therapy, est 2021 \u2014 unused' },
     { src: 'ar-11.jpg', w: 943,  alt: 'Interiors logotype and social mockup \u2014 unused' },
     { src: 'ar-12.jpg', w: 1289, alt: 'ANNEX \u2014 functional movement, more than just fitness \u2014 unused concept' },
     { src: 'ar-13.jpg', w: 1046, alt: '310 Harrison \u2014 app screens, unused concept' },
-    { src: 'ar-14.jpg', w: 544,  alt: 'AirPlayne logo \u2014 unused' }
+    { src: 'ar-14.jpg', w: 544,  small: true,  alt: 'AirPlayne logo \u2014 unused' }
   ];
 
   const grid = document.querySelector('.ar-grid');
@@ -51,10 +51,12 @@
     // never render a piece larger than its source. `scale` takes an individual
     // piece down further — line art with a lot of white space reads much
     // bigger than a dense image at the same width.
+    // the cap rides on a custom property rather than max-width directly, so
+    // the stylesheet can tighten it on small screens without !important
     const cap = it.w
-      ? ' style="max-width:' + Math.round(it.w * (it.scale || 1)) + 'px"'
+      ? ' style="--cap:' + Math.round(it.w * (it.scale || 1)) + 'px"'
       : '';
-    return '<figure class="ar-tile reveal"' + cap + '>'
+    return '<figure class="ar-tile reveal' + (it.small ? ' is-small' : '') + '"' + cap + '>'
       +   '<img src="' + it.src + '" alt="' + esc(it.alt) + '" loading="lazy">'
       + '</figure>';
   }).join('');

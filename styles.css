@@ -930,7 +930,9 @@ img.mo-line { width:min(62%, 620px); height:auto; display:block; }
 }
 .ar-tile {
   margin:0; padding:0; border:0; background:none;
-  width:100%;   /* max-width per piece is set inline, so none is upscaled */
+  width:100%;
+  /* --cap is each piece's own source width, set inline, so none is upscaled */
+  max-width:var(--cap, none);
 }
 .ar-tile img {
   width:100%; height:auto; display:block;
@@ -1152,4 +1154,16 @@ body.light .ar-tile img { border-radius:0; }
 
 @media (max-width:620px) {
   .ar-grid { grid-template-columns:1fr; }
+}
+
+/* Light marks and line art hold their own at desktop sizes but dominate a
+   phone column. Below the breakpoint they come down further, stay centred,
+   and take extra room above and below so they read as marks, not banners. */
+@media (max-width:640px) {
+  .ar-tile.is-small {
+    max-width:min(var(--cap, 100%), 58%);
+    margin-left:auto; margin-right:auto;
+    padding-top:clamp(18px,6vw,40px);
+    padding-bottom:clamp(18px,6vw,40px);
+  }
 }
