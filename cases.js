@@ -338,8 +338,22 @@ const CASES = {
 
   function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
 
+  // Retina copies cut from a 2x render: [original width, @2x width].
+  // Big screens pull the @2x file; phones keep the original.
+  const HIRES = {
+    'ora-hero.jpg': [1800, 2880], 'ora-storefront.jpg': [1800, 2880], 'ora-brochure.jpg': [1800, 2880],
+    'ora-floorplan.jpg': [1676, 2880], 'ora-pool.jpg': [1676, 2880], 'ora-mood.jpg': [1521, 2880],
+    'ora-collage.jpg': [1676, 2880], 'ora-dnd.jpg': [753, 1506]
+  };
+  // Returns the tail of a src attribute plus srcset/sizes; the caller's '"' closes it.
+  function hi(src, sizes) {
+    const w = HIRES[src];
+    if (!w) return '';
+    return '" srcset="' + src + ' ' + w[0] + 'w, ' + src.replace('.jpg', '@2x.jpg') + ' ' + w[1] + 'w" sizes="' + sizes;
+  }
+
   function renderBlock(b, name) {
-    if (b.bleed) return '<figure class="cs-bleed"><img src="' + b.bleed + '" alt="' + esc(name) + '" loading="lazy"></figure>';
+    if (b.bleed) return '<figure class="cs-bleed"><img src="' + b.bleed + hi(b.bleed, '100vw') + '" alt="' + esc(name) + '" loading="lazy"></figure>';
     if (b.inset) return '<div class="cs-inset"' + (b.bg ? ' style="background:' + b.bg + '"' : '') + '><img src="' + b.inset + '" alt="' + esc(name) + '" loading="lazy"></div>';
     if (b.panel) return '<div class="cs-panel" style="background:' + (b.bg || '#3F1516') + '"><img src="' + b.panel + '" alt="' + esc(name) + '" loading="lazy"></div>';
     if (b.mid)   return '<figure class="cs-mid"><img src="' + b.mid + '" alt="' + esc(name) + '" loading="lazy"></figure>';
@@ -425,7 +439,7 @@ const CASES = {
       return '<div class="gl-item"><img src="' + g.img + '" alt="' + esc(name) + '" loading="lazy"></div>';
     }).join('') + '</div></div>';
     if (b.split) return '<div class="cs-split">'
-      + '<div class="sp-media"><img src="' + b.split + '" alt="' + esc(name) + '" loading="lazy"></div>'
+      + '<div class="sp-media"><img src="' + b.split + hi(b.split, '(max-width:768px) 100vw, 50vw') + '" alt="' + esc(name) + '" loading="lazy"></div>'
       + '<div class="sp-copy"><img src="' + b.art + '" alt="' + esc(b.alt || '') + '" loading="lazy"></div>'
       + '</div>';
     // a set of stills cycling in place, like a gif. one @keyframes per frame
@@ -516,7 +530,7 @@ const CASES = {
     // ~24px tall on a phone, where the standard gap leaves it stuck to the
     // block below.
     if (b.image) return '<figure class="cs-full' + (b.room ? ' cs-room' : '') + '">'
-      + '<img src="' + b.image + '" alt="' + esc(name) + '" loading="lazy"></figure>';
+      + '<img src="' + b.image + hi(b.image, '(max-width:1400px) 100vw, 1360px') + '" alt="' + esc(name) + '" loading="lazy"></figure>';
     if (b.pair)  return '<div class="cs-pair">' + b.pair.map(function (s) {
       return '<figure><img src="' + s + '" alt="' + esc(name) + '" loading="lazy"></figure>'; }).join('') + '</div>';
     // `plain: true` drops the lead-in's bold without touching every other case
