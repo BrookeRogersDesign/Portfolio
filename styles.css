@@ -1238,3 +1238,25 @@ body.light .ar-empty { color:rgba(17,17,16,.45); }
   color:var(--fade); transition:color .25s;
 }
 .work-card:hover .label .name .out { color:var(--red); }
+
+/* ---------- the homepage runs white ---------- */
+body.home-light { background:var(--white); color:var(--ink); --fade:rgba(17,17,16,.38); }
+body.home-light nav {
+  background:color-mix(in srgb, #FFFFFF 88%, transparent);
+  backdrop-filter:blur(10px);
+}
+body.home-light .wordmark,
+body.home-light .nav-links a { color:var(--ink); }
+body.home-light .wordmark .accent,
+body.home-light .nav-links a:hover { color:var(--red); }
+body.home-light .nav-links .sep { color:rgba(17,17,16,.38); }
+body.home-light .hero { background:var(--white); color:var(--ink); }
+body.home-light .featured-label { color:var(--ink); }
+body.home-light .work-item,
+body.home-light .caps { color:var(--white); }
+body.home-light .caps { --fade:rgba(255,255,255,.38); }
+body.home-light .view-all { color:var(--ink); }
+body.home-light .view-all:hover { color:var(--red); }
+body.home-light footer { background:var(--white); color:var(--ink); }
+body.home-light .foot-row { color:rgba(17,17,16,.6); }
+body.home-light .email:hover { background:var(--ink); color:var(--white); }
