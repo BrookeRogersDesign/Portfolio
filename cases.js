@@ -343,7 +343,22 @@ const CASES = {
   const HIRES = {
     'ora-hero.jpg': [1800, 2880], 'ora-storefront.jpg': [1800, 2880], 'ora-brochure.jpg': [1800, 2880],
     'ora-floorplan.jpg': [1676, 2880], 'ora-pool.jpg': [1676, 2880], 'ora-mood.jpg': [1521, 2880],
-    'ora-collage.jpg': [1676, 2880], 'ora-dnd.jpg': [753, 1506]
+    'ora-collage.jpg': [1676, 2880], 'ora-dnd.jpg': [753, 1506],
+    'yas-02.jpg': [1800, 2880],
+    'mm-02.jpg': [1800, 2880], 'mm-01.jpg': [1800, 2880], 'mm-05.jpg': [1800, 2880],
+    'mm-08.jpg': [1800, 2880], 'mm-09.jpg': [1772, 2880],
+    'gd-hero.jpg': [1900, 2880], 'gd-app1.jpg': [1900, 2880], 'gd-colours.jpg': [1900, 2880],
+    'gd-app2.jpg': [1900, 2880], 'gd-merch.jpg': [1660, 2880],
+    'owa-01.jpg': [1800, 2880], 'owa-03.jpg': [1750, 2880], 'owa-06.jpg': [1750, 2880],
+    'owa-07.jpg': [1800, 2880],
+    'madrun-01.jpg': [1800, 2880], 'madrun-02.jpg': [1800, 2880], 'madrun-05.jpg': [1800, 2880],
+    'blank-01.jpg': [1800, 2880], 'blank-02.jpg': [1763, 2880], 'blank-03.jpg': [1664, 2880],
+    'blank-04.jpg': [1800, 2880], 'blank-08.jpg': [1800, 2880], 'blank-09.jpg': [1755, 2880],
+    'ddd-hero.jpg': [1800, 2880], 'ddd-lifestyle.jpg': [1666, 2880], 'ddd-sign.jpg': [1800, 2880],
+    'ddd-marks.jpg': [1758, 2880], 'ddd-heels.jpg': [1800, 2880], 'ddd-trio.jpg': [1800, 2880],
+    'pap-mark.jpg': [1690, 2880], 'pap-stationery.jpg': [1800, 2880], 'pap-logoband.jpg': [1776, 2880],
+    'pap-brochure.jpg': [1800, 2880], 'pap-merch.jpg': [1800, 2880], 'pap-skyline.jpg': [1800, 2880],
+    'pap-cards.jpg': [1720, 2880], 'pap-closing.jpg': [1718, 2880]
   };
   // Returns the tail of a src attribute plus srcset/sizes; the caller's '"' closes it.
   function hi(src, sizes) {
@@ -354,8 +369,8 @@ const CASES = {
 
   function renderBlock(b, name) {
     if (b.bleed) return '<figure class="cs-bleed"><img src="' + b.bleed + hi(b.bleed, '100vw') + '" alt="' + esc(name) + '" loading="lazy"></figure>';
-    if (b.inset) return '<div class="cs-inset"' + (b.bg ? ' style="background:' + b.bg + '"' : '') + '><img src="' + b.inset + '" alt="' + esc(name) + '" loading="lazy"></div>';
-    if (b.panel) return '<div class="cs-panel" style="background:' + (b.bg || '#3F1516') + '"><img src="' + b.panel + '" alt="' + esc(name) + '" loading="lazy"></div>';
+    if (b.inset) return '<div class="cs-inset"' + (b.bg ? ' style="background:' + b.bg + '"' : '') + '><img src="' + b.inset + hi(b.inset, '(max-width:1400px) 100vw, 1360px') + '" alt="' + esc(name) + '" loading="lazy"></div>';
+    if (b.panel) return '<div class="cs-panel" style="background:' + (b.bg || '#3F1516') + '"><img src="' + b.panel + hi(b.panel, '(max-width:1400px) 100vw, 1360px') + '" alt="' + esc(name) + '" loading="lazy"></div>';
     if (b.mid)   return '<figure class="cs-mid"><img src="' + b.mid + '" alt="' + esc(name) + '" loading="lazy"></figure>';
     if (b.motion) return '<figure class="cs-full"><video autoplay loop muted playsinline preload="metadata" poster="' + b.poster + '"><source src="' + b.motion + '" type="video/mp4"></video></figure>';
     if (b.red)   return '<div class="cs-red">' + (b.video
