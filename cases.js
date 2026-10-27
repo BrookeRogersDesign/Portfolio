@@ -136,7 +136,7 @@ const CASES = {
       ] },
       { text: 'THE PALETTE', body: 'stays in oxblood, bone, warm tan and near-black \u2014 salon colors without the gloss. Serif display against a plain grotesque keeps the voice close to a fashion house and far from a price list.' },
       { text: 'THE PROMISE', body: 'is a space where craftsmanship, conversation, and quiet luxury come together to create hair that lives beautifully beyond the salon.' },
-      { screens: ['blank-s1.jpg', 'blank-s2.jpg', 'blank-s3.jpg'] }
+      { image: 'blank-stories.jpg' }
     ]
   },
   ddd: {
@@ -353,7 +353,7 @@ const CASES = {
     'owa-07.jpg': [1800, 2880],
     'madrun-01.jpg': [1800, 2880], 'madrun-02.jpg': [1800, 2880], 'madrun-05.jpg': [1800, 2880],
     'blank-01.jpg': [1800, 2880], 'blank-02.jpg': [1763, 2880], 'blank-03.jpg': [1664, 2880],
-    'blank-04.jpg': [1800, 2880], 'blank-08.jpg': [1800, 2880], 'blank-09.jpg': [1755, 2880],
+    'blank-04.jpg': [1800, 2880], 'blank-08.jpg': [1800, 2880], 'blank-09.jpg': [1755, 2880], 'blank-stories.jpg': [1800, 2880],
     'ddd-hero.jpg': [1800, 2880], 'ddd-lifestyle.jpg': [1666, 2880], 'ddd-sign.jpg': [1800, 2880],
     'ddd-marks.jpg': [1758, 2880], 'ddd-heels.jpg': [1800, 2880], 'ddd-trio.jpg': [1800, 2880],
     'pap-mark.jpg': [1690, 2880], 'pap-stationery.jpg': [1800, 2880], 'pap-logoband.jpg': [1776, 2880],
