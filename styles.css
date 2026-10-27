@@ -1239,24 +1239,27 @@ body.light .ar-empty { color:rgba(17,17,16,.45); }
 }
 .work-card:hover .label .name .out { color:var(--red); }
 
-/* ---------- the homepage runs white ---------- */
-body.home-light { background:var(--white); color:var(--ink); --fade:rgba(17,17,16,.38); }
-body.home-light nav {
+/* ---------- home + work run white ---------- */
+body.page-light { background:var(--white); color:var(--ink); --fade:rgba(17,17,16,.38); }
+body.page-light nav {
   background:color-mix(in srgb, #FFFFFF 88%, transparent);
   backdrop-filter:blur(10px);
 }
-body.home-light .wordmark,
-body.home-light .nav-links a { color:var(--ink); }
-body.home-light .wordmark .accent,
-body.home-light .nav-links a:hover { color:var(--red); }
-body.home-light .nav-links .sep { color:rgba(17,17,16,.38); }
-body.home-light .hero { background:var(--white); color:var(--ink); }
-body.home-light .featured-label { color:var(--ink); }
-body.home-light .work-item,
-body.home-light .caps { color:var(--white); }
-body.home-light .caps { --fade:rgba(255,255,255,.38); }
-body.home-light .view-all { color:var(--ink); }
-body.home-light .view-all:hover { color:var(--red); }
-body.home-light footer { background:var(--white); color:var(--ink); }
-body.home-light .foot-row { color:rgba(17,17,16,.6); }
-body.home-light .email:hover { background:var(--ink); color:var(--white); }
+body.page-light .wordmark,
+body.page-light .nav-links a { color:var(--ink); }
+body.page-light .wordmark .accent,
+body.page-light .nav-links a:hover { color:var(--red); }
+body.page-light .nav-links .sep { color:rgba(17,17,16,.38); }
+body.page-light .hero { background:var(--white); color:var(--ink); }
+body.page-light .featured-label { color:var(--ink); }
+body.page-light .work-item,
+body.page-light .caps { color:var(--white); }
+body.page-light .caps { --fade:rgba(255,255,255,.38); }
+body.page-light .view-all { color:var(--ink); }
+body.page-light .view-all:hover { color:var(--red); }
+body.page-light footer { background:var(--white); color:var(--ink); }
+body.page-light .foot-row { color:rgba(17,17,16,.6); }
+body.page-light .email:hover { background:var(--ink); color:var(--white); }
+body.page-light .work-card .num { color:var(--white); }
+body.page-light .work-card .label .cats { color:rgba(17,17,16,.55); }
+body.page-light .work-card .shot { background:#EDEBE7; }
