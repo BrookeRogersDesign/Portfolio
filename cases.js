@@ -31,9 +31,9 @@ const CASES = {
       { image: 'gd-app1.jpg' },
       { marquee: { bg: 'gd-trail.jpg', art: 'gd-wordmark.svg',
                    alt: 'gooddays', h: '19cqw', gap: '7cqw', dur: '38s', reps: 1 } },
-      { image: 'gd-colours.jpg' },
+      { image: 'gd-grid.jpg' },
       { image: 'gd-app2.jpg' },
-      { image: 'gd-merch.jpg' }
+      { image: 'gd-merch2.jpg' }
     ]
   },
   yas: {
@@ -347,8 +347,8 @@ const CASES = {
     'yas-02.jpg': [1800, 2880],
     'mm-02.jpg': [1800, 2880], 'mm-01.jpg': [1800, 2880], 'mm-05.jpg': [1800, 2880],
     'mm-08.jpg': [1800, 2880], 'mm-09.jpg': [1772, 2880],
-    'gd-hero.jpg': [1900, 2880], 'gd-app1.jpg': [1900, 2880], 'gd-colours.jpg': [1900, 2880],
-    'gd-app2.jpg': [1900, 2880], 'gd-merch.jpg': [1660, 2880],
+    'gd-hero.jpg': [1900, 2880], 'gd-app1.jpg': [1900, 2880], 'gd-grid.jpg': [1900, 2880],
+    'gd-app2.jpg': [1900, 2880], 'gd-merch2.jpg': [1660, 2880],
     'owa-01.jpg': [1800, 2880], 'owa-03.jpg': [1750, 2880], 'owa-06.jpg': [1750, 2880],
     'owa-07.jpg': [1800, 2880],
     'madrun-01.jpg': [1800, 2880], 'madrun-02.jpg': [1800, 2880], 'madrun-05.jpg': [1800, 2880],
