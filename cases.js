@@ -250,11 +250,13 @@ const CASES = {
       { clip: 'kini-cover.mp4', poster: 'kini-poster.jpg', mark: 'hotkini-logo.png', ratio: '1684 / 947', markW: '73.9%' },
       { text: 'HOT KINI', body: 'is a hot sauce company and bikini line built on personality rather than heat scales. Summer Flame, Cowgirl Heat and Golden Heat each get their own colorway inside one label architecture.' },
       { bottle: ['kini-label-cowgirl.png', 'kini-label-golden.png', 'kini-label-summer.png'], bg: 'kini-surf.jpg' },
-      { image: 'kini-grid.jpg', narrow: '74%' },
+      { image: 'kini-grid-v2.jpg', narrow: '74%' },
       { image: 'kini-landing.jpg', narrow: '92%' },
       { image: 'kini-stories.jpg' },
-      { image: 'kini-pair.jpg' },
-      { bleed: 'kini-band.jpg' }
+      { bleed: 'kini-pattern.jpg' },
+      { bleed: 'kini-band.jpg' },
+      { image: 'kini-closeup.jpg' },
+      { bleed: 'kini-calienton.jpg' }
     ]
   },
   // Vintage Vault is on the Work page but deliberately not clickable — its
@@ -400,8 +402,9 @@ const CASES = {
     'pap-mark.jpg': [1690, 2880], 'pap-stationery.jpg': [1800, 2880], 'pap-logoband.jpg': [1776, 2880],
     'pap-brochure.jpg': [1800, 2880], 'pap-merch.jpg': [1800, 2880], 'pap-skyline.jpg': [1800, 2880],
     'pap-cards.jpg': [1720, 2880], 'pap-closing.jpg': [1718, 2880],
-    'kini-surf.jpg': [1800, 2880], 'kini-grid.jpg': [1800, 2508], 'kini-landing.jpg': [1800, 2880], 'kini-stories.jpg': [1800, 2880],
-    'kini-pair.jpg': [1800, 2644], 'kini-band.jpg': [1800, 2880]
+    'kini-surf.jpg': [1800, 2880], 'kini-grid-v2.jpg': [1800, 2509], 'kini-landing.jpg': [1800, 2880], 'kini-stories.jpg': [1800, 2880],
+    'kini-band.jpg': [1800, 2880],
+    'kini-pattern.jpg': [1800, 2880], 'kini-closeup.jpg': [1800, 2698], 'kini-calienton.jpg': [1800, 2880]
   };
   // Returns the tail of a src attribute plus srcset/sizes; the caller's '"' closes it.
   function hi(src, sizes) {
