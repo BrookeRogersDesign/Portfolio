@@ -359,8 +359,8 @@ const CASES = {
   }
   watchVideos(document);
 
-  // Hot Kini's bottle: every few seconds the next flavour fades in on top while
-  // the one it replaces stays solid underneath
+  // Hot Kini's bottle: the label blinks to the next flavour; the one it
+  // replaces stays solid underneath so the outline never flickers
   if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
     setInterval(function () {
       document.querySelectorAll('.case-overlay.open .bt-labels').forEach(function (set) {
@@ -373,7 +373,7 @@ const CASES = {
         imgs[cur].classList.replace('is-on', 'is-under');
         imgs[(cur + 1) % imgs.length].classList.add('is-on');
       });
-    }, 1400);
+    }, 900);
   }
 
   // Retina copies cut from a 2x render: [original width, @2x width].
