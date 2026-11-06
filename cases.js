@@ -338,6 +338,23 @@ const CASES = {
 
   function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
 
+  // Videos only download and play while on screen, so a looping film further
+  // down never competes with the images above it. Covers the page's own videos
+  // too (index + work load this file).
+  const vio = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (e.isIntersecting) e.target.play().catch(function () {});
+      else e.target.pause();
+    });
+  }, { rootMargin: '200px 0px' });
+  function watchVideos(root) {
+    root.querySelectorAll('video[data-onscreen]').forEach(function (v) { vio.observe(v); });
+  }
+  function unwatchVideos(root) {
+    root.querySelectorAll('video[data-onscreen]').forEach(function (v) { v.pause(); vio.unobserve(v); });
+  }
+  watchVideos(document);
+
   // Retina copies cut from a 2x render: [original width, @2x width].
   // Big screens pull the @2x file; phones keep the original.
   const HIRES = {
@@ -372,9 +389,9 @@ const CASES = {
     if (b.inset) return '<div class="cs-inset"' + (b.bg ? ' style="background:' + b.bg + '"' : '') + '><img src="' + b.inset + hi(b.inset, '(max-width:1400px) 100vw, 1360px') + '" alt="' + esc(name) + '" loading="lazy"></div>';
     if (b.panel) return '<div class="cs-panel" style="background:' + (b.bg || '#3F1516') + '"><img src="' + b.panel + hi(b.panel, '(max-width:1400px) 100vw, 1360px') + '" alt="' + esc(name) + '" loading="lazy"></div>';
     if (b.mid)   return '<figure class="cs-mid"><img src="' + b.mid + '" alt="' + esc(name) + '" loading="lazy"></figure>';
-    if (b.motion) return '<figure class="cs-full"><video autoplay loop muted playsinline preload="metadata" poster="' + b.poster + '"><source src="' + b.motion + '" type="video/mp4"></video></figure>';
+    if (b.motion) return '<figure class="cs-full"><video data-onscreen loop muted playsinline preload="none" poster="' + b.poster + '"><source src="' + b.motion + '" type="video/mp4"></video></figure>';
     if (b.red)   return '<div class="cs-red">' + (b.video
-      ? '<video autoplay loop muted playsinline preload="metadata" poster="' + b.poster + '"><source src="' + b.video + '" type="video/mp4"></video>'
+      ? '<video data-onscreen loop muted playsinline preload="none" poster="' + b.poster + '"><source src="' + b.video + '" type="video/mp4"></video>'
       : '<img src="' + b.red + '" alt="' + esc(name) + '" loading="lazy">') + '</div>';
     if (b.quad)  return '<div class="cs-quad">' + b.quad.map(function (s) {
       return '<img src="' + s + '" alt="' + esc(name) + '" loading="lazy">'; }).join('') + '</div>';
@@ -434,15 +451,15 @@ const CASES = {
                  + esc(n.t) + '</span>'; }).join('')
       + '</div></div>';
     if (b.motionPanel) return '<div class="cs-motion">'
-      + '<video autoplay loop muted playsinline preload="metadata"><source src="' + b.motionPanel + '" type="video/mp4"></video>'
+      + '<video data-onscreen loop muted playsinline preload="none"><source src="' + b.motionPanel + '" type="video/mp4"></video>'
       + '<div class="mo-copy">'
       +   (b.lineArt ? '<img class="mo-line" src="' + b.lineArt + '" alt="' + esc(b.line || '') + '">'
                       : b.line ? '<p class="mo-line">' + esc(b.line) + '</p>' : '')
       +   (b.mark ? '<img class="mo-mark" src="' + b.mark + '" alt="" loading="lazy">' : '')
       + '</div></div>';
     // full-bleed looping film. ORA's hero cut runs 84s, so it is only ever
-    // fetched when the case itself is opened — render() runs on open, not load.
-    if (b.film) return '<figure class="cs-film"><video autoplay loop muted playsinline preload="metadata"'
+    // fetched once it scrolls into view (see watchVideos).
+    if (b.film) return '<figure class="cs-film"><video data-onscreen loop muted playsinline preload="none"'
       + (b.poster ? ' poster="' + b.poster + '"' : '') + '>'
       + '<source src="' + b.film + '" type="video/mp4"></video></figure>';
     // a brand line drawn as outlines — ORA sets in KT Quantum / F37 Oracle,
@@ -530,7 +547,7 @@ const CASES = {
     // a tinted clip with the mark held still on top
     if (b.clip) return '<div class="cs-clip"'
       + (b.ratio ? ' style="aspect-ratio:' + b.ratio + '"' : '') + '>'
-      + '<video autoplay loop muted playsinline preload="metadata"'
+      + '<video data-onscreen loop muted playsinline preload="none"'
       + (b.poster ? ' poster="' + b.poster + '"' : '') + '>'
       + '<source src="' + b.clip + '" type="video/mp4"></video>'
       + (b.mark ? '<img class="cl-mark" src="' + b.mark + '" alt="' + esc(name) + '"'
@@ -599,7 +616,9 @@ const CASES = {
   function show(key, focus) {
     const c = CASES[key];
     if (!c) return false;
+    unwatchVideos(inner);
     render(c);
+    watchVideos(inner);
     overlay.classList.add('open');
     overlay.setAttribute('aria-hidden', 'false');
     document.body.classList.add('case-locked');
@@ -612,6 +631,7 @@ const CASES = {
   function hide() {
     closedAt = Date.now();
     overlay.classList.remove('open');
+    unwatchVideos(inner);   // the overlay only fades, so its videos would still count as on screen
     overlay.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('case-locked');
     isOpen = false;
