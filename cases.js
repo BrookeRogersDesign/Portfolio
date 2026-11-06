@@ -248,7 +248,6 @@ const CASES = {
       { clip: 'kini-cover.mp4', poster: 'kini-poster.jpg', mark: 'hotkini-logo.png', ratio: '1684 / 947', markW: '73.9%' },
       { text: 'HOT KINI', body: 'is a hot sauce company and bikini line built on personality rather than heat scales. Summer Flame, Cowgirl Heat and Golden Heat each get their own colorway inside one label architecture.' },
       { bottle: ['kini-label-cowgirl.png', 'kini-label-golden.png', 'kini-label-summer.png'], bg: 'kini-surf.jpg' },
-      { text: 'ON SHELF', body: 'the range reads as a family first and a flavour second — so the brand grows without needing a redesign every time a new sauce arrives.' },
       { image: 'kini-grid.jpg', narrow: '74%' },
       { image: 'kini-landing.jpg', narrow: '92%' },
       { image: 'kini-stories.jpg' }
