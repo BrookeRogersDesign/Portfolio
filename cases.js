@@ -373,7 +373,7 @@ const CASES = {
         imgs[cur].classList.replace('is-on', 'is-under');
         imgs[(cur + 1) % imgs.length].classList.add('is-on');
       });
-    }, 2600);
+    }, 1400);
   }
 
   // Retina copies cut from a 2x render: [original width, @2x width].
