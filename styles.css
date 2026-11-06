@@ -1339,3 +1339,8 @@ body.page-light .work-card .shot { background:#EDEBE7; }
 /* a board exported with its own edges: no rounding, and full width on phones */
 .cs-narrow img { border-radius:0; }
 @media (max-width:768px) { .cs-narrow { width:100% !important; } }
+/* a case drawn with square corners (Hot Kini) */
+.case-inner.cs-square .cs-clip,
+.case-inner.cs-square .cs-bottle,
+.case-inner.cs-square figure img,
+.case-inner.cs-square figure video { border-radius:0; }

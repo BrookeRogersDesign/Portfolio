@@ -243,6 +243,8 @@ const CASES = {
     name: 'Hot Kini', tagline: 'Bring the heat.',
     client: 'Hot Kini', year: '2025',
     credit: 'Freelance', role: 'Designer',
+    // square corners on every block, like the Figma board
+    square: true,
     type: ['Branding', 'Marketing', 'Website', 'Social Media'],
     blocks: [
       { clip: 'kini-cover.mp4', poster: 'kini-poster.jpg', mark: 'hotkini-logo.png', ratio: '1684 / 947', markW: '73.9%' },
@@ -250,7 +252,9 @@ const CASES = {
       { bottle: ['kini-label-cowgirl.png', 'kini-label-golden.png', 'kini-label-summer.png'], bg: 'kini-surf.jpg' },
       { image: 'kini-grid.jpg', narrow: '74%' },
       { image: 'kini-landing.jpg', narrow: '92%' },
-      { image: 'kini-stories.jpg' }
+      { image: 'kini-stories.jpg' },
+      { image: 'kini-pair.jpg' },
+      { bleed: 'kini-band.jpg' }
     ]
   },
   // Vintage Vault is on the Work page but deliberately not clickable — its
@@ -396,7 +400,8 @@ const CASES = {
     'pap-mark.jpg': [1690, 2880], 'pap-stationery.jpg': [1800, 2880], 'pap-logoband.jpg': [1776, 2880],
     'pap-brochure.jpg': [1800, 2880], 'pap-merch.jpg': [1800, 2880], 'pap-skyline.jpg': [1800, 2880],
     'pap-cards.jpg': [1720, 2880], 'pap-closing.jpg': [1718, 2880],
-    'kini-surf.jpg': [1800, 2880], 'kini-grid.jpg': [1800, 2508], 'kini-landing.jpg': [1800, 2880], 'kini-stories.jpg': [1800, 2880]
+    'kini-surf.jpg': [1800, 2880], 'kini-grid.jpg': [1800, 2508], 'kini-landing.jpg': [1800, 2880], 'kini-stories.jpg': [1800, 2880],
+    'kini-pair.jpg': [1800, 2644], 'kini-band.jpg': [1800, 2880]
   };
   // Returns the tail of a src attribute plus srcset/sizes; the caller's '"' closes it.
   function hi(src, sizes) {
@@ -604,6 +609,7 @@ const CASES = {
   }
 
   function render(c) {
+    inner.classList.toggle('cs-square', !!c.square);
     inner.innerHTML =
       '<div class="case-tab"><button type="button" class="case-close">Close <span class="x">\u00d7</span></button></div>' +
       '<header class="cs-head">' +
