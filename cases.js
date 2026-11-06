@@ -243,11 +243,15 @@ const CASES = {
     name: 'Hot Kini', tagline: 'Bring the heat.',
     client: 'Hot Kini', year: '2025',
     credit: 'Freelance', role: 'Designer',
-    type: ['Branding', 'Positioning', 'Website', 'Social Media'],
+    type: ['Branding', 'Marketing', 'Website', 'Social Media'],
     blocks: [
-      { image: 'kini-desktop.jpg' },
-      { text: 'HOT KINI', body: 'is a hot sauce line built on personality rather than heat scales. Summer Flame, Cowgirl Heat and Golden Heat each get their own colorway inside one label architecture.' },
-      { text: 'ON SHELF', body: 'the range reads as a family first and a flavour second — so the brand grows without needing a redesign every time a new sauce arrives.' }
+      { clip: 'kini-cover.mp4', poster: 'kini-poster.jpg', mark: 'hotkini-logo.png', ratio: '1684 / 947', markW: '73.9%' },
+      { text: 'HOT KINI', body: 'is a hot sauce company and bikini line built on personality rather than heat scales. Summer Flame, Cowgirl Heat and Golden Heat each get their own colorway inside one label architecture.' },
+      { bottle: ['kini-label-cowgirl.png', 'kini-label-golden.png', 'kini-label-summer.png'], bg: 'kini-surf.jpg' },
+      { text: 'ON SHELF', body: 'the range reads as a family first and a flavour second — so the brand grows without needing a redesign every time a new sauce arrives.' },
+      { image: 'kini-grid.jpg', narrow: '74%' },
+      { image: 'kini-landing.jpg', narrow: '92%' },
+      { image: 'kini-stories.jpg' }
     ]
   },
   // Vintage Vault is on the Work page but deliberately not clickable — its
@@ -355,6 +359,23 @@ const CASES = {
   }
   watchVideos(document);
 
+  // Hot Kini's bottle: every few seconds the next flavour fades in on top while
+  // the one it replaces stays solid underneath
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    setInterval(function () {
+      document.querySelectorAll('.case-overlay.open .bt-labels').forEach(function (set) {
+        const imgs = set.children;
+        let cur = 0;
+        for (let i = 0; i < imgs.length; i++) {
+          imgs[i].classList.remove('is-under');
+          if (imgs[i].classList.contains('is-on')) cur = i;
+        }
+        imgs[cur].classList.replace('is-on', 'is-under');
+        imgs[(cur + 1) % imgs.length].classList.add('is-on');
+      });
+    }, 2600);
+  }
+
   // Retina copies cut from a 2x render: [original width, @2x width].
   // Big screens pull the @2x file; phones keep the original.
   const HIRES = {
@@ -375,7 +396,8 @@ const CASES = {
     'ddd-marks.jpg': [1758, 2880], 'ddd-heels.jpg': [1800, 2880], 'ddd-trio.jpg': [1800, 2880],
     'pap-mark.jpg': [1690, 2880], 'pap-stationery.jpg': [1800, 2880], 'pap-logoband.jpg': [1776, 2880],
     'pap-brochure.jpg': [1800, 2880], 'pap-merch.jpg': [1800, 2880], 'pap-skyline.jpg': [1800, 2880],
-    'pap-cards.jpg': [1720, 2880], 'pap-closing.jpg': [1718, 2880]
+    'pap-cards.jpg': [1720, 2880], 'pap-closing.jpg': [1718, 2880],
+    'kini-surf.jpg': [1800, 2880], 'kini-grid.jpg': [1800, 2508], 'kini-landing.jpg': [1800, 2880], 'kini-stories.jpg': [1800, 2880]
   };
   // Returns the tail of a src attribute plus srcset/sizes; the caller's '"' closes it.
   function hi(src, sizes) {
@@ -544,6 +566,15 @@ const CASES = {
           }).join('')
         + '</div>';
     }
+    // the bottle over the surf photo, its label cycling through the flavours.
+    // Each flavour is the whole bottle, so the new one fades in over the last
+    // and the outline never dips (see the label timer below).
+    if (b.bottle) return '<div class="cs-bottle">'
+      + '<img class="bt-bg" src="' + b.bg + hi(b.bg, '(max-width:1400px) 100vw, 1360px') + '" alt="' + esc(name) + '" loading="lazy">'
+      + '<div class="bt-labels">' + b.bottle.map(function (src, i) {
+          return '<img src="' + src + '" alt="' + esc(i === 0 ? name + ' hot sauce bottle' : '') + '"'
+            + (i === 0 ? ' class="is-on"' : ' aria-hidden="true"') + ' loading="lazy">';
+        }).join('') + '</div></div>';
     // a tinted clip with the mark held still on top
     if (b.clip) return '<div class="cs-clip"'
       + (b.ratio ? ' style="aspect-ratio:' + b.ratio + '"' : '') + '>'
@@ -561,7 +592,9 @@ const CASES = {
     // `room: true` buys extra air underneath. A wide, short lockup collapses to
     // ~24px tall on a phone, where the standard gap leaves it stuck to the
     // block below.
-    if (b.image) return '<figure class="cs-full' + (b.room ? ' cs-room' : '') + '">'
+    // `narrow` holds a board that sits inside the Figma frame's margins
+    if (b.image) return '<figure class="cs-full' + (b.room ? ' cs-room' : '') + (b.narrow ? ' cs-narrow' : '') + '"'
+      + (b.narrow ? ' style="width:' + b.narrow + ';margin-left:auto;margin-right:auto"' : '') + '>'
       + '<img src="' + b.image + hi(b.image, '(max-width:1400px) 100vw, 1360px') + '" alt="' + esc(name) + '" loading="lazy"></figure>';
     if (b.pair)  return '<div class="cs-pair">' + b.pair.map(function (s) {
       return '<figure><img src="' + s + '" alt="' + esc(name) + '" loading="lazy"></figure>'; }).join('') + '</div>';
