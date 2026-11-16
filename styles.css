@@ -1374,18 +1374,16 @@ body.page-light .work-card .shot { background:#EDEBE7; }
 /* GRECK mobile pages: the row slides left (paused on hover) while each page
    scrolls inside its phone. Sizes are the Figma row's: 390 wide, 55 apart. */
 .cs-phones { container-type:inline-size; margin:0 -44px var(--cs-space); overflow:hidden; }
-.ph-track {
-  display:flex; gap:2.86cqw; width:max-content; padding-right:2.86cqw;
-  animation:ph-run 100s linear infinite;
-}
-.cs-phones:hover .ph-track { animation-play-state:paused; }
+.ph-run { touch-action:pan-y; cursor:grab; user-select:none; -webkit-user-select:none; }
+.ph-run:active { cursor:grabbing; }
+.ph-track { display:flex; gap:2.86cqw; width:max-content; padding-right:2.86cqw; will-change:transform; }
+.ph img { pointer-events:none; }
 .ph { position:relative; flex:none; width:20.31cqw; aspect-ratio:390 / 844; overflow:hidden; background:#FBF9F5; }
 .ph img {
   position:absolute; top:0; left:0; width:100%; height:auto; display:block; border-radius:0;
   animation:ph-scroll var(--d) ease-in-out var(--dl) infinite alternate;
 }
 .cs-phones .ph-dots { display:block; width:53.02cqw; height:auto; margin:9.4cqw auto 0; border-radius:0; }
-@keyframes ph-run { to { transform:translateX(-50%); } }
 @keyframes ph-scroll { 0%, 6% { transform:translateY(0); } 94%, 100% { transform:translateY(var(--end)); } }
 
 /* GRECK hang tags: dropped in one at a time, each landing on the last */
@@ -1399,7 +1397,7 @@ body.page-light .work-card .shot { background:#EDEBE7; }
 }
 .cs-tags.is-in .tg { opacity:1; transform:none; }
 @media (prefers-reduced-motion:reduce) {
-  .ph-track, .ph img { animation:none; }
+  .ph img { animation:none; }
   .cs-tags .tg { opacity:1; transform:none; transition:none; }
 }
 @media (max-width:768px) {

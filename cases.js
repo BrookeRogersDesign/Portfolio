@@ -410,6 +410,46 @@ const CASES = {
   }
   const sio = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { sio.unobserve(e.target); if (!reduceMotion()) runSite(e.target); } }); }, { threshold: 0.3 });
   function reduceMotion() { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+  // phone row: drifts left on its own and can be swiped or dragged sideways.
+  // Vertical swipes are left to the page (touch-action: pan-y), so the pages
+  // inside the phones only ever scroll by themselves
+  function runPhones(run) {
+    var track = run.querySelector('.ph-track'), x = 0, v = 0, drag = null, hover = false, last = 0;
+    var speed = reduceMotion() ? 0 : 1 / 100;          // half the track per 100s
+    function half() { return track.scrollWidth / 2; }
+    function wrap() { var h = half(); if (h) { x %= h; if (x > 0) x -= h; } }
+    function frame(t) {
+      if (!run.isConnected) return;
+      var dt = last ? Math.min(t - last, 64) / 1000 : 0; last = t;
+      if (!drag) {
+        if (Math.abs(v) > 0.02) { x += v * dt * 60; v *= Math.pow(0.92, dt * 60); }
+        else if (!hover) x -= half() * speed * dt;
+      }
+      wrap();
+      track.style.transform = 'translate3d(' + x + 'px,0,0)';
+      requestAnimationFrame(frame);
+    }
+    run.addEventListener('pointerdown', function (e) {
+      drag = { id: e.pointerId, x: e.clientX, y: e.clientY, moved: false, lastX: e.clientX, lastT: e.timeStamp }; v = 0;
+    });
+    run.addEventListener('pointermove', function (e) {
+      if (!drag || e.pointerId !== drag.id) return;
+      var dx = e.clientX - drag.lastX;
+      if (!drag.moved && Math.abs(e.clientX - drag.x) > 6) { drag.moved = true; try { run.setPointerCapture(e.pointerId); } catch (_) {} }
+      if (!drag.moved) return;
+      x += dx;
+      var dtm = Math.max(e.timeStamp - drag.lastT, 1);
+      v = dx / dtm * 16;
+      drag.lastX = e.clientX; drag.lastT = e.timeStamp;
+    });
+    function end(e) { if (drag && e.pointerId === drag.id) drag = null; }
+    run.addEventListener('pointerup', end);
+    run.addEventListener('pointercancel', function (e) { if (drag && e.pointerId === drag.id) { drag = null; v = 0; } });
+    run.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') hover = true; });
+    run.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') hover = false; });
+    run.addEventListener('dragstart', function (e) { e.preventDefault(); });
+    requestAnimationFrame(frame);
+  }
   // tags stack once their block is properly in view
   const tio = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); tio.unobserve(e.target); } }); }, { threshold: 0.35 });
 
@@ -755,6 +795,7 @@ const CASES = {
     watchVideos(inner);
     inner.querySelectorAll('.cs-tags').forEach(function (el) { tio.observe(el); });
     inner.querySelectorAll('.st-view').forEach(function (el) { sio.observe(el); });
+    inner.querySelectorAll('.ph-run').forEach(runPhones);
     overlay.classList.add('open');
     overlay.setAttribute('aria-hidden', 'false');
     document.body.classList.add('case-locked');
