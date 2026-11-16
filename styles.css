@@ -1344,3 +1344,80 @@ body.page-light .work-card .shot { background:#EDEBE7; }
 .case-inner.cs-square .cs-bottle,
 .case-inner.cs-square figure img,
 .case-inner.cs-square figure video { border-radius:0; }
+
+/* ---------- GRECK case ----------
+   Runs on the GRECK site's paper (set per case via `bg`). The ticker reuses
+   the .gk-ticker strip; the note is the "Her practice" block, sized in cqw
+   off the 1920 Figma frame. */
+.cs-ticker, .cs-note { container-type:inline-size; margin:0 -44px var(--cs-space); }
+.cs-ticker .gk-track img { height:1.03em; width:auto; transition:rotate .4s cubic-bezier(.2,.7,.1,1); }
+.cs-note {
+  display:grid; grid-template-columns:14.43cqw 37.12cqw; padding:0 0 0 28.02cqw;
+  color:#0E0E0E;
+}
+.cs-note .nt-label, .cs-note .nt-foot {
+  font-family:'Roboto Mono', ui-monospace, monospace; font-size:max(10px, .625cqw);
+  letter-spacing:.12em; text-transform:uppercase; line-height:1.3;
+}
+.cs-note .nt-label { color:#6F6A64; padding-top:.31cqw; }
+.cs-note p {
+  margin:0; font-family:'Inter', var(--sans-text); font-weight:300;
+  font-size:max(18px, 1.65cqw); line-height:1.3; letter-spacing:-.01em;
+}
+.cs-note .nt-foot { display:block; margin-top:2.6cqw; }
+@media (max-width:768px) {
+  .cs-ticker, .cs-note { margin:0 -20px var(--cs-space); }
+  .cs-ticker .gk-ticker { font-size:4.17cqw; padding:3.25cqw 0; }
+  .cs-note { grid-template-columns:1fr; gap:14px; padding:0 20px; }
+  .cs-note .nt-foot { margin-top:18px; }
+}
+/* GRECK mobile pages: the row slides left (paused on hover) while each page
+   scrolls inside its phone. Sizes are the Figma row's: 390 wide, 55 apart. */
+.cs-phones { container-type:inline-size; margin:0 -44px var(--cs-space); overflow:hidden; }
+.ph-track {
+  display:flex; gap:2.86cqw; width:max-content; padding-right:2.86cqw;
+  animation:ph-run 100s linear infinite;
+}
+.cs-phones:hover .ph-track { animation-play-state:paused; }
+.ph { position:relative; flex:none; width:20.31cqw; aspect-ratio:390 / 844; overflow:hidden; background:#FBF9F5; }
+.ph img {
+  position:absolute; top:0; left:0; width:100%; height:auto; display:block; border-radius:0;
+  animation:ph-scroll var(--d) ease-in-out var(--dl) infinite alternate;
+}
+.cs-phones .ph-dots { display:block; width:53.02cqw; height:auto; margin:9.4cqw auto 0; border-radius:0; }
+@keyframes ph-run { to { transform:translateX(-50%); } }
+@keyframes ph-scroll { 0%, 6% { transform:translateY(0); } 94%, 100% { transform:translateY(var(--end)); } }
+
+/* GRECK hang tags: dropped in one at a time, each landing on the last */
+.cs-tags { position:relative; margin:0 -44px var(--cs-space); }
+.cs-tags .tg-bg { position:absolute; inset:0; width:100%; height:100%; display:block; border-radius:0; }
+.cs-tags .tg {
+  position:absolute; height:auto; display:block; border-radius:0;
+  opacity:0; transform:translateY(-55%) rotate(var(--r));
+  transition:transform .75s cubic-bezier(.3,1.35,.45,1), opacity .3s ease;
+  transition-delay:calc(var(--i) * .32s);
+}
+.cs-tags.is-in .tg { opacity:1; transform:none; }
+@media (prefers-reduced-motion:reduce) {
+  .ph-track, .ph img { animation:none; }
+  .cs-tags .tg { opacity:1; transform:none; transition:none; }
+}
+@media (max-width:768px) {
+  .cs-phones, .cs-tags { margin:0 -20px var(--cs-space); }
+  .ph { width:46cqw; }
+  .ph-track { gap:5cqw; padding-right:5cqw; }
+  .cs-phones .ph-dots { width:80cqw; margin-top:12cqw; }
+}
+/* GRECK website: the desktop pages play through one window, sized like the
+   Figma frame (1440 of 1920) */
+.cs-site { container-type:inline-size; margin:0 -44px var(--cs-space); }
+.cs-site .st-view { position:relative; width:75cqw; margin:0 auto; overflow:hidden; background:#FBF9F5; }
+.cs-site .st-view img {
+  position:absolute; top:0; left:0; width:100%; height:auto; display:block; border-radius:0;
+  opacity:0; transition:opacity .6s ease;
+}
+.cs-site .st-view img.is-on { opacity:1; z-index:1; }
+@media (max-width:768px) {
+  .cs-site { margin:0 -20px var(--cs-space); }
+  .cs-site .st-view { width:100cqw; }
+}

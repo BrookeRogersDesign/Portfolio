@@ -18,6 +18,11 @@
                                                          landscape, type set over it
                 { screens: [...], bg: '#000' }           a row of screens on a panel,
                                                          any number, wraps. bg optional
+                { ticker: ['Word', ...] }                GRECK-style strip, words + dots
+                { note: {label, body, foot} }            small label left, paragraph right
+                { phones: [[file, h], ...], dots }       sliding row of scrolling mobile pages
+                { tags: {bg, w, h, items} }              tags that drop onto a pile in view
+                { site: [[file, h], ...], w, h }         desktop window scrolling page by page
      credits  — optional array of ['Role', 'Name']
    ============================================================ */
 const CASES = {
@@ -239,6 +244,28 @@ const CASES = {
       { quad: ['ora-row-1.jpg', 'ora-row-2.jpg', 'ora-row-3.jpg', 'ora-row-4.jpg'] }
     ]
   },
+  greck: {
+    name: 'GRECK', tagline: 'One of one, every time.',
+    client: 'GRECK', year: '2026', credit: 'Freelance', role: 'Designer', bg: '#FBF9F5', square: true,
+    type: ['E-commerce', 'Marketing'],
+    blocks: [
+      { bleed: 'greck-hero.jpg' },
+      { phones: [['greck-m1.jpg', 7765], ['greck-m2.jpg', 8308], ['greck-m3.jpg', 3167], ['greck-m4.jpg', 2695],
+                 ['greck-m5.jpg', 2455], ['greck-m6.jpg', 2635], ['greck-m7.jpg', 2662]], dots: 'greck-dots.png' },
+      { bleed: 'greck-card.jpg' },
+      { ticker: ['Color', 'Bugs', 'Dots'] },
+      { bleed: 'greck-brown.jpg' },
+      { bleed: 'greck-shop.jpg' },
+      { tags: { bg: 'greck-collage-bg.jpg', w: 1920, h: 1340, items: [
+          ['greck-tag1.png', 341.95, 349.42, 365.63], ['greck-tag2.png', 447.43, 655, 358.66],
+          ['greck-tag3.png', 515.74, 0, 350.05], ['greck-tag4.png', 127.67, 77.35, 340.2],
+          ['greck-tag5.png', 93, 695.12, 371.53] ] } },
+      { note: { label: 'Her practice', body: 'Her practice is rooted in instinct. Some ideas begin with a single mark, others with a memory, a color, or a character waiting to come to life. What follows is an exploration of the familiar made unfamiliar, where imperfections are welcomed and no two pieces tell quite the same story.', foot: 'A little playful. A little peculiar. Entirely GRECK.' } },
+      { bleed: 'greck-bag.jpg' },
+      { site: [['greck-web1.jpg', 7748], ['greck-web2.jpg', 2891], ['greck-web3.jpg', 4820], ['greck-web4.jpg', 7647], ['greck-web5.jpg', 1963]], w: 1440, h: 1081 },
+      { bleed: 'greck-pattern.jpg' }
+    ]
+  },
   kini: {
     name: 'Hot Kini', tagline: 'Bring the heat.',
     client: 'Hot Kini', year: '2025',
@@ -363,6 +390,28 @@ const CASES = {
     root.querySelectorAll('video[data-onscreen]').forEach(function (v) { v.pause(); vio.unobserve(v); });
   }
   watchVideos(document);
+  // website block: page 1 scrolls down, holds, fades to page 2, and so on.
+  // Stops by itself once the case is closed or re-rendered.
+  function runSite(view) {
+    var imgs = view.querySelectorAll('img'), i = 0;
+    function step() {
+      if (!view.isConnected) return;
+      var img = imgs[i], dur = +img.dataset.dur;
+      imgs.forEach(function (im) { im.classList.toggle('is-on', im === img); });
+      img.style.transition = 'none'; img.style.transform = 'translateY(0)';
+      setTimeout(function () {
+        if (!view.isConnected) return;
+        img.style.transition = 'transform ' + dur + 's cubic-bezier(.45,0,.55,1)';
+        img.style.transform = 'translateY(' + img.dataset.end + '%)';
+        setTimeout(function () { i = (i + 1) % imgs.length; step(); }, dur * 1000 + 1800);
+      }, 1600);
+    }
+    step();
+  }
+  const sio = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { sio.unobserve(e.target); if (!reduceMotion()) runSite(e.target); } }); }, { threshold: 0.3 });
+  function reduceMotion() { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+  // tags stack once their block is properly in view
+  const tio = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); tio.unobserve(e.target); } }); }, { threshold: 0.35 });
 
   // Hot Kini's bottle: the label blinks to the next flavour; the one it
   // replaces stays solid underneath so the outline never flickers
@@ -404,6 +453,8 @@ const CASES = {
     'pap-cards.jpg': [1720, 2880], 'pap-closing.jpg': [1718, 2880],
     'kini-surf.jpg': [1800, 2880], 'kini-grid-v2.jpg': [1800, 2509], 'kini-landing.jpg': [1800, 2880], 'kini-stories.jpg': [1800, 2880],
     'kini-band.jpg': [1800, 2880],
+    'greck-hero.jpg': [1800, 2880], 'greck-card.jpg': [1800, 2880], 'greck-brown.jpg': [1800, 2880],
+    'greck-shop.jpg': [1800, 2880], 'greck-collage-bg.jpg': [1800, 2880], 'greck-bag.jpg': [1800, 2880], 'greck-pattern.jpg': [1800, 2880],
     'kini-pattern.jpg': [1800, 2880], 'kini-closeup.jpg': [1800, 2698], 'kini-calienton.jpg': [1800, 2880]
   };
   // Returns the tail of a src attribute plus srcset/sizes; the caller's '"' closes it.
@@ -606,6 +657,47 @@ const CASES = {
     if (b.pair)  return '<div class="cs-pair">' + b.pair.map(function (s) {
       return '<figure><img src="' + s + '" alt="' + esc(name) + '" loading="lazy"></figure>'; }).join('') + '</div>';
     // `plain: true` drops the lead-in's bold without touching every other case
+    // a desktop window that scrolls each page top to bottom, then moves on to
+    // the next. Entries are [file, page height at w wide]; driven by runSite()
+    if (b.site) return '<div class="cs-site"><div class="st-view" style="aspect-ratio:' + b.w + ' / ' + b.h + '">'
+      + b.site.map(function (p, j) {
+          return '<img src="' + p[0] + '" alt="' + (j ? '' : esc(name) + ' website') + '" loading="lazy" data-end="'
+            + ((b.h / p[1] - 1) * 100).toFixed(3) + '" data-dur="' + Math.max(4, Math.round((p[1] - b.h) / 260)) + '"'
+            + (j ? '' : ' class="is-on"') + '>';
+        }).join('') + '</div></div>';
+    // mobile pages in a row that slides left; each page scrolls top to bottom
+    // inside its phone. Entries are [file, page height at 390 wide]
+    if (b.phones) {
+      var row = b.phones.map(function (p, j) {
+        return '<div class="ph"><img src="' + p[0] + '" alt="" loading="lazy" style="--end:'
+          + ((844 / p[1] - 1) * 100).toFixed(3) + '%;--d:' + Math.round(p[1] / 844 * 4.5) + 's;--dl:-' + (j * 1.7).toFixed(1) + 's"></div>';
+      }).join('');
+      return '<div class="cs-phones"><div class="ph-run" aria-label="' + esc(name) + ' mobile pages"><div class="ph-track">' + row + row + '</div></div>'
+        + (b.dots ? '<img class="ph-dots" src="' + b.dots + '" alt="" loading="lazy">' : '') + '</div>';
+    }
+    // hang tags that drop onto the pile one after another when scrolled to.
+    // Items are [file, x, y, width] in the Figma frame's own pixels
+    if (b.tags) {
+      var t = b.tags;
+      return '<div class="cs-tags" style="aspect-ratio:' + t.w + ' / ' + t.h + '">'
+        + '<img class="tg-bg" src="' + t.bg + hi(t.bg, '100vw') + '" alt="' + esc(name) + '" loading="lazy">'
+        + t.items.map(function (it, j) {
+            return '<img class="tg" src="' + it[0] + '" alt="" loading="lazy" style="left:' + (it[1] / t.w * 100).toFixed(3)
+              + '%;top:' + (it[2] / t.h * 100).toFixed(3) + '%;width:' + (it[3] / t.w * 100).toFixed(3)
+              + '%;--i:' + j + ';--r:' + (j % 2 ? 9 : -11) + 'deg">';
+          }).join('') + '</div>';
+    }
+    // the GRECK site's strip: words and painted dots running left, paused on hover
+    if (b.ticker) {
+      var run = '';
+      for (var k = 0; k < 4; k++) b.ticker.forEach(function (w, j) {
+        run += '<span>' + esc(w) + '</span><img src="greck-dot-' + ((k * b.ticker.length + j) % 6 + 1) + '.svg" alt="">';
+      });
+      return '<div class="cs-ticker"><div class="gk-ticker" aria-hidden="true"><div class="gk-track">' + run + run + '</div></div></div>';
+    }
+    if (b.note) return '<div class="cs-note"><span class="nt-label">' + esc(b.note.label) + '</span>'
+      + '<div class="nt-main"><p>' + esc(b.note.body) + '</p>'
+      + (b.note.foot ? '<span class="nt-foot">' + esc(b.note.foot) + '</span>' : '') + '</div></div>';
     if (b.text)  return '<p class="cs-statement"><span class="lead' + (b.plain ? ' lead-plain' : '')
       + '">' + esc(b.text) + '</span> ' + esc(b.body) + '</p>';
     return '';
@@ -613,6 +705,7 @@ const CASES = {
 
   function render(c) {
     inner.classList.toggle('cs-square', !!c.square);
+    inner.style.background = c.bg || '';
     inner.innerHTML =
       '<div class="case-tab"><button type="button" class="case-close">Close <span class="x">\u00d7</span></button></div>' +
       '<header class="cs-head">' +
@@ -660,6 +753,8 @@ const CASES = {
     unwatchVideos(inner);
     render(c);
     watchVideos(inner);
+    inner.querySelectorAll('.cs-tags').forEach(function (el) { tio.observe(el); });
+    inner.querySelectorAll('.st-view').forEach(function (el) { sio.observe(el); });
     overlay.classList.add('open');
     overlay.setAttribute('aria-hidden', 'false');
     document.body.classList.add('case-locked');
