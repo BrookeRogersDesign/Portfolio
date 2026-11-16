@@ -153,17 +153,19 @@ const CASES = {
       { bleed: 'ddd-hero.jpg' },
       { text: 'EACH PATENT PENDING MODULAR DOG BED',
         body: 'is handmade with love, ensuring your dog gets the comfort they deserve without sacrificing quality, washability, or sustainability.' },
-      { rotate: ['ddd-logo-1.jpg', 'ddd-logo-2.jpg', 'ddd-logo-3.jpg', 'ddd-logo-4.jpg'],
-        each: 0.8, ratio: '1363 / 598' },
+      { image: 'ddd-logos.jpg' },
       { image: 'ddd-lifestyle.jpg' },
       { bleed: 'ddd-sign.jpg' },
+      { bleed: 'ddd-insta.jpg' },
       { bleed: 'ddd-quote.jpg' },
-      { image: 'ddd-marks.jpg' },
+      { image: 'ddd-web.jpg' },
       { text: 'AT DAZZLING DOGGIE DUVET,',
         body: 'our mission is simple: to create high-quality, eco-friendly patent pending modular dog furniture using comfortable, sustainable materials, proudly made and manufactured in America. We are dedicated to giving back to animal shelters and supporting the well-being of our furry friends and communities.' },
       { bleed: 'ddd-heels.jpg' },
-      { pair: ['ddd-blanket.jpg', 'ddd-cards.jpg'] },
-      { bleed: 'ddd-trio.jpg' }
+      { image: 'ddd-bedcards.jpg' },
+      { bleed: 'ddd-trio.jpg' },
+      { tags: { bg: 'ddd-mat-bg.jpg', w: 1920, h: 1080, items: [
+          ['ddd-mat1.webp', 1193, 69, 615.47], ['ddd-mat2.webp', 1068, 218, 639.72], ['ddd-mat3.webp', 1269, 127, 629.5] ] } }
     ]
   },
   // ACIC is off the portfolio — card removed 2026-10-13 at Brooke's request.
@@ -487,7 +489,8 @@ const CASES = {
     'blank-01.jpg': [1800, 2880], 'blank-02.jpg': [1763, 2880], 'blank-03.jpg': [1664, 2880],
     'blank-04.jpg': [1800, 2880], 'blank-08.jpg': [1800, 2880], 'blank-09.jpg': [1755, 2880], 'blank-stories.jpg': [1800, 2880],
     'ddd-hero.jpg': [1800, 2880], 'ddd-lifestyle.jpg': [1666, 2880], 'ddd-sign.jpg': [1800, 2880],
-    'ddd-marks.jpg': [1758, 2880], 'ddd-heels.jpg': [1800, 2880], 'ddd-trio.jpg': [1800, 2880],
+    'ddd-logos.jpg': [1666, 2500], 'ddd-insta.jpg': [1800, 2880], 'ddd-web.jpg': [1774, 2661], 'ddd-bedcards.jpg': [1666, 2500], 'ddd-mat-bg.jpg': [1800, 2880],
+    'ddd-heels.jpg': [1800, 2880], 'ddd-trio.jpg': [1800, 2880],
     'pap-mark.jpg': [1690, 2880], 'pap-stationery.jpg': [1800, 2880], 'pap-logoband.jpg': [1776, 2880],
     'pap-brochure.jpg': [1800, 2880], 'pap-merch.jpg': [1800, 2880], 'pap-skyline.jpg': [1800, 2880],
     'pap-cards.jpg': [1720, 2880], 'pap-closing.jpg': [1718, 2880],
