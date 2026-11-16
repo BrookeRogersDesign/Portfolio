@@ -160,6 +160,7 @@
   .caps-inner { position:relative; z-index:3; padding:74px 32px 84px; width:100%; }
   .caps-label { font-family:var(--sans-text); font-size:15px; margin-bottom:26px; }
   .caps-label .dot { color:var(--red); }
+  .caps-label .hint { color:rgba(255,255,255,.45); }
   .caps-list { list-style:none; max-width:1050px; }
   .caps-list li { border-bottom:1px solid rgba(255,255,255,.14); }
   .cap-head {
@@ -1252,9 +1253,17 @@ body.page-light .nav-links a:hover { color:var(--red); }
 body.page-light .nav-links .sep { color:rgba(17,17,16,.38); }
 body.page-light .hero { background:var(--white); color:var(--ink); }
 body.page-light .featured-label { color:var(--ink); }
-body.page-light .work-item,
-body.page-light .caps { color:var(--white); }
-body.page-light .caps { --fade:rgba(255,255,255,.38); }
+body.page-light .work-item { color:var(--white); }
+/* Capabilities runs white too: ink type, red accents, no dark gradients */
+body.page-light .caps { background:var(--white); color:var(--ink); --fade:rgba(17,17,16,.22); border-top:1px solid rgba(17,17,16,.12); border-radius:0; }
+body.page-light .caps .bgimg,
+body.page-light .caps::after { display:none; }
+body.page-light .caps-label .hint { color:rgba(17,17,16,.45); }
+body.page-light .caps-list li { border-bottom-color:rgba(17,17,16,.12); }
+body.page-light .cap-head:hover { color:var(--red); }
+body.page-light .caps-list li.open .cap-head { color:var(--ink); }
+body.page-light .cap-desc { color:var(--ink); }
+body.page-light .cap-bullets li { color:rgba(17,17,16,.7); }
 body.page-light .view-all { color:var(--ink); }
 body.page-light .view-all:hover { color:var(--red); }
 body.page-light footer { background:var(--white); color:var(--ink); }
